@@ -1,0 +1,18 @@
+header {
+	padding: 22px 5px;
+	font-size: 16px;
+	line-height: 24px;
+}
+
+header .logo {
+	width: 200px;
+	height: auto;
+}
+
+header a {
+	margin-right: 20px;
+}
+
+header a {
+	color: grey;
+}

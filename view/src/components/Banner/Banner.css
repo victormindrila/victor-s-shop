@@ -1,0 +1,21 @@
+.banner {
+	width: 100vp;
+	height: 600px;
+	background: no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: 100%;
+}
+
+.transform {
+	transform: translateX(-1920px);
+}
+
+.banner .container {
+	flex-direction: column;
+	color: white;
+	text-align: center;
+	margin: auto;
+	padding: 200px 50px;
+}
