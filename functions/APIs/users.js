@@ -17,18 +17,24 @@ exports.loginUser = (request, response) => {
 	const { valid, errors } = validateLoginData(user);
 	if (!valid) return response.status(400).json(errors);
 
+	let token;
 	firebase
 		.auth()
 		.signInWithEmailAndPassword(user.email, user.password)
 		.then((data) => {
 			return data.user.getIdToken();
 		})
-		.then((token) => {
-			return response.json({ token });
+		.then((idToken) => {
+			token = idToken;
+			return database.doc(`/users/${user.email}`).get();
+		})
+		.then((doc) => {
+			const { firstName, lastName } = doc.data();
+			return response.status(201).json({ token, firstName, lastName });
 		})
 		.catch((error) => {
 			console.log(error);
-			return response.status(403).json({ general: 'wrong credentials, please try again' });
+			return response.status(403).json({ error: 'wrong credentials, please try again' });
 		});
 };
 
@@ -40,8 +46,7 @@ exports.signUpUser = (request, response) => {
 		phoneNumber: request.body.phoneNumber,
 		country: request.body.country,
 		password: request.body.password,
-		confirmPassword: request.body.confirmPassword,
-		username: request.body.username
+		confirmPassword: request.body.confirmPassword
 	};
 
 	const { valid, errors } = validateSignUpData(newUser);
@@ -50,11 +55,11 @@ exports.signUpUser = (request, response) => {
 
 	let token, userId;
 	database
-		.doc(`/users/${newUser.username}`)
+		.doc(`/users/${newUser.email}`)
 		.get()
 		.then((doc) => {
 			if (doc.exists) {
-				return response.status(400).json({ username: 'this username is already taken' });
+				return response.status(400).json({ email: 'this email is already taken' });
 			} else {
 				return firebase.auth().createUserWithEmailAndPassword(newUser.email, newUser.password);
 			}
@@ -68,17 +73,16 @@ exports.signUpUser = (request, response) => {
 			const userCredentials = {
 				firstName: newUser.firstName,
 				lastName: newUser.lastName,
-				username: newUser.username,
 				phoneNumber: newUser.phoneNumber,
 				country: newUser.country,
 				email: newUser.email,
 				createdAt: new Date().toISOString(),
 				userId
 			};
-			return database.doc(`/users/${newUser.username}`).set(userCredentials);
+			return database.doc(`/users/${newUser.email}`).set(userCredentials);
 		})
 		.then(() => {
-			return response.status(201).json({ token });
+			return response.status(201).json({ token, firstName: newUser.firstName, lastName: newUser.lastName });
 		})
 		.catch((err) => {
 			console.error(err);
@@ -158,11 +162,12 @@ exports.uploadProfilePhoto = (request, response) => {
 exports.getUserDetails = (request, response) => {
 	let userData = {};
 	database
-		.doc(`/users/${request.user.username}`)
+		.doc(`/users/${request.user.email}`)
 		.get()
 		.then((doc) => {
+			// eslint-disable-next-line
 			if (doc.exists) {
-				userData.userCredentials = doc.data();
+				userData = doc.data();
 				return response.json(userData);
 			}
 		})
@@ -176,6 +181,7 @@ exports.updateUserDetails = (request, response) => {
 	let document = database.collection('users').doc(`${request.user.username}`);
 	document
 		.update(request.body)
+		// eslint-disable-next-line
 		.then(() => {
 			response.json({ message: 'Updated successfully' });
 		})

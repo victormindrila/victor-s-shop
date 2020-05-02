@@ -1,7 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { logoutUser } from '../../../store/actions/user';
 
-function Header() {
+function Header(props) {
+	const { logoutUser } = props;
+
 	return (
 		<header>
 			<nav className='navbar navbar-bottom'>
@@ -11,6 +15,7 @@ function Header() {
 							<h3 className='title'>Admin Panel</h3>
 						</Link>
 					</div>
+					{props.user && <p>{`Salut, ${props.user.firstName} ${props.user.lastName}`}</p>}
 					<div className='navbar-item'>
 						<div className='navbar-buttons'>
 							<div className='navbar-item'>
@@ -23,6 +28,9 @@ function Header() {
 									<i className='fa fa-star' /> Categories
 								</Link>
 							</div>
+							<button className='button is-link' onClick={(e) => logoutUser()}>
+								Logout
+							</button>
 						</div>
 					</div>
 				</div>
@@ -30,5 +38,18 @@ function Header() {
 		</header>
 	);
 }
+function mapStateToProps(state) {
+	return {
+		user: state.user.data
+	};
+}
 
-export default Header;
+function mapDispatchToProps(dispatch) {
+	return {
+		logoutUser: () => {
+			dispatch(logoutUser());
+		}
+	};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

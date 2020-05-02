@@ -2,37 +2,28 @@ import React from 'react';
 import './App.css';
 import 'bulma/css/bulma.css';
 import { Switch, Route } from 'react-router-dom';
-import withFirebaseAuth from 'react-with-firebase-auth';
-import * as firebase from 'firebase/app';
-import 'firebase/auth';
-import firebaseConfig from './configs/firebaseConfig';
 //pages
 import Products from './pages/Products/Products';
 import Signin from './pages/auth/Signin';
 import Signup from './pages/auth/Signup';
-
-const firebaseApp = firebase.initializeApp(firebaseConfig);
-
-const firebaseAppAuth = firebaseApp.auth();
-const providers = {
-	googleProvider: new firebase.auth.GoogleAuthProvider()
-};
+import { connect } from 'react-redux';
+import { getUserData } from './store/actions/user';
 
 class App extends React.Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 	}
 
+	componentDidMount() {}
+
+	componentWillUpdate() {}
+
 	render() {
-		console.log(this.props);
 		return (
 			<div className='App'>
 				<Switch>
 					<Route path={'/admin/products'} component={Products} />
-					<Route
-						path={'/admin/signin'}
-						render={(props) => <Signin {...props} signInWithEmailAndPassword={this.props.signInWithEmailAndPassword} />}
-					/>
+					<Route path={'/admin/signin'} component={Signin} />
 					<Route path={'/admin/signup'} component={Signup} />
 				</Switch>
 			</div>
@@ -40,7 +31,16 @@ class App extends React.Component {
 	}
 }
 
-export default withFirebaseAuth({
-	providers,
-	firebaseAppAuth
-})(App);
+function mapStateToProps(state) {
+	return state;
+}
+
+function mapDispatchToProps(dispatch) {
+	return {
+		getUserData: () => {
+			dispatch(getUserData());
+		}
+	};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -1,6 +1,16 @@
 import React from 'react';
-import Layout from '../../components/Layout/Layout';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+//components
+import Error from '../../components/Error/Error';
+import Loader from '../../components/Loader/Loader';
+
+// actions
+import { loginUser, updateError } from '../../store/actions/user';
+
+//helpers
+import { validateLoginData } from './../../utils/validators';
 
 class Signin extends React.Component {
 	constructor(props) {
@@ -11,25 +21,44 @@ class Signin extends React.Component {
 		};
 	}
 
+	componentDidUpdate(prevProps) {
+		if (this.props.userData !== prevProps.userData) {
+			this.props.history.push('/admin/products');
+		}
+	}
+
 	handleChange(e) {
 		this.setState({
 			[e.target.name]: e.target.value
 		});
 	}
 
-	handleSignin(event) {
-		event.preventDefault();
-		const { signInWithEmailAndPassword, history } = this.props;
+	handleSubmit(e) {
+		e.preventDefault();
+
 		const { email, password } = this.state;
-		signInWithEmailAndPassword(email, password);
+		const { loginUser, updateError } = this.props;
+
+		const { valid, errors } = validateLoginData({ email, password });
+
+		if (!valid) updateError(errors);
+		if (valid) loginUser(email, password);
 	}
+
 	render() {
-		return (
-			<Layout>
-				<div className='columns is-centered'>
+		if (this.props.userLoading) {
+			return <Loader />;
+		} else {
+			return (
+				<div className='columns is-centered is-vcentered'>
 					<div className='column is-one-quarter'>
-						<form method='POST' onSubmit={(event) => this.handleSignin(event)}>
+						<form
+							method='POST'
+							onSubmit={(e) => {
+								this.handleSubmit(e);
+							}}>
 							<h1 className='title'>Sign in</h1>
+							{this.props.userError.error && <Error error={this.props.userError.error} />}
 							<div className='field'>
 								<label className='label'>Email</label>
 								<input
@@ -39,7 +68,7 @@ class Signin extends React.Component {
 									value={this.state.email}
 									onChange={(e) => this.handleChange(e)}
 								/>
-								<p className='help is-danger'>Error</p>
+								{this.props.userError.email && <Error error={this.props.userError.email} />}
 							</div>
 							<div className='field'>
 								<label className='label'>Password</label>
@@ -51,16 +80,35 @@ class Signin extends React.Component {
 									value={this.state.password}
 									onChange={(e) => this.handleChange(e)}
 								/>
-								<p className='help is-danger'>Error</p>
+								{this.props.userError.password && <Error error={this.props.userError.password} />}
 							</div>
 							<button className='button is-primary'>Submit</button>
 						</form>
 						<Link to='/admin/signup'>Need an account? Sign Up</Link>
 					</div>
 				</div>
-			</Layout>
-		);
+			);
+		}
 	}
 }
 
-export default Signin;
+function mapStateToProps(state) {
+	return {
+		userData: state.user.data,
+		userLoading: state.user.loading,
+		userError: state.user.error
+	};
+}
+
+function mapDispatchToProps(dispatch) {
+	return {
+		loginUser: (email, password) => {
+			dispatch(loginUser(email, password));
+		},
+		updateError: (payload) => {
+			dispatch(updateError(payload));
+		}
+	};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Signin);

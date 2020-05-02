@@ -64,6 +64,7 @@ exports.deleteProduct = (request, response) => {
 
 			return document.delete();
 		})
+		// eslint-disable-next-line
 		.then(() => {
 			response.json({ message: 'Product deleted successfully' });
 		})
@@ -81,6 +82,7 @@ exports.editProduct = (request, response) => {
 
 	document
 		.update(request.body)
+		// eslint-disable-next-line
 		.then(() => {
 			response.json({ message: 'Updated successfully' });
 		})
