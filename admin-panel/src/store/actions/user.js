@@ -90,9 +90,8 @@ export function signUpUser(userData) {
 
 export function getUserData() {
 	return (dispatch) => {
+		dispatch(startLoading());
 		const authToken = localStorage.getItem('Authorization');
-		console.log('update user data');
-
 		axios.defaults.headers.common = { Authorization: `${authToken}` };
 		axios
 			.get('http://localhost:5000/aligo-test/us-central1/api/user')

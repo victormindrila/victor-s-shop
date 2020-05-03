@@ -8,23 +8,28 @@ import Signin from './pages/auth/Signin';
 import Signup from './pages/auth/Signup';
 import { connect } from 'react-redux';
 import { getUserData } from './store/actions/user';
+import NewProduct from './pages/Products/NewProduct';
 
 class App extends React.Component {
 	constructor(props) {
 		super(props);
 	}
 
-	componentDidMount() {}
-
-	componentWillUpdate() {}
+	componentDidMount() {
+		const { getUserData } = this.props;
+		if (localStorage.getItem('Authorization')) {
+			getUserData();
+		}
+	}
 
 	render() {
 		return (
 			<div className='App'>
 				<Switch>
-					<Route path={'/admin/products'} component={Products} />
+					<Route exact path={'/admin/products'} component={Products} />
 					<Route path={'/admin/signin'} component={Signin} />
 					<Route path={'/admin/signup'} component={Signup} />
+					<Route path={'/admin/products/new'} component={NewProduct} />
 				</Switch>
 			</div>
 		);

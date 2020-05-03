@@ -9,12 +9,12 @@ const auth = require('./util/auth');
 // Automatically allow cross-origin requests
 app.use(cors({ origin: true }));
 
-// products
-app.get('/products', getAllProducts);
-app.post('/product', auth, addProduct);
-app.post('/product/image', auth, uploadProductPhoto);
-app.delete('/product/:productId', deleteProduct);
-app.put('/product/:productId', auth, editProduct);
+// admin products
+app.get('/admin/products', auth, getAllProducts);
+app.post('/admin/product', auth, addProduct);
+app.post('/admin/product/image', auth, uploadProductPhoto);
+app.delete('/admin/product/:productId', auth, deleteProduct);
+app.put('/admin/product/:productId', auth, editProduct);
 
 // users
 app.post('/login', loginUser);

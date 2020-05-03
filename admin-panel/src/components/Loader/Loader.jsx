@@ -3,8 +3,8 @@ import './Loader.css';
 
 function Loader(props) {
 	return (
-		<div class='loader-wrapper'>
-			<div class='loader is-loading' />
+		<div className='loader-wrapper'>
+			<div className='loader is-loading' />
 		</div>
 	);
 }

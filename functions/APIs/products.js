@@ -24,7 +24,6 @@ exports.getAllProducts = (req, res) => {
 };
 
 exports.addProduct = (request, response) => {
-	console.log(request.body.price);
 	if (request.body.price.trim() === '') {
 		return response.status(400).json({ body: 'Must not be empty' });
 	}
@@ -120,6 +119,7 @@ exports.uploadProductPhoto = (request, response) => {
 	let productId;
 
 	busboy.on('field', (fieldname, val, fieldnameTruncated, valTruncated, encoding, mimetype) => {
+		console.log(fieldname, val);
 		if (fieldname === 'productId') productId = val;
 	});
 	deleteImage(imageFileName);

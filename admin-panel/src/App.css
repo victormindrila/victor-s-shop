@@ -148,3 +148,7 @@ body {
 #input-data {
 	margin-top: 50px;
 }
+
+input[type="file"] {
+	display: none;
+}

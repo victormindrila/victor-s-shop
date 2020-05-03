@@ -53,7 +53,6 @@ class Signin extends React.Component {
 				<div className='columns is-centered is-vcentered'>
 					<div className='column is-one-quarter'>
 						<form
-							method='POST'
 							onSubmit={(e) => {
 								this.handleSubmit(e);
 							}}>
