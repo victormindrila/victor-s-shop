@@ -2,7 +2,7 @@
 
 [* ]Admin-panel
 
-    [*]User
+    [x]User
         [x] Sign in
         [x] Sign up
         [x] Log out - fix TypeError: Cannot read property 'loading' of null
@@ -24,7 +24,10 @@
             [x] add a modal after product delete
 
     [*]Categories 
-    // todo
+        [x] New Category
+        [ ] Edit Category
+        [ ] List Categories
+        [ ] Delete Category
     [*] Orders
     //todo
     [*] Users

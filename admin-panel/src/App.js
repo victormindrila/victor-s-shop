@@ -12,6 +12,7 @@ import { getUserData } from './store/actions/user';
 import NewProduct from './pages/Products/NewProduct';
 import EditProduct from './pages/Products/EditProduct';
 import ViewProduct from './pages/Products/ViewProduct';
+import NewCategory from './pages/Categories/NewCategory';
 
 class App extends React.Component {
 	constructor(props) {
@@ -29,12 +30,13 @@ class App extends React.Component {
 		return (
 			<div className='App'>
 				<Switch>
+					<Route exact path={'/admin/signin'} component={Signin} />
+					<Route exact path={'/admin/signup'} component={Signup} />
 					<Route exact path={'/admin/products'} component={Products} />
-					<Route path={'/admin/signin'} component={Signin} />
-					<Route path={'/admin/signup'} component={Signup} />
-					<Route path={'/admin/products/new'} component={NewProduct} />
-					<Route path={'/admin/products/edit/:productId'} component={EditProduct} />
-					<Route path={'/admin/products/view/:productId'} component={ViewProduct} />
+					<Route exact path={'/admin/products/new'} component={NewProduct} />
+					<Route exact path={'/admin/products/edit/:productId'} component={EditProduct} />
+					<Route exact path={'/admin/products/view/:productId'} component={ViewProduct} />
+					<Route exact path={'/admin/categories/new'} component={NewCategory} />
 				</Switch>
 			</div>
 		);
