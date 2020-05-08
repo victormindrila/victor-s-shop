@@ -58,3 +58,14 @@ exports.validateNewProductData = (data) => {
 		valid: Object.keys(errors).length === 0 ? true : false
 	};
 };
+
+exports.validateNewCategoryData = (data) => {
+	let errors = {};
+
+	if (isEmpty(data.description)) errors.description = 'Must not be empty';
+
+	return {
+		errors,
+		valid: Object.keys(errors).length === 0 ? true : false
+	};
+};
