@@ -1,5 +1,6 @@
-const isEmpty = (string) => {
-	if (string.trim() === '') return true;
+const isEmpty = (input) => {
+	if (input === '') return true;
+	if (input === 0) return true;
 	else return false;
 };
 
@@ -38,6 +39,19 @@ exports.validateSignUpData = (data) => {
 
 	if (isEmpty(data.password)) errors.password = 'Must not be empty';
 	if (data.password !== data.confirmPassword) errors.confirmPassword = 'Passwords must be the same';
+
+	return {
+		errors,
+		valid: Object.keys(errors).length === 0 ? true : false
+	};
+};
+
+exports.validateNewProductData = (data) => {
+	let errors = {};
+
+	if (isEmpty(data.description)) errors.description = 'Must not be empty';
+	if (isEmpty(data.price)) errors.price = 'Must not be empty';
+	if (isNaN(data.price)) errors.price = 'Must be a number';
 
 	return {
 		errors,

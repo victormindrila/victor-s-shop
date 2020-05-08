@@ -2,7 +2,14 @@ const functions = require('firebase-functions');
 const app = require('express')();
 const cors = require('cors');
 
-const { getAllProducts, addProduct, deleteProduct, editProduct, uploadProductPhoto } = require('./APIs/products');
+const {
+	getAllProducts,
+	addProduct,
+	deleteProduct,
+	editProduct,
+	uploadProductPhoto,
+	getProductDetails
+} = require('./APIs/products');
 const { loginUser, signUpUser, uploadProfilePhoto, getUserDetails, updateUserDetails } = require('./APIs/users');
 const auth = require('./util/auth');
 
@@ -11,6 +18,7 @@ app.use(cors({ origin: true }));
 
 // admin products
 app.get('/admin/products', auth, getAllProducts);
+app.get('/admin/product/', auth, getProductDetails);
 app.post('/admin/product', auth, addProduct);
 app.post('/admin/product/image', auth, uploadProductPhoto);
 app.delete('/admin/product/:productId', auth, deleteProduct);

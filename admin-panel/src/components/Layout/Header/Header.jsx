@@ -1,10 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logoutUser } from '../../../store/actions/user';
 
 function Header(props) {
-	const { logoutUser } = props;
+	const history = useHistory();
+	function handleLogOut() {
+		const { logoutUser } = props;
+		history.push('/admin/signin');
+		logoutUser();
+	}
 
 	return (
 		<header>
@@ -28,7 +33,7 @@ function Header(props) {
 									<i className='fa fa-star' /> Categories
 								</Link>
 							</div>
-							<button className='button is-link' onClick={(e) => logoutUser()}>
+							<button className='button is-link' onClick={(e) => handleLogOut()}>
 								Logout
 							</button>
 						</div>

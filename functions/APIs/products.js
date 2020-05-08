@@ -1,3 +1,4 @@
+let path = require('path');
 const { admin, database } = require('../util/admin');
 const config = require('../util/config');
 
@@ -24,7 +25,7 @@ exports.getAllProducts = (req, res) => {
 };
 
 exports.addProduct = (request, response) => {
-	if (request.body.price.trim() === '') {
+	if (request.body.price === 0) {
 		return response.status(400).json({ body: 'Must not be empty' });
 	}
 
@@ -44,7 +45,7 @@ exports.addProduct = (request, response) => {
 		.then((doc) => {
 			const responseProduct = newProduct;
 			responseProduct.id = doc.id;
-			return response.json(responseProduct);
+			return response.json({ product: responseProduct, message: 'Product created successfully' });
 		})
 		.catch((err) => {
 			console.log(err);
@@ -52,48 +53,7 @@ exports.addProduct = (request, response) => {
 		});
 };
 
-exports.deleteProduct = (request, response) => {
-	const document = database.doc(`/products/${request.params.productId}`);
-	document
-		.get()
-		.then((doc) => {
-			if (!doc.exists) {
-				return response.status(404).json({ error: 'Product not found' });
-			}
-
-			return document.delete();
-		})
-		// eslint-disable-next-line
-		.then(() => {
-			response.json({ message: 'Product deleted successfully' });
-		})
-		.catch((err) => {
-			console.log(err);
-			return response.status(500).json({ error: err.code });
-		});
-};
-
-exports.editProduct = (request, response) => {
-	if (request.body.productId || request.body.createdAt) {
-		response.status(403).json({ message: 'Not allowed to edit' });
-	}
-	let document = database.collection('products').doc(`${request.params.productId}`);
-
-	document
-		.update(request.body)
-		// eslint-disable-next-line
-		.then(() => {
-			response.json({ message: 'Updated successfully' });
-		})
-		.catch((err) => {
-			console.error(err);
-			return response.status(500).json({
-				error: err.code
-			});
-		});
-};
-
-deleteImage = (imageName) => {
+const deleteImage = (imageName) => {
 	const bucket = admin.storage().bucket();
 	const path = `${imageName}`;
 	return bucket
@@ -119,10 +79,8 @@ exports.uploadProductPhoto = (request, response) => {
 	let productId;
 
 	busboy.on('field', (fieldname, val, fieldnameTruncated, valTruncated, encoding, mimetype) => {
-		console.log(fieldname, val);
 		if (fieldname === 'productId') productId = val;
 	});
-	deleteImage(imageFileName);
 
 	busboy.on('file', (fieldname, file, filename, encoding, mimetype) => {
 		if (mimetype !== 'image/png' && mimetype !== 'image/jpeg') {
@@ -134,6 +92,8 @@ exports.uploadProductPhoto = (request, response) => {
 		imageToBeUploaded = { filePath, mimetype };
 		file.pipe(fs.createWriteStream(filePath));
 	});
+
+	deleteImage(imageFileName);
 
 	busboy.on('finish', () => {
 		admin
@@ -162,4 +122,68 @@ exports.uploadProductPhoto = (request, response) => {
 			});
 	});
 	busboy.end(request.rawBody);
+};
+
+exports.editProduct = (request, response) => {
+	if (request.body.productId || request.body.createdAt) {
+		response.status(403).json({ message: 'Not allowed to edit' });
+	}
+	let document = database.collection('products').doc(`${request.params.productId}`);
+
+	document
+		.update(request.body)
+		// eslint-disable-next-line
+		.then(() => {
+			response.json({ message: 'Updated successfully' });
+		})
+		.catch((err) => {
+			console.error(err);
+			return response.status(400).json({
+				error: 'Something went wrong'
+			});
+		});
+};
+
+exports.deleteProduct = (request, response) => {
+	const document = database.doc(`/products/${request.params.productId}`);
+	let imagePath;
+
+	deleteImage(request.params.productId);
+	document
+		.get()
+		.then((doc) => {
+			if (!doc.exists) {
+				return response.status(404).json({ error: 'Product not found' });
+			}
+			let image = path.basename(doc.data().imageUrl).split('?')[0];
+			deleteImage(image);
+
+			return document.delete();
+		})
+		// eslint-disable-next-line
+		.then(() => {
+			response.json({ message: 'Product deleted successfully' });
+		})
+		.catch((err) => {
+			console.log(err);
+			return response.status(500).json({ error: err.code });
+		});
+};
+
+exports.getProductDetails = (request, response) => {
+	let productData = {};
+	database
+		.doc(`/products/${request.query.productId}`)
+		.get()
+		.then((doc) => {
+			// eslint-disable-next-line
+			if (doc.exists) {
+				productData = doc.data();
+				return response.json(productData);
+			}
+		})
+		.catch((error) => {
+			console.error(error);
+			return response.status(500).json({ error: error.code });
+		});
 };

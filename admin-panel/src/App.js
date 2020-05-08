@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import 'bulma/css/bulma.css';
 import { Switch, Route } from 'react-router-dom';
+
 //pages
 import Products from './pages/Products/Products';
 import Signin from './pages/auth/Signin';
@@ -9,6 +10,7 @@ import Signup from './pages/auth/Signup';
 import { connect } from 'react-redux';
 import { getUserData } from './store/actions/user';
 import NewProduct from './pages/Products/NewProduct';
+import EditProduct from './pages/Products/EditProduct';
 
 class App extends React.Component {
 	constructor(props) {
@@ -30,6 +32,7 @@ class App extends React.Component {
 					<Route path={'/admin/signin'} component={Signin} />
 					<Route path={'/admin/signup'} component={Signup} />
 					<Route path={'/admin/products/new'} component={NewProduct} />
+					<Route path={'/admin/products/edit/:productId'} component={EditProduct} />
 				</Switch>
 			</div>
 		);
