@@ -6,11 +6,9 @@ function Modal(props) {
 		<div className={`modal is-medium is-${active ? 'active' : 'default'}`}>
 			<div className='modal-background' />
 			<div className='modal-content'>
-				<article className={`message is-${props.message ? 'primary' : 'danger'}`}>
-					<div className='message-header'>
-						{message && <p>{message}</p>}
-						{error && <p>{error}</p>}
-					</div>
+				<article className={`notification is-${props.message ? 'primary' : 'danger'}`}>
+					{message && <p>{message}</p>}
+					{error && <p>{error}</p>}
 				</article>
 			</div>
 			<button className='modal-close is-large' aria-label='close' />
