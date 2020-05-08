@@ -99,8 +99,6 @@ class NewProduct extends React.Component {
 				<div className='columns is-centered'>
 					<div className='column is-half'>
 						<h1 className='subtitle'>Create Product</h1>
-						{this.state.error && <Error error={'Could not create product!'} />}
-
 						<form
 							onSubmit={(e) => {
 								this.handleSubmit(e);
