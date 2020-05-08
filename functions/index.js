@@ -11,6 +11,14 @@ const {
 	getProductDetails
 } = require('./APIs/products');
 const { loginUser, signUpUser, uploadProfilePhoto, getUserDetails, updateUserDetails } = require('./APIs/users');
+const {
+	addCategory,
+	deleteCategory,
+	getAllCategories,
+	editCategory,
+	uploadCategoryPhoto,
+	getCategoryDetails
+} = require('./APIs/categories');
 const auth = require('./util/auth');
 
 // Automatically allow cross-origin requests
@@ -23,6 +31,14 @@ app.post('/admin/product', auth, addProduct);
 app.post('/admin/product/image', auth, uploadProductPhoto);
 app.delete('/admin/product/:productId', auth, deleteProduct);
 app.put('/admin/product/:productId', auth, editProduct);
+
+//admin categories
+app.get('/admin/categories/', auth, getAllCategories);
+app.get('/admin/category/', auth, getCategoryDetails);
+app.post('/admin/category/', auth, addCategory);
+app.post('/admin/category/image', auth, uploadCategoryPhoto);
+app.delete('/admin/category/:categoryId', auth, deleteCategory);
+app.put('/admin/category/:categoryId', auth, editCategory);
 
 // users
 app.post('/login', loginUser);
