@@ -46,6 +46,7 @@ class Products extends React.Component {
 					this.setState({
 						displayModal: false
 					});
+					this.props.getAllProducts();
 				}, 1500);
 			})
 			.catch((error) => {
