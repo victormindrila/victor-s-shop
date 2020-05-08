@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 import { getUserData } from './store/actions/user';
 import NewProduct from './pages/Products/NewProduct';
 import EditProduct from './pages/Products/EditProduct';
+import ViewProduct from './pages/Products/ViewProduct';
 
 class App extends React.Component {
 	constructor(props) {
@@ -33,6 +34,7 @@ class App extends React.Component {
 					<Route path={'/admin/signup'} component={Signup} />
 					<Route path={'/admin/products/new'} component={NewProduct} />
 					<Route path={'/admin/products/edit/:productId'} component={EditProduct} />
+					<Route path={'/admin/products/view/:productId'} component={ViewProduct} />
 				</Switch>
 			</div>
 		);

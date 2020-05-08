@@ -101,7 +101,9 @@ class Products extends React.Component {
 											<td>{product.price}</td>
 											<td>Category name</td>
 											<td>
-												<button className='button is-link'>View</button>
+												<Link to={`/admin/products/view/${product.id}`}>
+													<button className='button is-link'>View</button>
+												</Link>
 											</td>
 											<td>
 												<Link to={`/admin/products/edit/${product.id}`}>
