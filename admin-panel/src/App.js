@@ -13,6 +13,7 @@ import NewProduct from './pages/Products/NewProduct';
 import EditProduct from './pages/Products/EditProduct';
 import ViewProduct from './pages/Products/ViewProduct';
 import NewCategory from './pages/Categories/NewCategory';
+import Categories from './pages/Categories/Categories';
 
 class App extends React.Component {
 	constructor(props) {
@@ -37,6 +38,7 @@ class App extends React.Component {
 					<Route exact path={'/admin/products/edit/:productId'} component={EditProduct} />
 					<Route exact path={'/admin/products/view/:productId'} component={ViewProduct} />
 					<Route exact path={'/admin/categories/new'} component={NewCategory} />
+					<Route exact path={'/admin/categories/'} component={Categories} />
 				</Switch>
 			</div>
 		);
