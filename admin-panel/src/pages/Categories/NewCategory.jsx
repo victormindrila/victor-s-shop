@@ -2,9 +2,6 @@ import React from 'react';
 import Layout from '../../components/Layout/Layout';
 import { connect } from 'react-redux';
 
-//actions
-import { getAllProducts } from '../../store/actions/products';
-
 // components
 import Error from '../../components/Error/Error';
 import Loader from '../../components/Loader/Loader';
