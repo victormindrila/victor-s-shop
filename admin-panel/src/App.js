@@ -17,6 +17,7 @@ import Categories from './pages/Categories/Categories';
 import EditCategory from './pages/Categories/EditCategory';
 import ViewCategory from './pages/Categories/ViewCategory';
 import Users from './pages/Users/Users';
+import ViewUser from './pages/Users/ViewUser';
 
 class App extends React.Component {
 	constructor(props) {
@@ -48,6 +49,7 @@ class App extends React.Component {
 					<Route exact path={'/admin/categories/view/:categoryId'} component={ViewCategory} />
 
 					<Route exact path={'/admin/users/'} component={Users} />
+					<Route exact path={'/admin/users/view/:userId'} component={ViewUser} />
 				</Switch>
 			</div>
 		);

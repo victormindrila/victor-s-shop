@@ -56,5 +56,6 @@ app.post('/user', auth, updateUserDetails);
 
 // users admin
 app.get('/admin/users', auth, getAllUsers);
+app.get('/admin/users/view', auth, getUserDetails);
 
 exports.api = functions.https.onRequest(app);
