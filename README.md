@@ -25,9 +25,10 @@
 
     [*]Categories 
         [x] New Category
-        [ ] Edit Category
-        [ ] List Categories
-        [ ] Delete Category
+        [x] Edit Category
+        [x] List Categories
+        [x] Delete Category
+        [ ] View Category
     [*] Orders
     //todo
     [*] Users
@@ -37,7 +38,7 @@
 [* ]Firebase functions
     [x] Users functions
     [x] Products functions
-    [ ] Categories functions
+    [x] Categories functions
     [ ] Orders functions
     [ ] Check for duplicate products
 
