@@ -39,6 +39,7 @@ class App extends React.Component {
 					<Route exact path={'/admin/products/view/:productId'} component={ViewProduct} />
 					<Route exact path={'/admin/categories/new'} component={NewCategory} />
 					<Route exact path={'/admin/categories/'} component={Categories} />
+					<Route exact path={'/admin/categories/edit/:categoryId'} component={NewCategory} />
 				</Switch>
 			</div>
 		);
