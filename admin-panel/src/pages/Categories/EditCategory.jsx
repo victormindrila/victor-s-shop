@@ -37,7 +37,6 @@ class EditCategory extends React.Component {
 				params: { categoryId }
 			})
 			.then((response) => {
-				console.log('category', response.data);
 				this.setState({
 					description: response.data.description,
 					loading: false
@@ -71,7 +70,6 @@ class EditCategory extends React.Component {
 		const categoryData = {
 			description: this.state.description
 		};
-		const { image } = this.state;
 
 		const { valid, errors } = validateNewCategoryData(categoryData);
 

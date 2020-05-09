@@ -113,6 +113,11 @@ class Categories extends React.Component {
 										<tr key={category.id}>
 											<td>{category.description}</td>
 											<td>
+												<Link to={`/admin/categories/view/${category.id}`}>
+													<button className='button is-link'>View</button>
+												</Link>
+											</td>
+											<td>
 												<Link to={`/admin/categories/edit/${category.id}`}>
 													<button className='button is-link'>Edit</button>
 												</Link>

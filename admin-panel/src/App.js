@@ -15,6 +15,7 @@ import ViewProduct from './pages/Products/ViewProduct';
 import NewCategory from './pages/Categories/NewCategory';
 import Categories from './pages/Categories/Categories';
 import EditCategory from './pages/Categories/EditCategory';
+import ViewCategory from './pages/Categories/ViewCategory';
 
 class App extends React.Component {
 	constructor(props) {
@@ -41,6 +42,7 @@ class App extends React.Component {
 					<Route exact path={'/admin/categories/new'} component={NewCategory} />
 					<Route exact path={'/admin/categories/'} component={Categories} />
 					<Route exact path={'/admin/categories/edit/:categoryId'} component={EditCategory} />
+					<Route exact path={'/admin/categories/view/:categoryId'} component={ViewCategory} />
 				</Switch>
 			</div>
 		);
