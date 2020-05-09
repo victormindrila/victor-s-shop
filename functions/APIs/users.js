@@ -1,5 +1,6 @@
 const { admin, database } = require('../util/admin');
 const config = require('../util/config');
+let path = require('path');
 
 const firebase = require('firebase');
 
@@ -213,4 +214,26 @@ exports.getAllUsers = async (req, res) => {
 		console.log(err);
 		return res.status(500).json({ error: err.code });
 	}
+};
+
+exports.deleteUser = (request, response) => {
+	const document = database.doc(`/users/${request.params.email}`);
+
+	document
+		.get()
+		.then((doc) => {
+			if (!doc.exists) {
+				return response.status(404).json({ error: 'User not found' });
+			}
+
+			return document.delete();
+		})
+		// eslint-disable-next-line
+		.then(() => {
+			response.json({ message: 'User deleted successfully' });
+		})
+		.catch((err) => {
+			console.log(err);
+			return response.status(500).json({ error: err.code });
+		});
 };

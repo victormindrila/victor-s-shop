@@ -60,7 +60,7 @@ class ViewCategory extends React.Component {
 		const authToken = localStorage.getItem('Authorization');
 		axios.defaults.headers.common = { Authorization: `${authToken}` };
 		axios
-			.delete(`/admin/user/${id}`)
+			.delete(`/admin/user/${this.state.user.email}`)
 			.then((response) => {
 				this.setState({
 					displayModal: true,

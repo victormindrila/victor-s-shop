@@ -16,7 +16,8 @@ const {
 	uploadProfilePhoto,
 	getUserDetails,
 	updateUserDetails,
-	getAllUsers
+	getAllUsers,
+	deleteUser
 } = require('./APIs/users');
 const {
 	addCategory,
@@ -57,5 +58,6 @@ app.post('/user', auth, updateUserDetails);
 // users admin
 app.get('/admin/users', auth, getAllUsers);
 app.get('/admin/users/view', auth, getUserDetails);
+app.delete('/admin/user/:email', auth, deleteUser);
 
 exports.api = functions.https.onRequest(app);

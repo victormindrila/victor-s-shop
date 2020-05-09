@@ -40,7 +40,7 @@ class Users extends React.Component {
 			.catch((error) => {
 				this.setState({
 					displayModal: true,
-					modalError: error.response.data
+					modalError: error.response.data.message
 				});
 				setTimeout(() => {
 					this.setState({
@@ -51,11 +51,11 @@ class Users extends React.Component {
 			});
 	}
 
-	handleDelete(id) {
+	handleDelete(email) {
 		const authToken = localStorage.getItem('Authorization');
 		axios.defaults.headers.common = { Authorization: `${authToken}` };
 		axios
-			.delete(`/admin/user/${id}`)
+			.delete(`/admin/user/${email}`)
 			.then((response) => {
 				this.setState({
 					displayModal: true,
@@ -65,7 +65,7 @@ class Users extends React.Component {
 					this.setState({
 						displayModal: false
 					});
-					this.fetchCategories();
+					this.fetchUsers();
 				}, 1500);
 			})
 			.catch((error) => {
@@ -119,7 +119,7 @@ class Users extends React.Component {
 												</Link>
 											</td>
 											<td>
-												<button className='button is-danger' onClick={(e) => this.handleDelete(user.uid)}>
+												<button className='button is-danger' onClick={(e) => this.handleDelete(user.email)}>
 													Delete
 												</button>
 											</td>
