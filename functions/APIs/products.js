@@ -2,26 +2,33 @@ let path = require('path');
 const { admin, database } = require('../util/admin');
 const config = require('../util/config');
 
-exports.getAllProducts = (req, res) => {
-	database
-		.collection('products')
-		.get()
-		.then((data) => {
-			products = [];
-			data.forEach((doc) => {
-				products.push({
-					id: doc.id,
-					description: doc.data().description,
-					picture: doc.data().picture,
-					price: doc.data().price
-				});
+exports.getAllProducts = async (req, res) => {
+	try {
+		let products = [];
+		const productsSnapshots = await database.collection('products').get();
+		const categoriesSnapshots = await database.collection('categories').get();
+		productsSnapshots.forEach((productsSnapshot) => {
+			let categoryDescription;
+			categoriesSnapshots.forEach((snapshot) => {
+				console.log(snapshot.id);
+				if (snapshot.id === productsSnapshot.data().category) categoryDescription = snapshot.data().description;
 			});
-			return res.json(products);
-		})
-		.catch((err) => {
-			console.log(err);
-			return res.status(500).json({ error: err.code });
+			products.push({
+				id: productsSnapshot.id,
+				description: productsSnapshot.data().description,
+				picture: productsSnapshot.data().picture,
+				price: productsSnapshot.data().price,
+				category: {
+					id: productsSnapshot.data().category,
+					description: categoryDescription
+				}
+			});
 		});
+		return res.json(products);
+	} catch (err) {
+		console.log(err);
+		return res.status(500).json({ error: err.code });
+	}
 };
 
 exports.addProduct = (request, response) => {
@@ -33,9 +40,14 @@ exports.addProduct = (request, response) => {
 		return response.status(400).json({ description: 'Must not be empty' });
 	}
 
+	if (request.body.category.trim() === '') {
+		return response.status(400).json({ category: 'Must not be empty' });
+	}
+
 	const newProduct = {
 		description: request.body.description,
 		price: request.body.price,
+		category: request.body.category,
 		createdAt: new Date().toISOString()
 	};
 
