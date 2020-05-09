@@ -33,13 +33,12 @@ class NewCategory extends React.Component {
 	}
 	handleSubmit(e) {
 		e.preventDefault();
-		const productData = {
-			description: this.state.description,
-			price: Number(this.state.price)
+		const categoryData = {
+			description: this.state.description
 		};
 		const { image } = this.state;
 
-		const { valid, errors } = validateNewCategoryData(productData);
+		const { valid, errors } = validateNewCategoryData(categoryData);
 
 		if (!valid) this.setState({ errors: errors });
 		if (valid) {
@@ -50,7 +49,7 @@ class NewCategory extends React.Component {
 			axios.defaults.headers.common = { Authorization: `${authToken}` };
 			let createCategoryResponse;
 			axios
-				.post('http://localhost:5000/aligo-test/us-central1/api/admin/category', productData)
+				.post('http://localhost:5000/aligo-test/us-central1/api/admin/category', categoryData)
 				.then((response) => {
 					createCategoryResponse = response.data.message;
 					const formData = new FormData();
