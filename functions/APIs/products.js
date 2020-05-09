@@ -10,7 +10,6 @@ exports.getAllProducts = async (req, res) => {
 		productsSnapshots.forEach((productsSnapshot) => {
 			let categoryDescription;
 			categoriesSnapshots.forEach((snapshot) => {
-				console.log(snapshot.id);
 				if (snapshot.id === productsSnapshot.data().category) categoryDescription = snapshot.data().description;
 			});
 			products.push({

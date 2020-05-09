@@ -9,10 +9,12 @@ import { getAllProducts } from '../../store/actions/products';
 import Error from '../../components/Error/Error';
 import Loader from '../../components/Loader/Loader';
 import Modal from '../../components/Modal/Modal';
+import Dropdown from '../../components/Dropdown/Dropdown';
 
 // helpers
 import { validateNewProductData } from '../../utils/validators';
 import axios from 'axios';
+import Categories from '../Categories/Categories';
 
 class NewProduct extends React.Component {
 	constructor(props) {
@@ -21,7 +23,9 @@ class NewProduct extends React.Component {
 			description: '',
 			price: '',
 			image: '',
-			loading: false,
+			category: '',
+			fetchedCategories: [],
+			loading: true,
 			displayModal: false,
 			modalError: '',
 			errors: '',
@@ -29,16 +33,53 @@ class NewProduct extends React.Component {
 		};
 	}
 
+	componentDidMount() {
+		this.fetchCategories();
+	}
+
+	fetchCategories() {
+		const authToken = localStorage.getItem('Authorization');
+		axios.defaults.headers.common = { Authorization: `${authToken}` };
+		axios
+			.get('/admin/categories')
+			.then((response) => {
+				this.setState({
+					fetchedCategories: response.data,
+					loading: false
+				});
+			})
+			.catch((error) => {
+				this.setState({
+					displayModal: true,
+					modalError: error.response.data.error
+				});
+				setTimeout(() => {
+					this.setState({
+						displayModal: false,
+						modalError: ''
+					});
+				}, 1500);
+			});
+	}
+
 	handleChange(e) {
 		this.setState({
 			[e.target.name]: e.target.name === 'image' ? e.target.files[0] : e.target.value
+		});
+	}
+
+	handleClick(e, id) {
+		e.preventDefault();
+		this.setState({
+			category: id
 		});
 	}
 	handleSubmit(e) {
 		e.preventDefault();
 		const productData = {
 			description: this.state.description,
-			price: Number(this.state.price)
+			price: Number(this.state.price),
+			category: this.state.category
 		};
 		const { image } = this.state;
 
@@ -93,6 +134,7 @@ class NewProduct extends React.Component {
 	}
 
 	render() {
+		const { fetchedCategories } = this.state;
 		return (
 			<Layout>
 				<Modal active={this.state.displayModal} message={this.state.success} error={this.state.modalError} />
@@ -118,6 +160,24 @@ class NewProduct extends React.Component {
 								<label className='label'>Price</label>
 								<input className='input' placeholder='price' name='price' onChange={(e) => this.handleChange(e)} />
 								{this.state.errors.price && <Error error={this.state.errors.price} />}
+							</div>
+
+							<div className='field'>
+								<label className='label'>Select a category</label>
+								<Dropdown listName='Select Category'>
+									{fetchedCategories.map((category) => {
+										const { id } = category;
+										return (
+											<a
+												href='/'
+												className={`dropdown-item ${id === this.state.category ? 'is-active' : ''}`}
+												key={id}
+												onClick={(e) => this.handleClick(e, category.id)}>
+												{category.description}
+											</a>
+										);
+									})}
+								</Dropdown>
 							</div>
 
 							<div className='field'>
