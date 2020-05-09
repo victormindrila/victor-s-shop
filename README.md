@@ -29,9 +29,10 @@
         [x] Delete Category
         [x] View Category
     [*] Orders
-    //todo
-    [*] Users
-    // todo
+    [x] Users
+        [x] users
+        [x] view user
+        [x] delete user
     [*] sort by 
 
 [* ]Firebase functions
