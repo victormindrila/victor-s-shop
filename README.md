@@ -1,6 +1,6 @@
 // todo 
 
-[* ]Admin-panel
+[ ]Admin-panel
 
     [x]User
         [x] Sign in
@@ -12,23 +12,22 @@
             [x] solve image upload bug
             [x] handle validation errors
             [x] add modal after action completion
-            [ ] add category field
-
+            [x] add category field
         [x] Add edit product feature
             [x] handle image edit
             [x] add modal after product edit
             [ ] validate new inputs
         [x] Add view product feature
-        [x] Delete product feature
+            [x] Delete product feature
             [x] Delete image when deleting a product
             [x] add a modal after product delete
 
-    [*]Categories 
+    [x]Categories 
         [x] New Category
         [x] Edit Category
         [x] List Categories
         [x] Delete Category
-        [ ] View Category
+        [x] View Category
     [*] Orders
     //todo
     [*] Users
