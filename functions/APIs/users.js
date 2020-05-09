@@ -192,3 +192,25 @@ exports.updateUserDetails = (request, response) => {
 			});
 		});
 };
+
+exports.getAllUsers = async (req, res) => {
+	try {
+		let users = [];
+		const userSnapshots = await database.collection('users').get();
+		userSnapshots.forEach((userSnapshot) => {
+			users.push({
+				uid: userSnapshot.data().userId,
+				email: userSnapshot.data().email,
+				firstName: userSnapshot.data().firstName,
+				lastName: userSnapshot.data().lastName,
+				phoneNumber: userSnapshot.data().phoneNumber,
+				country: userSnapshot.data().country,
+				createdAt: userSnapshot.data().createdAt
+			});
+		});
+		return res.json(users);
+	} catch (err) {
+		console.log(err);
+		return res.status(500).json({ error: err.code });
+	}
+};

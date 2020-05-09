@@ -10,7 +10,14 @@ const {
 	uploadProductPhoto,
 	getProductDetails
 } = require('./APIs/products');
-const { loginUser, signUpUser, uploadProfilePhoto, getUserDetails, updateUserDetails } = require('./APIs/users');
+const {
+	loginUser,
+	signUpUser,
+	uploadProfilePhoto,
+	getUserDetails,
+	updateUserDetails,
+	getAllUsers
+} = require('./APIs/users');
 const {
 	addCategory,
 	deleteCategory,
@@ -46,5 +53,8 @@ app.post('/signup', signUpUser);
 app.post('/user/image', auth, uploadProfilePhoto);
 app.get('/user', auth, getUserDetails);
 app.post('/user', auth, updateUserDetails);
+
+// users admin
+app.get('/admin/users', auth, getAllUsers);
 
 exports.api = functions.https.onRequest(app);
