@@ -1,0 +1,12 @@
+aside {
+	background-color: #f1faee;
+	height: 100vh;
+	width: 15%;
+	min-width: 10%;
+	display: inline-block;
+	padding-top: 15px;
+}
+
+aside p {
+	padding-left: 10px;
+}

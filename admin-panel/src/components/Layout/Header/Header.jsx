@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logoutUser } from '../../../store/actions/user';
+import './Header.css';
 
 function Header(props) {
 	const history = useHistory();
@@ -14,25 +15,17 @@ function Header(props) {
 	return (
 		<header>
 			<nav className='navbar navbar-bottom'>
-				<div className='container navbar-container'>
+				<div className='container is-fluid navbar-container'>
 					<div>
 						<Link to='/admin/products'>
 							<h3 className='title'>Admin Panel</h3>
 						</Link>
 					</div>
-					{props.user && <p>{`Salut, ${props.user.firstName} ${props.user.lastName}`}</p>}
+					<div className='navbar-item'>
+						{props.user && <p>{`Salut, ${props.user.firstName} ${props.user.lastName}`}</p>}
+					</div>
 					<div className='navbar-item'>
 						<div className='navbar-buttons'>
-							<div className='navbar-item'>
-								<Link to='/admin/products'>
-									<i className='fa fa-star' /> Products
-								</Link>
-							</div>
-							<div className='navbar-item'>
-								<Link to='/admin/categories'>
-									<i className='fa fa-star' /> Categories
-								</Link>
-							</div>
 							<button className='button is-link' onClick={(e) => handleLogOut()}>
 								Logout
 							</button>

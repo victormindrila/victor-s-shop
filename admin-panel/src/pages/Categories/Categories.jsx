@@ -103,6 +103,7 @@ class Categories extends React.Component {
 							<thead>
 								<tr>
 									<th>Title</th>
+									<th>View</th>
 									<th>Edit </th>
 									<th>Delete </th>
 								</tr>

@@ -94,15 +94,6 @@ class ViewCategory extends React.Component {
 				<Modal error={this.state.modalError} message={this.state.success} active={this.state.displayModal} />
 				<div className='container'>
 					<div className='columns'>
-						<div className='column is-one-third'>
-							<div className='card'>
-								<div className='card-image'>
-									<figure className='image is128by128'>
-										<img src={user.imageUrl || User} alt='product' />
-									</figure>
-								</div>
-							</div>
-						</div>
 						<div className='column is-two-thirds'>
 							<div className='card'>
 								<header className='card-header'>
@@ -133,11 +124,21 @@ class ViewCategory extends React.Component {
 										<span> User ID: </span> {userId}
 									</p>
 								</div>
+
 								<footer className='card-footer'>
 									<button className='button is-danger' onClick={(e) => this.handleDelete(userId)}>
 										Delete
 									</button>
 								</footer>
+							</div>
+						</div>
+						<div className='column is-one-third'>
+							<div className='card'>
+								<div className='card-image'>
+									<figure className='image is128by128'>
+										<img src={user.imageUrl || User} alt='product' />
+									</figure>
+								</div>
 							</div>
 						</div>
 					</div>

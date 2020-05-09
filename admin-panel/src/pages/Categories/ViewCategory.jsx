@@ -91,15 +91,6 @@ class ViewCategory extends React.Component {
 				<Modal error={this.state.modalError} message={this.state.success} active={this.state.displayModal} />
 				<div className='container'>
 					<div className='columns'>
-						<div className='column is-one-third'>
-							<div className='card'>
-								<div className='card-image'>
-									<figure className='image is4by3'>
-										<img src={this.state.category.imageUrl} alt='product' />
-									</figure>
-								</div>
-							</div>
-						</div>
 						<div className='column is-two-thirds'>
 							<div className='card'>
 								<header className='card-header'>
@@ -121,6 +112,15 @@ class ViewCategory extends React.Component {
 										Delete
 									</button>
 								</footer>
+							</div>
+						</div>
+						<div className='column is-one-third'>
+							<div className='card'>
+								<div className='card-image'>
+									<figure className='image is4by3'>
+										<img src={this.state.category.imageUrl} alt='product' />
+									</figure>
+								</div>
 							</div>
 						</div>
 					</div>

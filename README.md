@@ -28,7 +28,11 @@
         [x] List Categories
         [x] Delete Category
         [x] View Category
-    [*] Orders
+    [ ] Orders
+        [ ] Display all orders
+        [ ] View order
+    [x] Home page 
+        [x] Layout
     [x] Users
         [x] users
         [x] view user

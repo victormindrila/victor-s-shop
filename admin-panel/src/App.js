@@ -18,6 +18,8 @@ import EditCategory from './pages/Categories/EditCategory';
 import ViewCategory from './pages/Categories/ViewCategory';
 import Users from './pages/Users/Users';
 import ViewUser from './pages/Users/ViewUser';
+import Home from './pages/Home/Home';
+import Page404 from './pages/Page404/Page404';
 
 class App extends React.Component {
 	constructor(props) {
@@ -35,6 +37,7 @@ class App extends React.Component {
 		return (
 			<div className='App'>
 				<Switch>
+					<Route exact path={'/admin/'} component={Home} />
 					<Route exact path={'/admin/signin'} component={Signin} />
 					<Route exact path={'/admin/signup'} component={Signup} />
 
@@ -50,6 +53,8 @@ class App extends React.Component {
 
 					<Route exact path={'/admin/users/'} component={Users} />
 					<Route exact path={'/admin/users/view/:userId'} component={ViewUser} />
+
+					<Route exact path={'*'} component={Page404} />
 				</Switch>
 			</div>
 		);
