@@ -101,7 +101,7 @@ class EditCategory extends React.Component {
 				})
 				.then(() => {
 					setTimeout(() => {
-						this.props.history.push('/admin/categories');
+						this.props.history.goBack();
 					}, 1500);
 				})
 				.catch((error) => {
@@ -122,6 +122,7 @@ class EditCategory extends React.Component {
 	}
 
 	render() {
+		console.log(this.props.history);
 		return (
 			<Layout>
 				<Modal active={this.state.displayModal} message={this.state.success} error={this.state.modalError} />

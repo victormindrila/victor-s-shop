@@ -78,7 +78,7 @@ class NewProduct extends React.Component {
 				});
 				setTimeout(() => {
 					this.props.getAllProducts();
-					this.props.history.push('/admin/products');
+					this.props.history.goBack();
 				}, 1500);
 			})
 			.then(() => {

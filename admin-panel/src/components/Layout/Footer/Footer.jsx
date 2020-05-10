@@ -4,7 +4,7 @@ import './Footer.css';
 function Footer() {
 	return (
 		<footer>
-			<div class='has-text-centered'>
+			<div className='has-text-centered'>
 				<p>Copyright Victor Mindrila</p>
 			</div>
 		</footer>
