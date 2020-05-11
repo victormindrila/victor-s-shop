@@ -10,6 +10,7 @@ import Layout from '../../components/Layout/Layout';
 import Loader from '../../components/Loader/Loader';
 import Error from '../../components/Error/Error';
 import Modal from '../../components/Modal/Modal';
+import Pagination from '../../components/Pagination/Pagination';
 
 //helpers
 import axios from 'axios';
@@ -20,16 +21,26 @@ class Products extends React.Component {
 		this.state = {
 			displayModal: false,
 			modalError: '',
-			success: ''
+			success: '',
+			numberOfProductsOnPage: 8,
+			pageNumber: 1
 		};
 	}
 
-	componentDidUpdate() {
-		if (!this.props.user) this.props.history.push('/admin/signin');
+	componentWillReceiveProps(props) {
+		const pageNumber = this.props.history.location.search.split('?page=')[1] || 1;
+		this.setState({
+			pageNumber: pageNumber
+		});
 	}
+
 	componentDidMount() {
+		const pageNumber = this.props.history.location.search.split('?page=')[1] || 1;
 		if (!this.props.user) this.props.history.push('/admin/signin');
 		if (!this.props.products.data) this.props.getAllProducts();
+		this.setState({
+			pageNumber: pageNumber
+		});
 	}
 
 	handleDelete(id) {
@@ -64,8 +75,20 @@ class Products extends React.Component {
 			});
 	}
 
+	pageLink(no) {
+		if (no === 1) return 'products';
+
+		return `/admin/products/?page=${no}`;
+	}
+
 	render() {
 		const { products } = this.props;
+		const { pageNumber, numberOfProductsOnPage } = this.state;
+
+		const displayedProducts = this.props.products.data.slice(
+			pageNumber,
+			Number(pageNumber) + Number(numberOfProductsOnPage)
+		);
 
 		if (this.props.user.loading) {
 			return <Loader />;
@@ -93,7 +116,7 @@ class Products extends React.Component {
 								</tr>
 							</thead>
 							<tbody>
-								{products.data.map((product) => {
+								{displayedProducts.map((product) => {
 									return (
 										<tr key={product.id}>
 											<td>{product.title}</td>
@@ -124,6 +147,15 @@ class Products extends React.Component {
 					) : (
 						<Error />
 					)}
+					<Pagination
+						total={Math.ceil(products.data.length / this.state.numberOfProductsOnPage)}
+						active={this.state.pageNumber}
+						size='medium'
+						style='rounded'
+						alignment='left'
+						show={3}
+						pageLink={this.pageLink}
+					/>
 				</Layout>
 			);
 		}

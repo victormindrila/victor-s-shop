@@ -7,6 +7,7 @@ import Layout from '../../components/Layout/Layout';
 import Loader from '../../components/Loader/Loader';
 import Error from '../../components/Error/Error';
 import Modal from '../../components/Modal/Modal';
+import Pagination from '../../components/Pagination/Pagination';
 
 //helpers
 import axios from 'axios';
@@ -49,6 +50,12 @@ class Categories extends React.Component {
 					});
 				}, 1500);
 			});
+	}
+
+	pageLink(no) {
+		if (no === 1) return '/admin/categories/';
+
+		return `/admin/categories/?page=${no}`;
 	}
 
 	handleDelete(id) {
@@ -136,6 +143,16 @@ class Categories extends React.Component {
 					) : (
 						<Error />
 					)}
+
+					<Pagination
+						total={10}
+						active={1}
+						size='medium'
+						style='rounded'
+						alignment='left'
+						show={3}
+						pageLink={this.pageLink}
+					/>
 				</Layout>
 			);
 		}

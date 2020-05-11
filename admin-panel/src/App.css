@@ -156,3 +156,7 @@ input[type="file"] {
 .button {
 	margin: 3px;
 }
+
+.content ul {
+	list-style: none !important;
+}

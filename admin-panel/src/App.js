@@ -41,7 +41,7 @@ class App extends React.Component {
 					<Route exact path={'/admin/signin'} component={Signin} />
 					<Route exact path={'/admin/signup'} component={Signup} />
 
-					<Route exact path={'/admin/products'} component={Products} />
+					<Route exact path={'/admin/products/'} component={Products} />
 					<Route exact path={'/admin/products/new'} component={NewProduct} />
 					<Route exact path={'/admin/products/edit/:productId'} component={EditProduct} />
 					<Route exact path={'/admin/products/view/:productId'} component={ViewProduct} />
