@@ -152,3 +152,7 @@ body {
 input[type="file"] {
 	display: none;
 }
+
+.button {
+	margin: 3px;
+}

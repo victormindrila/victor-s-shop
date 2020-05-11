@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 //components
 import Modal from '../../components/Modal/Modal';
+import Loader from '../../components/Loader/Loader';
 
 //actions
 import { getAllProducts } from '../../store/actions/products';
@@ -30,13 +31,14 @@ class ViewProduct extends React.Component {
 		const authToken = localStorage.getItem('Authorization');
 		axios.defaults.headers.common = { Authorization: `${authToken}` };
 		axios
-			.get(`http://localhost:5000/aligo-test/us-central1/api/admin/product/`, {
+			.get(`/admin/product/`, {
 				params: {
 					productId
 				}
 			})
 			.then((response) => {
 				this.setState({
+					loading: false,
 					product: response.data
 				});
 			})
@@ -51,7 +53,7 @@ class ViewProduct extends React.Component {
 		const authToken = localStorage.getItem('Authorization');
 		axios.defaults.headers.common = { Authorization: `${authToken}` };
 		axios
-			.delete(`http://localhost:5000/aligo-test/us-central1/api/admin/product/${id}`)
+			.delete(`/admin/product/${id}`)
 			.then((response) => {
 				this.setState({
 					displayModal: true,
@@ -87,25 +89,82 @@ class ViewProduct extends React.Component {
 					<div className='columns'>
 						<div className='column is-two-thirds'>
 							<div className='card'>
+								{this.state.loading && <Loader />}
 								<header className='card-header'>
-									<p className='card-header-title'>Description: {this.state.product.description}</p>
+									<p className='card-header-title is-uppercase is-size-4'>{this.state.product.title}</p>
 								</header>
 								<div className='card-content'>
-									<p>
-										<span> Description: </span> {this.state.product.description}
-									</p>
-									<p>
-										<span> Price: </span> {this.state.product.price}
-									</p>
-									<p>
-										<span> Created at: </span> {this.state.product.createdAt}
-									</p>
+									<table>
+										<tbody>
+											<tr>
+												<td>
+													<span className='has-text-weight-bold'> Title: </span>
+												</td>
+												<td> {this.state.product.title}</td>
+											</tr>
+											<tr>
+												<td>
+													<span className='has-text-weight-bold'> Item Number: </span>
+												</td>
+												<td> {this.state.product.itemNumber}</td>
+											</tr>
+											<tr>
+												<td>
+													<span className='has-text-weight-bold'> Price: </span>{' '}
+												</td>
+												<td>{this.state.product.price}</td>
+											</tr>
+											<tr>
+												<td>
+													<span className='has-text-weight-bold'> Currency: </span>
+												</td>
+												<td>{this.state.product.currency}</td>
+											</tr>
+											<tr>
+												<td>
+													<span className='has-text-weight-bold'> Brand: </span>
+												</td>
+												<td>{this.state.product.brand}</td>
+											</tr>
+											<tr>
+												<td>
+													<span className='has-text-weight-bold'> Material: </span>{' '}
+												</td>
+												<td>{this.state.product.material}</td>
+											</tr>
+											<tr>
+												<td>
+													<span className='has-text-weight-bold'> Weight: </span>{' '}
+												</td>
+												<td>{this.state.product.weight}</td>
+											</tr>
+											<tr>
+												<td>
+													<span className='has-text-weight-bold'> Description: </span>
+												</td>
+												<td>{this.state.product.description}</td>
+											</tr>
+											<tr>
+												<td>
+													<span className='has-text-weight-bold'> Category: </span>{' '}
+												</td>
+												<td>{this.state.product.category}</td>
+											</tr>
+											<tr>
+												<td>
+													<span className='has-text-weight-bold'> Created at: </span>
+												</td>
+												<td>{this.state.product.createdAt}</td>
+											</tr>
+										</tbody>
+									</table>
 								</div>
-								<footer class='card-footer'>
+
+								<footer className='card-footer'>
 									<Link to={`/admin/products/edit/${productId}`}>
 										<button className='button is-link'>Edit</button>
 									</Link>
-									<button class='button is-danger' onClick={(e) => this.handleDelete(productId)}>
+									<button className='button is-danger' onClick={(e) => this.handleDelete(productId)}>
 										Delete
 									</button>
 								</footer>

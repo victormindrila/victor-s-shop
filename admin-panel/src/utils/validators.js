@@ -48,9 +48,12 @@ exports.validateSignUpData = (data) => {
 
 exports.validateNewProductData = (data) => {
 	let errors = {};
+	let keys = Object.keys(data);
 
-	if (isEmpty(data.description)) errors.description = 'Must not be empty';
-	if (isEmpty(data.price)) errors.price = 'Must not be empty';
+	for (let i = 0; i < keys.length; i++) {
+		if (isEmpty(data[keys[i]])) errors[keys[i]] = 'Must not be empty';
+	}
+
 	if (isNaN(data.price)) errors.price = 'Must be a number';
 
 	return {

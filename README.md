@@ -13,10 +13,23 @@
             [x] handle validation errors
             [x] add modal after action completion
             [x] add category field
+                [x] Fields
+                    [x] Title
+                    [x] Item Number
+                    [x] Brand
+                    [x] Price
+                    [x] Currency
+                    [x] Material
+                    [x] Weight
+                    [x] Weight m.u.
+                    [x] Description
+                    [x] Category
+                    [x] Created At
+   
         [x] Add edit product feature
             [x] handle image edit
             [x] add modal after product edit
-            [ ] validate new inputs
+            [x] validate new inputs
         [x] Add view product feature
             [x] Delete product feature
             [x] Delete image when deleting a product
@@ -38,6 +51,7 @@
         [x] view user
         [x] delete user
     [*] sort by 
+    [ ] add responsiveness
 
 [* ]Firebase functions
     [x] Users functions

@@ -90,14 +90,13 @@ class Products extends React.Component {
 									<th>View</th>
 									<th>Edit Product</th>
 									<th>Delete Product</th>
-									<th>Add/Remove from Featured</th>
 								</tr>
 							</thead>
 							<tbody>
 								{products.data.map((product) => {
 									return (
 										<tr key={product.id}>
-											<td>{product.description}</td>
+											<td>{product.title}</td>
 											<td>{product.price}</td>
 											<td>
 												<Link to={`/admin/categories/view/${product.category.id}`}>{product.category.description}</Link>
@@ -116,9 +115,6 @@ class Products extends React.Component {
 												<button className='button is-danger' onClick={(e) => this.handleDelete(product.id)}>
 													Delete
 												</button>
-											</td>
-											<td>
-												<button className='button is-link'>Add</button>
 											</td>
 										</tr>
 									);

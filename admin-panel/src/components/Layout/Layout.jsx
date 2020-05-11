@@ -8,9 +8,11 @@ function Layout(props) {
 	return (
 		<div>
 			<Header />
-			<Aside />
-			<div className='content'>
-				<div className='container box'>{props.children}</div>
+			<div className='is-flex'>
+				<Aside />
+				<div className='content'>
+					<div className='container box'>{props.children}</div>
+				</div>
 			</div>
 
 			<Footer />

@@ -14,9 +14,8 @@ exports.getAllProducts = async (req, res) => {
 			});
 			products.push({
 				id: productsSnapshot.id,
-				description: productsSnapshot.data().description,
-				picture: productsSnapshot.data().picture,
-				price: productsSnapshot.data().price,
+				title: productsSnapshot.data().title,
+				price: `${productsSnapshot.data().price} ${productsSnapshot.data().currency}`,
 				category: {
 					id: productsSnapshot.data().category,
 					description: categoryDescription
@@ -32,11 +31,15 @@ exports.getAllProducts = async (req, res) => {
 
 exports.addProduct = (request, response) => {
 	if (request.body.price === 0) {
-		return response.status(400).json({ body: 'Must not be empty' });
+		return response.status(400).json({ price: 'Must not be empty' });
 	}
 
-	if (request.body.description.trim() === '') {
-		return response.status(400).json({ description: 'Must not be empty' });
+	if (request.body.currency === '') {
+		return response.status(400).json({ currency: 'Must not be empty' });
+	}
+
+	if (request.body.title.trim() === '') {
+		return response.status(400).json({ title: 'Must not be empty' });
 	}
 
 	if (request.body.category.trim() === '') {
@@ -44,8 +47,14 @@ exports.addProduct = (request, response) => {
 	}
 
 	const newProduct = {
-		description: request.body.description,
+		title: request.body.title,
+		itemNumber: request.body.itemNumber,
+		brand: request.body.brand,
 		price: request.body.price,
+		currency: request.body.currency,
+		material: request.body.material,
+		weight: request.body.weight,
+		description: request.body.description,
 		category: request.body.category,
 		createdAt: new Date().toISOString()
 	};
@@ -181,20 +190,21 @@ exports.deleteProduct = (request, response) => {
 		});
 };
 
-exports.getProductDetails = (request, response) => {
-	let productData = {};
-	database
-		.doc(`/products/${request.query.productId}`)
-		.get()
-		.then((doc) => {
-			// eslint-disable-next-line
-			if (doc.exists) {
-				productData = doc.data();
-				return response.json(productData);
-			}
-		})
-		.catch((error) => {
-			console.error(error);
-			return response.status(500).json({ error: error.code });
-		});
+exports.getProductDetails = async (request, response) => {
+	try {
+		const productDoc = await database.doc(`/products/${request.query.productId}`).get();
+		const categoriesSnapshots = await database.collection('categories').get();
+
+		let productData = {};
+		if (productDoc.exists) {
+			productData = productDoc.data();
+			categoriesSnapshots.forEach((snapshot) => {
+				if (snapshot.id === productData.category) productData.category = snapshot.data().description;
+			});
+			return response.json(productData);
+		}
+	} catch (error) {
+		console.error(error);
+		return response.status(500).json({ error: error.code });
+	}
 };
