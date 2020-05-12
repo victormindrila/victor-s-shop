@@ -1,26 +1,10 @@
-import axios from 'axios';
+export function chunkArray(myArray, chunk_size) {
+	let arrCpy = myArray.slice();
+	let results = [];
 
-export function fetchCategories() {
-	const authToken = localStorage.getItem('Authorization');
-	axios.defaults.headers.common = { Authorization: `${authToken}` };
-	axios
-		.get('/admin/categories')
-		.then((response) => {
-			this.setState({
-				fetchedCategories: response.data,
-				loading: false
-			});
-		})
-		.catch((error) => {
-			this.setState({
-				displayModal: true,
-				modalError: error.response.data.error
-			});
-			setTimeout(() => {
-				this.setState({
-					displayModal: false,
-					modalError: ''
-				});
-			}, 1500);
-		});
+	while (arrCpy.length) {
+		results.push(arrCpy.splice(0, chunk_size));
+	}
+
+	return results;
 }

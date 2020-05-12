@@ -14,6 +14,7 @@ import Pagination from '../../components/Pagination/Pagination';
 
 //helpers
 import axios from 'axios';
+import { chunkArray } from '../../utils/helpers';
 
 class Products extends React.Component {
 	constructor(props) {
@@ -76,7 +77,7 @@ class Products extends React.Component {
 	}
 
 	pageLink(no) {
-		if (no === 1) return 'products';
+		if (no === 1) return '/admin/products/';
 
 		return `/admin/products/?page=${no}`;
 	}
@@ -85,10 +86,7 @@ class Products extends React.Component {
 		const { products } = this.props;
 		const { pageNumber, numberOfProductsOnPage } = this.state;
 
-		const displayedProducts = this.props.products.data.slice(
-			pageNumber,
-			Number(pageNumber) + Number(numberOfProductsOnPage)
-		);
+		const displayedProducts = chunkArray(products.data, numberOfProductsOnPage);
 
 		if (this.props.user.loading) {
 			return <Loader />;
@@ -116,7 +114,7 @@ class Products extends React.Component {
 								</tr>
 							</thead>
 							<tbody>
-								{displayedProducts.map((product) => {
+								{displayedProducts[pageNumber - 1].map((product) => {
 									return (
 										<tr key={product.id}>
 											<td>{product.title}</td>
