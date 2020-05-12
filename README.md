@@ -50,6 +50,7 @@
         [x] users
         [x] view user
         [x] delete user
+    [x] Pagination Component and functionality
     [*] sort by 
     [ ] add responsiveness
 

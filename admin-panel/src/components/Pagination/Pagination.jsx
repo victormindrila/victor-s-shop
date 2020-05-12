@@ -57,7 +57,7 @@ function Pagination({ total, active, size, style, alignment, show, pageLink }) {
 			<ul className='pagination-list'>
 				{listItems.map((item) => {
 					return (
-						<li>
+						<li key={item}>
 							{item !== `&hellip;` ? (
 								<Link
 									to={pageLink(item)}

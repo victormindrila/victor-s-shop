@@ -11,6 +11,14 @@ import Pagination from '../../components/Pagination/Pagination';
 
 //helpers
 import axios from 'axios';
+import { chunkArray } from '../../utils/helpers';
+import {
+	NUMBER_OF_PRODUCTS_ON_PAGE,
+	PAGINATION_STYLE,
+	PAGINATION_SIZE,
+	NUMBER_OF_PAGINATION_ELEMENTS,
+	PAGINATION_ALIGNMENT
+} from '../../constants/pagination';
 
 class Categories extends React.Component {
 	constructor(props) {
@@ -20,11 +28,24 @@ class Categories extends React.Component {
 			loading: true,
 			displayModal: false,
 			modalError: '',
-			success: ''
+			success: '',
+			pageNumber: 1
 		};
 	}
+
+	componentWillReceiveProps(props) {
+		const pageNumber = this.props.history.location.search.split('?page=')[1] || 1;
+		this.setState({
+			pageNumber: pageNumber
+		});
+	}
+
 	componentDidMount() {
 		this.fetchCategories();
+		const pageNumber = this.props.history.location.search.split('?page=')[1] || 1;
+		this.setState({
+			pageNumber: pageNumber
+		});
 	}
 
 	fetchCategories() {
@@ -90,22 +111,26 @@ class Categories extends React.Component {
 	}
 
 	render() {
-		const { categories } = this.state;
+		const { categories, pageNumber, loading, modalError, success, displayModal } = this.state;
+
+		const displayedCategories = chunkArray(categories, NUMBER_OF_PRODUCTS_ON_PAGE);
+
+		const numberOfPages = Math.ceil(categories.length / NUMBER_OF_PRODUCTS_ON_PAGE);
 
 		if (this.props.user.loading) {
 			return <Loader />;
 		} else {
 			return (
 				<Layout>
-					<Modal error={this.state.modalError} message={this.state.success} active={this.state.displayModal} />
+					<Modal error={modalError} message={success} active={displayModal} />
 					<div className='control'>
 						<h1 className='subtitle'>Categories</h1>
 						<Link to='/admin/categories/new' className='button is-primary'>
 							New Category
 						</Link>
-						{this.state.loading ? <Loader /> : null}
+						{loading ? <Loader /> : null}
 					</div>
-					{categories ? (
+					{displayedCategories[pageNumber - 1] && (
 						<table className='table'>
 							<thead>
 								<tr>
@@ -116,7 +141,7 @@ class Categories extends React.Component {
 								</tr>
 							</thead>
 							<tbody>
-								{categories.map((category) => {
+								{displayedCategories[pageNumber - 1].map((category) => {
 									return (
 										<tr key={category.id}>
 											<td>{category.description}</td>
@@ -140,17 +165,15 @@ class Categories extends React.Component {
 								})}
 							</tbody>
 						</table>
-					) : (
-						<Error />
 					)}
 
 					<Pagination
-						total={10}
-						active={1}
-						size='medium'
-						style='rounded'
-						alignment='left'
-						show={3}
+						total={numberOfPages}
+						active={pageNumber}
+						size={PAGINATION_SIZE}
+						style={PAGINATION_STYLE}
+						alignment={PAGINATION_ALIGNMENT}
+						show={NUMBER_OF_PAGINATION_ELEMENTS}
 						pageLink={this.pageLink}
 					/>
 				</Layout>
