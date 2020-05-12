@@ -27,6 +27,7 @@ const {
 	uploadCategoryPhoto,
 	getCategoryDetails
 } = require('./APIs/categories');
+const { addNewOrder, getAllOrders } = require('./APIs/orders');
 const auth = require('./util/auth');
 
 // Automatically allow cross-origin requests
@@ -59,5 +60,9 @@ app.post('/user', auth, updateUserDetails);
 app.get('/admin/users', auth, getAllUsers);
 app.get('/admin/users/view', auth, getUserDetails);
 app.delete('/admin/user/:email', auth, deleteUser);
+
+// orders
+app.get('/admin/orders/', auth, getAllOrders);
+app.post('/order/', auth, addNewOrder);
 
 exports.api = functions.https.onRequest(app);
