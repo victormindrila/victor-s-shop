@@ -112,7 +112,7 @@ exports.deleteOrder = async (request, response) => {
 };
 
 exports.updateOrder = async (request, response) => {
-	if (request.body.orderId || request.body.createdAt) {
+	if (request.body.orderId || request.body.createdAt || request.body.products) {
 		return response.status(403).json({ message: 'Not allowed to edit' });
 	}
 
