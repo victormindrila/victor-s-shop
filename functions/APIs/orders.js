@@ -94,6 +94,21 @@ exports.getOrderDetails = async (request, response) => {
 	}
 };
 
-exports.deleteOrder = (request, response) => {};
+exports.deleteOrder = async (request, response) => {
+	try {
+		const documentSnapshot = await database.doc(`/orders/${request.params.orderId}`).get();
+
+		if (!documentSnapshot.exists) {
+			return response.status(404).json({ error: 'Order not found' });
+		}
+
+		await database.doc(`/orders/${request.params.orderId}`).delete();
+
+		return response.json({ message: 'Order deleted successfully' });
+	} catch (err) {
+		console.log(err);
+		return response.status(500).json({ error: err.code });
+	}
+};
 
 exports.updateOrder = (request, response) => {};
