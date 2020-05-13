@@ -41,7 +41,8 @@ exports.getAllOrders = async (request, response) => {
 				deliveryAddress: orderSnapshot.data().deliveryAddress,
 				billingAddress: orderSnapshot.data().billingAddress,
 				comments: orderSnapshot.data().comments,
-				completed: orderSnapshot.data().completed
+				completed: orderSnapshot.data().completed,
+				createdAt: orderSnapshot.data().createdAt
 			});
 		});
 
