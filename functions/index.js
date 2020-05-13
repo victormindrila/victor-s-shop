@@ -66,5 +66,6 @@ app.get('/admin/orders/', auth, getAllOrders);
 app.post('/order/', auth, addNewOrder);
 app.get('/order/', auth, getOrderDetails);
 app.delete('/admin/order/:orderId', auth, deleteOrder);
+app.put('/admin/order/:orderId', auth, updateOrder);
 
 exports.api = functions.https.onRequest(app);

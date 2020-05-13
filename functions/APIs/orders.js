@@ -111,4 +111,18 @@ exports.deleteOrder = async (request, response) => {
 	}
 };
 
-exports.updateOrder = (request, response) => {};
+exports.updateOrder = async (request, response) => {
+	if (request.body.orderId || request.body.createdAt) {
+		return response.status(403).json({ message: 'Not allowed to edit' });
+	}
+
+	try {
+		await database.collection('orders').doc(`${request.params.orderId}`).update(request.body);
+		return response.json({ message: 'Updated successfully' });
+	} catch (error) {
+		console.error(err);
+		return response.status(400).json({
+			error: 'Something went wrong'
+		});
+	}
+};
