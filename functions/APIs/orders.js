@@ -44,18 +44,6 @@ exports.getAllOrders = async (request, response) => {
 				completed: orderSnapshot.data().completed
 			});
 		});
-		for (let i = 0; i < orders.length; i++) {
-			const productsPromises = [];
-			for (let j = 0; j < orders[i].products.length; j++) {
-				const promise = database.doc(`/products/${orders[i].products[j].productId}`).get();
-				productsPromises.push(promise);
-			}
-			const productsSnapshots = await Promise.all(productsPromises);
-			const products = [];
-			productsSnapshots.forEach((product) => products.push(product.data()));
-			console.log(products);
-			orders[i].products = products;
-		}
 
 		return response.json(orders);
 	} catch (err) {
@@ -64,7 +52,47 @@ exports.getAllOrders = async (request, response) => {
 	}
 };
 
-exports.getOrderDetails = (request, response) => {};
+exports.getOrderDetails = async (request, response) => {
+	try {
+		const { orderId } = request.body;
+		const orderDocument = await database.doc(`/orders/${orderId}`).get();
+
+		if (orderDocument.exists) {
+			let orderData = orderDocument.data();
+			orderData.id = orderDocument.id;
+
+			const productsPromises = [];
+			orderData.products.forEach((product) => {
+				const promise = database.doc(`/products/${product.productId}`).get();
+				productsPromises.push(promise);
+			});
+
+			const productsSnapshots = await Promise.all(productsPromises);
+
+			const productsData = [];
+
+			productsSnapshots.forEach((product) => {
+				let productData = {};
+				productData = product.data();
+				productData.id = product.id;
+				productsData.push(productData);
+			});
+
+			orderData.products.map((product) => {
+				productsData.forEach((productData) => {
+					if (productData.id === product.productId) {
+						product.details = productData;
+					}
+				});
+			});
+
+			return response.json(orderData);
+		}
+	} catch (error) {
+		console.error(error);
+		return response.status(500).json({ error: error.code });
+	}
+};
 
 exports.deleteOrder = (request, response) => {};
 
