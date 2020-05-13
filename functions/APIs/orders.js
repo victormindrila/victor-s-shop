@@ -31,6 +31,7 @@ exports.getAllOrders = async (request, response) => {
 	try {
 		let orders = [];
 		const ordersSnapshots = await database.collection('orders').get();
+		const usersPromises = [];
 
 		ordersSnapshots.forEach((orderSnapshot) => {
 			orders.push({
@@ -43,6 +44,16 @@ exports.getAllOrders = async (request, response) => {
 				comments: orderSnapshot.data().comments,
 				completed: orderSnapshot.data().completed,
 				createdAt: orderSnapshot.data().createdAt
+			});
+			usersPromises.push(database.doc(`/users/${orderSnapshot.data().email}`).get());
+		});
+
+		const usersSnapshots = await Promise.all(usersPromises);
+
+		orders.map((order) => {
+			usersSnapshots.forEach((snapshot) => {
+				if (order.email === snapshot.data().email)
+					order.userName = `${snapshot.data().firstName} ${snapshot.data().lastName}`;
 			});
 		});
 
