@@ -42,8 +42,20 @@
         [x] Delete Category
         [x] View Category
     [ ] Orders
+        [x] Fields 
+            {
+                uid, 
+                products: [
+                    {productid, quantity}
+                ],
+                deliveryAddress, 
+                billingAddress,
+                comments,
+                createdAt
+            }
         [ ] Display all orders
         [ ] View order
+        [ ] Mark order as shipped
     [x] Home page 
         [x] Layout
     [x] Users
