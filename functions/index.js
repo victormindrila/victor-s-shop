@@ -64,7 +64,7 @@ app.delete('/admin/user/:email', auth, deleteUser);
 // orders
 app.get('/admin/orders/', auth, getAllOrders);
 app.post('/order/', auth, addNewOrder);
-app.get('/order/', auth, getOrderDetails);
+app.get('/admin/order/', auth, getOrderDetails);
 app.delete('/admin/order/:orderId', auth, deleteOrder);
 app.put('/admin/order/:orderId', auth, updateOrder);
 

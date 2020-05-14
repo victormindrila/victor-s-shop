@@ -65,6 +65,7 @@
     [x] Pagination Component and functionality
     [*] sort by 
     [ ] add responsiveness
+    [ ] forma dates 
 
 [* ]Firebase functions
     [x] Users functions

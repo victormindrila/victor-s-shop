@@ -65,8 +65,9 @@ exports.getAllOrders = async (request, response) => {
 };
 
 exports.getOrderDetails = async (request, response) => {
+	console.log(request.query.orderId);
 	try {
-		const { orderId } = request.body;
+		const { orderId } = request.query;
 		const orderDocument = await database.doc(`/orders/${orderId}`).get();
 
 		if (orderDocument.exists) {

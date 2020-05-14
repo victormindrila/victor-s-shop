@@ -20,6 +20,8 @@ import Users from './pages/Users/Users';
 import ViewUser from './pages/Users/ViewUser';
 import Home from './pages/Home/Home';
 import Page404 from './pages/Page404/Page404';
+import Orders from './pages/Orders/Orders';
+import ViewOrder from './pages/Orders/ViewOrder';
 
 class App extends React.Component {
 	constructor(props) {
@@ -53,6 +55,9 @@ class App extends React.Component {
 
 					<Route exact path={'/admin/users/'} component={Users} />
 					<Route exact path={'/admin/users/view/:userId'} component={ViewUser} />
+
+					<Route exact path={'/admin/orders/'} component={Orders} />
+					<Route exact path={'/admin/orders/view/:orderId'} component={ViewOrder} />
 
 					<Route exact path={'*'} component={Page404} />
 				</Switch>
