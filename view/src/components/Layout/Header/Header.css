@@ -1,11 +1,5 @@
-header {
-	padding: 22px 5px;
-	font-size: 16px;
-	line-height: 24px;
-}
-
 header .logo {
-	width: 200px;
+	width: 150px;
 	height: auto;
 }
 
@@ -15,4 +9,9 @@ header a {
 
 header a {
 	color: grey;
+}
+
+header .logout:hover {
+	cursor: pointer;
+	text-decoration: underline;
 }

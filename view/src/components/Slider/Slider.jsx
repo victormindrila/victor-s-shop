@@ -1,8 +1,9 @@
 import React from 'react';
 import './Slider.css';
-import banner1 from '../../assets/images/banner1.jpg';
-import banner2 from '../../assets/images/banner2.jpg';
-import banner3 from '../../assets/images/banner3.jpg';
+import dick_1778 from '../../assets/images/banners/dick_1778.jpg';
+import Flatware from '../../assets/images/banners/Flatware.jpg';
+import Victorinox from '../../assets/images/banners/VictorInox.jpg';
+import wood_collection from '../../assets/images/banners/wood_collection.jpg';
 import Slide from './Slide/Slide';
 import Timer from '../../utils/Timer';
 
@@ -10,7 +11,7 @@ class Slider extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			images: [ banner1, banner2, banner3 ],
+			images: [ dick_1778, Flatware, Victorinox, wood_collection ],
 			displayImage: '',
 			activeImageIndex: 0,
 			show: true
@@ -24,11 +25,11 @@ class Slider extends React.Component {
 				displayImage: this.state.images[this.i],
 				activeImageIndex: this.i
 			});
-		}, 100000);
+		}, 5000);
 	}
 
 	componentDidMount() {
-		this.setState({ displayImage: banner1 });
+		this.setState({ displayImage: dick_1778 });
 		this.timer.start();
 	}
 

@@ -41,7 +41,7 @@
         [x] List Categories
         [x] Delete Category
         [x] View Category
-    [ ] Orders
+    [x] Orders
         [x] Fields 
             {
                 uid, 
@@ -53,9 +53,9 @@
                 comments,
                 createdAt
             }
-        [ ] Display all orders
-        [ ] View order
-        [ ] Mark order as shipped
+        [x] Display all orders
+        [x] View order
+        [x] Mark order as shipped
     [x] Home page 
         [x] Layout
     [x] Users
@@ -65,14 +65,32 @@
     [x] Pagination Component and functionality
     [*] sort by 
     [ ] add responsiveness
-    [ ] forma dates 
+    [ ] format dates 
+    [ ] add filters 
+    [ ] add sort
 
-[* ]Firebase functions
+[ ]Firebase functions
     [x] Users functions
     [x] Products functions
     [x] Categories functions
-    [ ] Orders functions
+    [x] Orders functions
     [ ] Check for duplicate products
 
 [* ]View 
-    // todo
+    [ ] Header
+        [ ] implement a dropdown menu for user options
+    [ ] Home page
+    [ ] Category
+        [ ] Category page 
+        [ ] Category item
+    [ ] Product 
+        [ ] Product item 
+        [ ] Product page 
+    [ ] Cart
+        [ ] Cart page
+    
+    [ ] Favourites 
+
+    [ ] About 
+
+    [ ] Terms and conditions
