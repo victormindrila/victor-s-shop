@@ -76,7 +76,7 @@
     [x] Orders functions
     [ ] Check for duplicate products
 
-[* ]View 
+[ ]View 
     [ ] Header
         [ ] implement a dropdown menu for user options
     [ ] Home page
@@ -94,3 +94,5 @@
     [ ] About 
 
     [ ] Terms and conditions
+
+    [ ] Search 
