@@ -23,7 +23,7 @@ function Footer() {
 					<p className='mb-1'>
 						<a href='mailto:razvan.cirlugea@gmail.com'>
 							<Mail className='mr-1 mb-1 footer-icon' />
-							aligocomex@gmail.com
+							sharpedge@gmail.com
 						</a>
 					</p>
 					<p className='m-0'>
@@ -31,7 +31,7 @@ function Footer() {
 					</p>
 				</div>
 			</div>
-			<div className='text-center py-3'>&copy; Aligocomex SRL, 2020</div>
+			<div className='text-center py-3'>&copy; Sharpedge SRL, 2020</div>
 		</footer>
 	);
 }
