@@ -87,7 +87,7 @@
             * [ ] Signin with google
             * [ ] Signin with facebook 
             * [x] Signin with email and password
-        * [ ] Logout page
+        * [x] Logout page
     * [ ] Home page
     * [ ] Category
         * [ ] Category page 
@@ -101,7 +101,7 @@
     * [ ] About 
     * [ ] Terms and conditions
     * [ ] Search 
-    * [ ] Store
-        * [ ] Products
-        * [ ] Users 
+    * [x] Store
+        * [x] Products
+        * [x] Users 
     * [ ] route guard 
