@@ -15,17 +15,17 @@
                 * [x] add modal after action completion
                 * [x] add category field
                     * [x] Fields
-                        * [x] Title
-                        * [x] Item Number
-                        * [x] Brand
-                        * [x] Price
-                        * [x] Currency
-                        * [x] Material
-                        * [x] Weight
-                        * [x] Weight m.u.
-                        * [x] Description
-                        * [x] Category
-                        * [x] Created At
+                        * Title
+                        * Item Number
+                        * Brand
+                        * Price
+                        * Currency
+                        * Material
+                        * Weight
+                        * Weight m.u.
+                        * Description
+                        * Category
+                        * Created At
         * [x] Add edit product feature
                 * [x]  handle image edit
                 * [x]  add modal after product edit
