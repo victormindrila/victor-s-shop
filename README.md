@@ -66,6 +66,7 @@
         * [ ] format dates 
         * [ ] add filters 
         * [ ] add sort
+        * [ ] route guard
 
 * [ ] Firebase functions
     * [x] Users functions
@@ -75,6 +76,9 @@
     * [ ] Check for duplicate products
 
 * [ ] View 
+    * [x] Add store 
+        * [x] user
+        * [x] products 
     * [ ] Header
         * [ ] implement a dropdown menu for user options
     * [ ] Footer
@@ -94,3 +98,4 @@
     * [ ] Store
         * [ ] Products
         * [ ] Users 
+    * [ ] route guard 
