@@ -4,17 +4,17 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logoutUser } from '../../store/actions/user';
 
-function DropdownUser({ isActive, user }) {
+function DropdownUser({ isActive, user, logoutUser }) {
 	return (
 		<div className={`dropdown-menu ${isActive ? 'show' : ''}`}>
-			{user ? <p className='dropdown-item'>Salut, {user.displayName}!</p> : null}
+			{user ? <p className='dropdown-item'>Salut, {user.firstName}!</p> : null}
 
 			{user ? (
 				<div>
 					<div class='dropdown-divider' />
-					<p className='dropdown-item' onClick={() => logoutUser()}>
+					<button className='dropdown-item' onClick={() => logoutUser()}>
 						Delogare
-					</p>
+					</button>
 				</div>
 			) : (
 				<div>
