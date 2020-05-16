@@ -27,7 +27,7 @@ function Footer() {
 						</a>
 					</p>
 					<p className='m-0'>
-						<Phone className='mr-1 footer-icon' />+37379620471
+						<Phone className='mr-1 footer-icon' />+40741426612
 					</p>
 				</div>
 			</div>
