@@ -1,9 +1,11 @@
-// todo 
+# Build a full stack application using firebase for backend APIs
+
+## TODO 
 
 [ ]Admin-panel
 
- * [x]User
-        [x] Sign in
+* [x] User
+       * [x] Sign in
         [x] Sign up
         [x] Log out - fix TypeError: Cannot read property 'loading' of null
 
