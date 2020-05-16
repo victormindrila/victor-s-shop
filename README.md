@@ -1,4 +1,4 @@
-# Build a full stack application using firebase for backend APIs
+# Build a full stack application using React.js and Firebase
 
 ## TODO 
 
@@ -10,7 +10,7 @@
 
     *  [x] Products
         * [x] Add new product feature 
-                * [x] solve image upload bug
+            * [x] solve image upload bug
                 * [x] handle validation errors
                 * [x] add modal after action completion
                 * [x] add category field
@@ -27,13 +27,13 @@
                         * Category
                         * Created At
         * [x] Add edit product feature
-                * [x]  handle image edit
-                * [x]  add modal after product edit
-                * [x]  validate new inputs
+             * [x]  handle image edit
+             * [x]  add modal after product edit
+             * [x]  validate new inputs
         * [x]  Add view product feature
-                * [x]  Delete product feature
-                * [x]  Delete image when deleting a product
-                * [x]  add a modal after product delete
+             * [x]  Delete product feature
+             * [x]  Delete image when deleting a product
+             * [x]  add a modal after product delete
 
         * [x] Categories 
             * [x]  New Category
@@ -43,16 +43,14 @@
             * [x]  View Category
         * [x]  Orders
             * [x]  Fields 
-                {
-                    uid, 
-                    products: [
-                        {productid, quantity}
-                    ],
-                    deliveryAddress, 
-                    billingAddress,
-                    comments,
-                    createdAt
-                }
+                * uid 
+                * products: 
+                  * productId
+                  * quantity
+                * deliveryAddress, 
+                * billingAddress,
+                * comments,
+                * createdAt
             * [x]  Display all orders
             * [x]  View order
             * [x] Mark order as shipped
@@ -70,11 +68,11 @@
         * [ ] add sort
 
 * [ ] Firebase functions
-    [x] Users functions
-    [x] Products functions
-    [x] Categories functions
-    [x] Orders functions
-    [ ] Check for duplicate products
+    * [x] Users functions
+    * [x] Products functions
+    * [x] Categories functions
+    * [x] Orders functions
+    * [ ] Check for duplicate products
 
 * [ ] View 
     * [ ] Header
@@ -89,7 +87,7 @@
         * [ ] Product page 
     * [ ] Cart
         * [ ] Cart page
-    * [ ]Favourites 
+    * [ ] Favourites 
     * [ ] About 
     * [ ] Terms and conditions
     * [ ] Search 
