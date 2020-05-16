@@ -14,9 +14,9 @@ const isEmail = (email) => {
 exports.validateLoginData = (data) => {
 	let errors = {};
 
-	if (isEmpty(data.email)) errors.email = 'Must not be empty';
-	if (!isEmail(data.email)) errors.email = 'Must be a valid email address';
-	if (isEmpty(data.password)) errors.password = 'Must not be empty';
+	if (isEmpty(data.email)) errors.email = 'Te rog sa completezi acest camp';
+	if (!isEmail(data.email)) errors.email = 'Adresa de email invalida';
+	if (isEmpty(data.password)) errors.password = 'Te rog sa completezi acest camp';
 	return {
 		errors,
 		valid: Object.keys(errors).length === 0 ? true : false
@@ -39,33 +39,6 @@ exports.validateSignUpData = (data) => {
 
 	if (isEmpty(data.password)) errors.password = 'Must not be empty';
 	if (data.password !== data.confirmPassword) errors.confirmPassword = 'Passwords must be the same';
-
-	return {
-		errors,
-		valid: Object.keys(errors).length === 0 ? true : false
-	};
-};
-
-exports.validateNewProductData = (data) => {
-	let errors = {};
-	let keys = Object.keys(data);
-
-	for (let i = 0; i < keys.length; i++) {
-		if (isEmpty(data[keys[i]])) errors[keys[i]] = 'Must not be empty';
-	}
-
-	if (isNaN(data.price)) errors.price = 'Must be a number';
-
-	return {
-		errors,
-		valid: Object.keys(errors).length === 0 ? true : false
-	};
-};
-
-exports.validateNewCategoryData = (data) => {
-	let errors = {};
-
-	if (isEmpty(data.description)) errors.description = 'Must not be empty';
 
 	return {
 		errors,

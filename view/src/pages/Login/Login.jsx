@@ -7,8 +7,12 @@ import './Login.css';
 
 //components
 import Error from '../../components/Error/Error';
+import Loader from '../../components/Loader/Loader';
+
+//assets
 import Logo from '../../assets/images/logo/logo.png';
 import { ReactComponent as Google } from '../../assets/icons/google.svg';
+import { ReactComponent as Facebook } from '../../assets/icons/facebook.svg';
 
 // actions
 import { loginUser, updateError } from '../../store/actions/user';
@@ -54,17 +58,9 @@ class Login extends React.Component {
 				<Link to='/'>
 					<img src={Logo} alt='logo' className='' />
 				</Link>
+				{this.props.userLoading && <Loader />}
+				<h1 className='h2 mb-3'>Login</h1>
 
-				<h1 className='h2'>Login</h1>
-				<p>Alege providerul cu care vrei să vrei să te loghezi:</p>
-
-				<button
-					className='btn btn-outline-dark d-flex align-items-center'
-					onClick={() => this.props.signInWithGoogle()}>
-					<Google className='w-50 mr-3' />
-					<span className='text-nowrap'>Loghează-te cu Google</span>
-				</button>
-				<p className='my-2'>sau</p>
 				<div className='columns is-centered is-vcentered'>
 					<div className='column is-one-quarter'>
 						<form
@@ -72,9 +68,7 @@ class Login extends React.Component {
 								this.handleSubmit(e);
 							}}>
 							<div className='form-group'>
-								<p>Logheaza-te cu email:</p>
 								<input
-									type='email'
 									className='form-control form-control-lg'
 									name='email'
 									placeholder='Email'
@@ -96,15 +90,28 @@ class Login extends React.Component {
 								{this.props.userError.password && <Error error={this.props.userError.password} />}
 							</div>
 							{this.props.userError.error && <Error error={this.props.userError.error} />}
-							<button type='submit' className='btn btn-outline-dark mb-3'>
+							<button type='submit' className='btn btn-outline-dark mb-3 form-control form-control-lg'>
 								Logare
 							</button>
 						</form>
 						<Link to='/signup' className='my-3'>
-							Nu ai un cont? Inregistreaza-te!
+							Nu ai un cont? Inregistreaza-te cu email!
 						</Link>
 					</div>
 				</div>
+				<p className='my-2'>sau</p>
+				<button
+					className='btn btn-outline-dark d-flex align-items-center'
+					onClick={() => this.props.signInWithGoogle()}>
+					<Google className='w-50 mr-3' />
+					<span className='text-nowrap pr-3'>Loghează-te cu Google</span>
+				</button>
+				<button
+					className='btn btn-outline-dark d-flex align-items-center mt-3'
+					onClick={() => this.props.signInWithGoogle()}>
+					<Facebook className='w-50 mr-3' />
+					<span className='text-nowrap'>Loghează-te cu Facebook</span>
+				</button>
 			</div>
 		);
 	}
@@ -113,6 +120,7 @@ class Login extends React.Component {
 function mapStateToProps(state) {
 	return {
 		user: state.user.data,
+		userLoading: state.user.loading,
 		userError: state.user.error
 	};
 }
