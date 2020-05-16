@@ -2,7 +2,7 @@
 
 [ ]Admin-panel
 
-    [x]User
+ * [x]User
         [x] Sign in
         [x] Sign up
         [x] Log out - fix TypeError: Cannot read property 'loading' of null
