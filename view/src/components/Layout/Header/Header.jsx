@@ -36,13 +36,15 @@ class Header extends React.Component {
 					<div>
 						<div className='d-flex justify-content-end'>
 							<div className='d-flex align-items-center'>
-								<div
-									className='dropdown'
-									onMouseEnter={() => this.handleHoverOnUser()}
-									onMouseLeave={() => this.handleHoverOnUser()}>
-									<UserIcon className='mr-2' />
-									<DropdownUser isActive={this.state.displayUserDropdown} />
-								</div>
+								<Link>
+									<div
+										className='dropdown'
+										onMouseEnter={() => this.handleHoverOnUser()}
+										onMouseLeave={() => this.handleHoverOnUser()}>
+										<UserIcon className='mr-2' />
+										<DropdownUser isActive={this.state.displayUserDropdown} />
+									</div>
+								</Link>
 
 								<Link to='/favorites'>
 									<Favorite className='mr-2' />
