@@ -15,7 +15,7 @@ import { ReactComponent as Google } from '../../assets/icons/google.svg';
 import { ReactComponent as Facebook } from '../../assets/icons/facebook.svg';
 
 // actions
-import { loginUser, updateError } from '../../store/actions/user';
+import { loginUser, loginUserWithGoogle, updateError } from '../../store/actions/user';
 
 //helpers
 import { validateLoginData } from './../../utils/validators';
@@ -102,13 +102,13 @@ class Login extends React.Component {
 				<p className='my-2'>sau</p>
 				<button
 					className='btn btn-outline-dark d-flex align-items-center'
-					onClick={() => this.props.signInWithGoogle()}>
+					onClick={() => this.props.loginUserWithGoogle()}>
 					<Google className='w-50 mr-3' />
 					<span className='text-nowrap pr-3'>Loghează-te cu Google</span>
 				</button>
 				<button
 					className='btn btn-outline-dark d-flex align-items-center mt-3'
-					onClick={() => this.props.signInWithGoogle()}>
+					onClick={() => this.props.loginUserWithGoogle()}>
 					<Facebook className='w-50 mr-3' />
 					<span className='text-nowrap'>Loghează-te cu Facebook</span>
 				</button>
@@ -129,6 +129,9 @@ function mapDispatchToProps(dispatch) {
 	return {
 		loginUser: (email, password) => {
 			dispatch(loginUser(email, password));
+		},
+		loginUserWithGoogle: () => {
+			dispatch(loginUserWithGoogle());
 		},
 		updateError: (payload) => {
 			dispatch(updateError(payload));
