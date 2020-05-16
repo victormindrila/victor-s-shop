@@ -14,7 +14,7 @@ export default function Header(props) {
 				<Link to='/' className='my-3'>
 					<img src={logo} alt={`Victor's shop`} className='logo' />
 				</Link>
-				<input class='form-control mr-4' type='text' placeholder='Search' />
+				<input className='form-control mr-4' type='text' placeholder='Search' />
 				<div>
 					{props.user ? <p>Salut, {props.user.displayName}!</p> : null}
 					<div className='d-flex justify-content-end'>
