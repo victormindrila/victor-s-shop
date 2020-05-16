@@ -7,7 +7,7 @@ import { logoutUser } from '../../store/actions/user';
 function DropdownUser({ isActive, user, logoutUser }) {
 	return (
 		<div className={`dropdown-menu ${isActive ? 'show' : ''}`}>
-			{user ? <p>Salut, {user.firstName || user.displayName}!</p> : null}
+			{user ? <p className='ml-4'>Salut, {user.firstName || user.displayName}!</p> : null}
 
 			{user ? (
 				<div>

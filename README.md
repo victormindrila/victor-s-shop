@@ -70,6 +70,7 @@
 
 * [ ] Firebase functions
     * [x] Users functions
+        * [ ] add user to database after login with Google
     * [x] Products functions
     * [x] Categories functions
     * [x] Orders functions
@@ -82,12 +83,13 @@
     * [x] Header
         * [x] implement a dropdown menu for user options
     * [x] Footer
-    * [ ] Login
+    * [x] Login
         * [x] Login page
-            * [ ] Signin with google
+            * [x] Signin with google
             * [ ] Signin with facebook 
             * [x] Signin with email and password
         * [x] Logout page
+    * [x] Signup
     * [ ] Home page
     * [ ] Category
         * [ ] Category page 
