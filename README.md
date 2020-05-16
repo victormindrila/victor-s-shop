@@ -5,12 +5,12 @@
 [ ]Admin-panel
 
 * [x] User
-       * [x] Sign in
-        [x] Sign up
-        [x] Log out - fix TypeError: Cannot read property 'loading' of null
+    * [x] Sign in
+    * Sign up
+    * Log out - fix TypeError: Cannot read property 'loading' of null
 
-    [x]Products
-        [x] Add new product feature 
+*   [x]Products
+    * [x] Add new product feature 
             [x] solve image upload bug
             [x] handle validation errors
             [x] add modal after action completion
