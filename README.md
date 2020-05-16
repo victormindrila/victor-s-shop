@@ -79,9 +79,15 @@
     * [x] Add store 
         * [x] user
         * [x] products 
-    * [ ] Header
-        * [ ] implement a dropdown menu for user options
-    * [ ] Footer
+    * [x] Header
+        * [x] implement a dropdown menu for user options
+    * [x] Footer
+    * [ ] Login
+        * [x] Login page
+            * [ ] Signin with google
+            * [ ] Signin with facebook 
+            * [x] Signin with email and password
+        * [ ] Logout page
     * [ ] Home page
     * [ ] Category
         * [ ] Category page 
