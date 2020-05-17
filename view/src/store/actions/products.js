@@ -23,11 +23,8 @@ export function updateErrorProducts(payload) {
 export function getAllProducts() {
 	return (dispatch) => {
 		dispatch(startLoadingProducts());
-
-		const authToken = localStorage.getItem('Authorization');
-		axios.defaults.headers.common = { Authorization: `${authToken}` };
 		axios
-			.get('http://localhost:5000/aligo-test/us-central1/api/admin/products')
+			.get('http://localhost:5000/aligo-test/us-central1/api/products')
 			.then((response) => {
 				const payload = response.data;
 				dispatch(updateProductsData(payload));
