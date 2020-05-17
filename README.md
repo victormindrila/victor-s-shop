@@ -92,13 +92,14 @@
         * [x] Logout page
     * [x] Signup
     * [x] Home page
-    * [ ] View all products
-    * [ ] Category
-        * [ ] Category page 
-        * [ ] Category item
-    * [ ] Product 
-        * [ ] Product item 
-        * [ ] Product page 
+    * [x] View all products
+    * [x] Category
+        * [x] Category page 
+        * [x] Category item
+    * [x] Product 
+        * [x] Product item 
+        * [x] Product page
+            * [ ] Fix product image 
     * [ ] Cart
         * [ ] Cart page
     * [ ] Favourites 

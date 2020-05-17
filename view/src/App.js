@@ -7,6 +7,7 @@ import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import SignUp from './pages/SignUp/SignUp';
 import Products from './pages/Products/Products';
+import Product from './pages/Product/Product';
 
 class App extends React.Component {
 	render() {
@@ -17,6 +18,7 @@ class App extends React.Component {
 					<Route path='/login' component={Login} />
 					<Route path='/signup' component={SignUp} />
 					<Route path='/products/' component={Products} />
+					<Route path='/product/:productId' component={Product} />
 				</Switch>
 			</div>
 		);

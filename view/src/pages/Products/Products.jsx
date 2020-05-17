@@ -26,9 +26,9 @@ class ProductList extends React.Component {
 		return (
 			<Layout>
 				<div className='container-fluid container-min-max-width'>
-					<Link to='/'>
-						<button className='btn btn-outline-dark my-3'>Back</button>
-					</Link>
+					<button className='btn btn-outline-dark my-3' onClick={() => this.props.history.goBack()}>
+						Back
+					</button>
 					<hr />
 					<h2>{category ? category.name : 'All Products'}</h2>
 					<hr />
