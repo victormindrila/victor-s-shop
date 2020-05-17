@@ -3,6 +3,7 @@
 ## TODO 
 
 * [ ] Admin-panel
+    * [ ] Home - Dashboard page
     * [x] User
         * [x] Sign in
         * [x] Sign up
@@ -90,7 +91,8 @@
             * [x] Signin with email and password
         * [x] Logout page
     * [x] Signup
-    * [ ] Home page
+    * [x] Home page
+    * [ ] View all products
     * [ ] Category
         * [ ] Category page 
         * [ ] Category item
