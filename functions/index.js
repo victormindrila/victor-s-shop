@@ -69,5 +69,6 @@ app.delete('/admin/order/:orderId', auth, deleteOrder);
 app.put('/admin/order/:orderId', auth, updateOrder);
 
 app.get('/categories', getAllCategories);
+app.get('/products', getAllProducts);
 
 exports.api = functions.https.onRequest(app);
