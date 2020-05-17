@@ -12,6 +12,7 @@ exports.getAllCategories = (req, res) => {
 				categories.push({
 					id: doc.id,
 					description: doc.data().description,
+					name: doc.data().name,
 					imageUrl: doc.data().imageUrl
 				});
 			});
@@ -30,6 +31,7 @@ exports.addCategory = (request, response) => {
 
 	const newCategory = {
 		description: request.body.description,
+		name: request.body.name,
 		createdAt: new Date().toISOString()
 	};
 
