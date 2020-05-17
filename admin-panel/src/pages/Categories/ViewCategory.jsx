@@ -94,7 +94,7 @@ class ViewCategory extends React.Component {
 						<div className='column is-two-thirds'>
 							<div className='card'>
 								<header className='card-header'>
-									<p className='card-header-title'>Description: {this.state.category.description}</p>
+									<p className='card-header-title'>Name: {this.state.category.name}</p>
 								</header>
 								<div className='card-content'>
 									<p>

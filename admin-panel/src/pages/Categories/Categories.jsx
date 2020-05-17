@@ -144,7 +144,7 @@ class Categories extends React.Component {
 								{displayedCategories[pageNumber - 1].map((category) => {
 									return (
 										<tr key={category.id}>
-											<td>{category.description}</td>
+											<td>{category.name}</td>
 											<td>
 												<Link to={`/admin/categories/view/${category.id}`}>
 													<button className='button is-link'>View</button>

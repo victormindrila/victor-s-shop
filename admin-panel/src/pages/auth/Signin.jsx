@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 //components
 import Error from '../../components/Error/Error';
+import Loader from '../../components/Loader/Loader';
 
 // actions
 import { loginUser, updateError } from '../../store/actions/user';

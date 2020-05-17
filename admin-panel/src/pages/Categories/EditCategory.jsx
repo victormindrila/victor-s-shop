@@ -15,6 +15,7 @@ class EditCategory extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			name: '',
 			description: '',
 			image: '',
 			loading: true,
@@ -38,6 +39,7 @@ class EditCategory extends React.Component {
 			})
 			.then((response) => {
 				this.setState({
+					name: response.data.name,
 					description: response.data.description,
 					loading: false
 				});
@@ -68,6 +70,7 @@ class EditCategory extends React.Component {
 		});
 		const categoryId = this.props.match.params.categoryId;
 		const categoryData = {
+			name: this.state.name,
 			description: this.state.description
 		};
 
@@ -122,7 +125,6 @@ class EditCategory extends React.Component {
 	}
 
 	render() {
-		console.log(this.props.history);
 		return (
 			<Layout>
 				<Modal active={this.state.displayModal} message={this.state.success} error={this.state.modalError} />
@@ -138,6 +140,17 @@ class EditCategory extends React.Component {
 								<label className='label'>Category name</label>
 								<input
 									className='input'
+									placeholder='name'
+									name='name'
+									value={this.state.name}
+									onChange={(e) => this.handleChange(e)}
+								/>
+								{this.state.errors.name && <Error error={this.state.errors.name} />}
+							</div>
+							<div className='field'>
+								<label className='label'>Description</label>
+								<textarea
+									className='textarea'
 									placeholder='description'
 									name='description'
 									value={this.state.description}

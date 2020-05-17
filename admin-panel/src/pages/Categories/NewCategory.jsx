@@ -15,8 +15,8 @@ class NewCategory extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			name: '',
 			description: '',
-			price: '',
 			image: '',
 			loading: false,
 			displayModal: false,
@@ -34,7 +34,8 @@ class NewCategory extends React.Component {
 	handleSubmit(e) {
 		e.preventDefault();
 		const categoryData = {
-			description: this.state.description
+			description: this.state.description,
+			name: this.state.name
 		};
 		const { image } = this.state;
 
@@ -104,6 +105,17 @@ class NewCategory extends React.Component {
 								<label className='label'>Category name</label>
 								<input
 									className='input'
+									placeholder='name'
+									name='name'
+									value={this.state.name}
+									onChange={(e) => this.handleChange(e)}
+								/>
+								{this.state.errors.name && <Error error={this.state.errors.name} />}
+							</div>
+							<div className='field'>
+								<label className='label'>Description</label>
+								<textarea
+									className='textarea'
 									placeholder='description'
 									name='description'
 									value={this.state.description}
