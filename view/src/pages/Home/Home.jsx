@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Layout from '../../components/Layout/Layout';
 import HomeCategory from '../../components/HomeCategory/HomeCategory';
+import Loader from '../../components/Loader/Loader';
 
 //helpers
 import axios from 'axios';
@@ -40,9 +41,10 @@ class Home extends React.Component {
 	}
 
 	render() {
-		console.log(this.state.categories);
 		return (
 			<Layout>
+				<div className='d-flex justify-content-center'>{this.state.loading && <Loader />}</div>
+
 				<div className='container-fluid container-min-max-width'>
 					<div className='row'>
 						{this.state.categories.map((category) => {
