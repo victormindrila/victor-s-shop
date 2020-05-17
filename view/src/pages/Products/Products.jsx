@@ -6,26 +6,33 @@ import { connect } from 'react-redux';
 //actions
 import { getAllProducts } from '../../store/actions/products';
 import { getAllCategories } from '../../store/actions/categories';
+import { Link } from 'react-router-dom';
 
 class ProductList extends React.Component {
 	componentDidMount() {
 		const { products, categories, getAllProducts, getAllCategories } = this.props;
 		if (products.data.length === 0) getAllProducts();
-		if (!categories.data) getAllCategories();
+		if (categories.data.length === 0) getAllCategories();
 	}
 
 	render() {
 		const { data: products } = this.props.products;
+		const { data: categories } = this.props.categories;
 		const categoryId = this.props.history.location.search.split('?category=')[1];
-		console.log(categoryId);
-		const filteredProducts = products ? products.filter((product) => product.id === categoryId) : [];
-		console.log(filteredProducts);
+		const category = categories.find((category) => category.id === categoryId);
+		console.log(category);
+		const filteredProducts = products.filter((product) => product.category.id === categoryId);
 
 		return (
 			<Layout>
 				<div className='container-fluid container-min-max-width'>
-					<h2>All Products</h2>
-					<ProductsList products={products} />
+					<Link to='/'>
+						<button className='btn btn-outline-dark my-3'>Back</button>
+					</Link>
+					<hr />
+					<h2>{category ? category.name : 'All Products'}</h2>
+					<hr />
+					<ProductsList products={categoryId ? filteredProducts : products} />
 				</div>
 			</Layout>
 		);

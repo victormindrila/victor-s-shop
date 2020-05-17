@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import SignUp from './pages/SignUp/SignUp';
+import Products from './pages/Products/Products';
 
 class App extends React.Component {
 	render() {
@@ -15,6 +16,7 @@ class App extends React.Component {
 					<Route exact path='/' component={Home} />
 					<Route path='/login' component={Login} />
 					<Route path='/signup' component={SignUp} />
+					<Route path='/products/' component={Products} />
 				</Switch>
 			</div>
 		);

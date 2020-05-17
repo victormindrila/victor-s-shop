@@ -10,13 +10,10 @@ import Layout from '../../components/Layout/Layout';
 import HomeCategory from '../../components/HomeCategory/HomeCategory';
 import Loader from '../../components/Loader/Loader';
 
-//helpers
-import axios from 'axios';
-
 class Home extends React.Component {
 	componentDidMount() {
 		const { categories, getAllCategories } = this.props;
-		if (!categories.data) getAllCategories();
+		if (categories.data.length === 0) getAllCategories();
 	}
 
 	render() {
@@ -27,11 +24,10 @@ class Home extends React.Component {
 
 				<div className='container-fluid container-min-max-width'>
 					<div className='row'>
-						{categories.data &&
-							categories.data.map((category) => {
-								const { id, name, description, imageUrl } = category;
-								return <HomeCategory key={id} route={id} name={name} description={description} image={imageUrl} />;
-							})}
+						{categories.data.map((category) => {
+							const { id, name, description, imageUrl } = category;
+							return <HomeCategory key={id} route={id} name={name} description={description} image={imageUrl} />;
+						})}
 					</div>
 					<div>
 						<hr />
