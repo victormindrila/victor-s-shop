@@ -1,5 +1,5 @@
 const initialState = {
-	data: '',
+	data: [],
 	loading: false,
 	error: ''
 };
@@ -14,7 +14,7 @@ export function productsReducer(state = initialState, action) {
 		case 'UPDATE_PRODUCTS_DATA':
 			return {
 				...state,
-				data: action.payload,
+				data: [ ...state.data, ...action.payload ],
 				loading: false
 			};
 		case 'UPDATE_ERROR_PRODUCTS':

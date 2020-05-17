@@ -6,7 +6,7 @@ const HomeCategory = (props) => {
 
 	return (
 		<div className='col-12 col-md-6 mb-3'>
-			<Link to={`/category/${route}`}>
+			<Link to={`/products/?category=${route}`}>
 				<div className='w-100'>
 					<img src={image} alt={name} className='w-100' />
 				</div>
