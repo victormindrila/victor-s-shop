@@ -102,16 +102,14 @@
         * [x] Product item 
         * [x] Product page
             * [ ] Fix product image 
-    * [ ] Cart
-        * [ ] Cart page
+    * [x] Cart
+        * [x] Cart page
+        * [x] Number of products
     * [ ] Favourites 
     * [ ] About 
     * [ ] Terms and conditions
     * [ ] Checkout page
     * [ ] Search
     * [ ] Sort
-    * [ ] Filters 
-    * [x] Store
-        * [x] Products
-        * [x] Users 
+    * [ ] Filters  
     * [ ] route guard 
