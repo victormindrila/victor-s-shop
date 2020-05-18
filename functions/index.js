@@ -27,6 +27,7 @@ const {
 	uploadCategoryPhoto,
 	getCategoryDetails
 } = require('./APIs/categories');
+const { addToFavorites, deleteFromFavorites } = require('./APIs/favorites');
 const { addNewOrder, getAllOrders, getOrderDetails, deleteOrder, updateOrder } = require('./APIs/orders');
 const auth = require('./util/auth');
 
@@ -71,5 +72,7 @@ app.put('/admin/order/:orderId', auth, updateOrder);
 app.get('/categories', getAllCategories);
 app.get('/products', getAllProducts);
 app.get('/product', getProductDetails);
+app.post('/favorite/', auth, addToFavorites);
+app.delete('/favorite/', auth, deleteFromFavorites);
 
 exports.api = functions.https.onRequest(app);
