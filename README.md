@@ -81,6 +81,8 @@
     * [x] Add store 
         * [x] user
         * [x] products 
+        * [x] categories 
+        * [x] cart
     * [x] Header
         * [x] implement a dropdown menu for user options
     * [x] Footer
@@ -105,7 +107,10 @@
     * [ ] Favourites 
     * [ ] About 
     * [ ] Terms and conditions
-    * [ ] Search 
+    * [ ] Checkout page
+    * [ ] Search
+    * [ ] Sort
+    * [ ] Filters 
     * [x] Store
         * [x] Products
         * [x] Users 

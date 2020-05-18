@@ -8,6 +8,7 @@ import Login from './pages/Login/Login';
 import SignUp from './pages/SignUp/SignUp';
 import Products from './pages/Products/Products';
 import Product from './pages/Product/Product';
+import Cart from './pages/Cart/Cart';
 
 class App extends React.Component {
 	render() {
@@ -17,6 +18,7 @@ class App extends React.Component {
 					<Route exact path='/' component={Home} />
 					<Route path='/login' component={Login} />
 					<Route path='/signup' component={SignUp} />
+					<Route path='/cart' component={Cart} />
 					<Route path='/products/' component={Products} />
 					<Route path='/product/:productId' component={Product} />
 				</Switch>

@@ -1,0 +1,8 @@
+.cart-page img {
+	max-height: 100px;
+}
+
+/* Vrem sa schimbam cursorul la hover peste iconita care sterge produsul din cart */
+.cart-page svg {
+	cursor: pointer;
+}
