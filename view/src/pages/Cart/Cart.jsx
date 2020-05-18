@@ -1,8 +1,13 @@
 import React from 'react';
-import Layout from '../../components/Layout/Layout';
 import { connect } from 'react-redux';
-import { removeFromCart } from '../../store/actions/cart';
 import { Link } from 'react-router-dom';
+
+// components
+import Layout from '../../components/Layout/Layout';
+import BackButton from '../../components/BackButton/BackButton';
+
+import { removeFromCart } from '../../store/actions/cart';
+
 import './Cart.css';
 import { ReactComponent as Close } from '../../assets/icons/close.svg';
 
@@ -16,9 +21,10 @@ function Cart(props) {
 	return (
 		<Layout>
 			<div className='cart-page container-fluid container-min-max-width
-                d-flex flex-column justify-content-center align-items-center'>
+				d-flex flex-column justify-content-center align-items-center'>
 				{props.products.length ? (
 					<div className='w-100'>
+						<BackButton goBack={props.history.goBack} />
 						<div className='d-flex justify-content-between text-center h4 text-bold'>
 							<p className='w-25'>Product</p>
 							<p className='w-25'>Price</p>
@@ -29,7 +35,7 @@ function Cart(props) {
 							return (
 								<div className='d-flex justify-content-between align-items-center text-center' key={product.id}>
 									<div className='w-25 d-flex flex-column justify-content-center align-items-center'>
-										<img src={product.imageUrl} alt='Produs' />
+										<img src={product.imageUrl} alt='Product' />
 										<p>{product.title}</p>
 									</div>
 									<p className='w-25'>
@@ -61,9 +67,9 @@ function Cart(props) {
 					</div>
 				) : (
 					<div className='d-flex flex-column align-items-center'>
-						<p className='h3'>Nu ai produse in cart!</p>
+						<p className='h3'>Cart is empty!</p>
 						<Link to='/'>
-							<button className='btn btn-outline-dark'>Inapoi la home</button>
+							<button className='btn btn-outline-dark'>Back to home</button>
 						</Link>
 					</div>
 				)}

@@ -1,7 +1,7 @@
 import React from 'react';
 import './ProductItem.css';
 import { connect } from 'react-redux';
-// import { addToCart } from '../redux/actions/cart';
+import { addToCart } from '../../store/actions/cart';
 import { Link } from 'react-router-dom';
 
 function ProductItem({ title, price, currency, imageUrl, id, addToCart }) {
@@ -34,7 +34,7 @@ function ProductItem({ title, price, currency, imageUrl, id, addToCart }) {
 
 function mapDispatchToProps(dispatch) {
 	return {
-		// addToCart: (product) => dispatch(addToCart(product))
+		addToCart: (product) => dispatch(addToCart(product))
 	};
 }
 

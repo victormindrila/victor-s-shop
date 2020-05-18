@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import Layout from '../../components/Layout/Layout';
 import { connect } from 'react-redux';
-// import { addToCart } from '../redux/actions/cart';
 
 import axios from 'axios';
 import Loader from '../../components/Loader/Loader';
+import BackButton from '../../components/BackButton/BackButton';
 
-import { getAllProducts } from '../../store/actions/products';
-import { getAllCategories } from '../../store/actions/categories';
+import { addToCart } from '../../store/actions/cart';
 
 class Product extends Component {
 	constructor() {
@@ -40,15 +39,13 @@ class Product extends Component {
 	}
 
 	render() {
+		const productId = this.props.match.params.productId;
 		const product = this.state.product;
 		const { addToCart } = this.props;
 		return (
 			<Layout>
 				<div className='product-page container-fluid container-min-max-width'>
-					<button className='btn btn-outline-dark my-3' onClick={() => this.props.history.goBack()}>
-						Back
-					</button>
-
+					<BackButton goBack={this.props.history.goBack} />
 					<h1 className='my-5 h2'>{product.title}</h1>
 					<div className='product-info d-flex'>
 						<div className='image-wrapper d-flex mr-5'>
@@ -62,13 +59,13 @@ class Product extends Component {
 							<button
 								className='btn btn-dark mb-4 font-weight-bold'
 								onClick={() => {
-									this.props.addToCart({
+									addToCart({
 										product: {
-											id: product.id,
-											name: product.name,
+											id: productId,
+											title: product.title,
 											price: product.price,
 											currency: product.currency,
-											image: product.image
+											imageUrl: product.imageUrl
 										}
 									});
 								}}>
@@ -98,20 +95,8 @@ class Product extends Component {
 
 function mapDispatchToProps(dispatch) {
 	return {
-		getAllProducts: () => {
-			dispatch(getAllProducts());
-		},
-		getAllCategories: () => {
-			dispatch(getAllCategories());
-		}
+		addToCart: (product) => dispatch(addToCart(product))
 	};
 }
 
-function mapStateToProps(state) {
-	return {
-		products: state.products,
-		categories: state.categories
-	};
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Product);
+export default connect(null, mapDispatchToProps)(Product);

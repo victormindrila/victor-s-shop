@@ -3,10 +3,12 @@ import Layout from '../../components/Layout/Layout';
 import ProductsList from '../../components/ProductsList/ProductsList';
 import { connect } from 'react-redux';
 
+//components
+import BackButton from '../../components/BackButton/BackButton';
+
 //actions
 import { getAllProducts } from '../../store/actions/products';
 import { getAllCategories } from '../../store/actions/categories';
-import { Link } from 'react-router-dom';
 
 class ProductList extends React.Component {
 	componentDidMount() {
@@ -26,9 +28,7 @@ class ProductList extends React.Component {
 		return (
 			<Layout>
 				<div className='container-fluid container-min-max-width'>
-					<button className='btn btn-outline-dark my-3' onClick={() => this.props.history.goBack()}>
-						Back
-					</button>
+					<BackButton goBack={this.props.history.goBack} />
 					<hr />
 					<h2>{category ? category.name : 'All Products'}</h2>
 					<hr />
