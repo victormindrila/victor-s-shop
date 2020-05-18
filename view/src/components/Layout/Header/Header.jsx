@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 // css
 import './Header.css';
@@ -26,6 +27,7 @@ class Header extends React.Component {
 	}
 
 	render() {
+		const { numberOfProducts } = this.props;
 		return (
 			<header className='border-bottom mb-3 '>
 				<div className='container-fluid container-min-max-width d-flex justify-content-between align-items-center'>
@@ -51,7 +53,7 @@ class Header extends React.Component {
 								</Link>
 								<Link to='/cart' className='d-flex'>
 									<ShoppingCart className='ml-2' />
-									<p className='ml-1 mb-0'>{this.props.numberOfProducts}</p>
+									<p className='products-number ml-1 mb-0'>{numberOfProducts}</p>
 								</Link>
 							</div>
 						</div>
@@ -62,4 +64,10 @@ class Header extends React.Component {
 	}
 }
 
-export default Header;
+function mapStateToProps(state) {
+	return {
+		numberOfProducts: state.cart.products.length
+	};
+}
+
+export default connect(mapStateToProps)(Header);

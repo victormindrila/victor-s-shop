@@ -15,3 +15,8 @@ header .logout:hover {
 	cursor: pointer;
 	text-decoration: underline;
 }
+
+.products-number {
+	color: red;
+	margin-left: 5px;
+}
