@@ -30,8 +30,8 @@ exports.loginUser = (request, response) => {
 			return database.doc(`/users/${user.email}`).get();
 		})
 		.then((doc) => {
-			const { firstName, lastName } = doc.data();
-			return response.status(201).json({ token, firstName, lastName });
+			const { firstName, lastName, email } = doc.data();
+			return response.status(201).json({ token, firstName, lastName, email });
 		})
 		.catch((error) => {
 			console.log(error);

@@ -75,6 +75,7 @@
     * [x] Products functions
     * [x] Categories functions
     * [x] Orders functions
+    * [ ] Add to favorites
     * [ ] Check for duplicate products
 
 * [ ] View 
