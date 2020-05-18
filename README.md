@@ -84,6 +84,7 @@
         * [x] products 
         * [x] categories 
         * [x] cart
+        * [ ] favorites 
     * [x] Header
         * [x] implement a dropdown menu for user options
     * [x] Footer
@@ -106,7 +107,9 @@
     * [x] Cart
         * [x] Cart page
         * [x] Number of products
-    * [ ] Favourites 
+    * [ ] Favorites 
+        * [x] Add to favorites 
+        * [ ] Remove from favorites
     * [ ] About 
     * [ ] Terms and conditions
     * [ ] Checkout page
