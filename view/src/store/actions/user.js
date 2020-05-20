@@ -51,8 +51,7 @@ export function loginUser(email, password) {
 			.then((response) => {
 				const payload = response.data;
 				localStorage.setItem('Authorization', 'Bearer ' + payload.token);
-				dispatch(updateError(''));
-				dispatch(updateUserData(payload));
+				dispatch(getUserData());
 			})
 			.catch((error) => {
 				if (!error.response) {

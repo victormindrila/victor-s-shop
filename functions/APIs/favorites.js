@@ -5,7 +5,20 @@ exports.addToFavorites = async (request, response) => {
 	const productId = request.body.productId;
 
 	try {
-		await database.collection('users').doc(`${request.body.email}`).collection(`favorites`).doc(`${productId}`).set({});
+		const document = await database
+			.collection('users')
+			.doc(`${request.body.userEmail}`)
+			.collection(`favorites`)
+			.doc(`${productId}`)
+			.get();
+
+		if (document.exists) return response.json({ message: 'Product already in favorites' });
+		await database
+			.collection('users')
+			.doc(`${request.body.userEmail}`)
+			.collection(`favorites`)
+			.doc(`${productId}`)
+			.set({});
 		return response.json({ message: 'Successfully added to favorites' });
 	} catch (error) {
 		console.log(error);
@@ -15,10 +28,11 @@ exports.addToFavorites = async (request, response) => {
 
 exports.deleteFromFavorites = async (request, response) => {
 	const productId = request.body.productId;
+	console.log(request.body);
 	try {
 		await database
 			.collection('users')
-			.doc(`${request.body.email}`)
+			.doc(`${request.body.userEmail}`)
 			.collection('favorites')
 			.doc(`${productId}`)
 			.delete();

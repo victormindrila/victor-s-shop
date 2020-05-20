@@ -160,22 +160,25 @@ exports.uploadProfilePhoto = (request, response) => {
 	busboy.end(request.rawBody);
 };
 
-exports.getUserDetails = (request, response) => {
-	let userData = {};
-	database
-		.doc(`/users/${request.user.email}`)
-		.get()
-		.then((doc) => {
-			// eslint-disable-next-line
-			if (doc.exists) {
-				userData = doc.data();
-				return response.json(userData);
-			}
-		})
-		.catch((error) => {
-			console.error(error);
-			return response.status(500).json({ error: error.code });
+exports.getUserDetails = async (request, response) => {
+	try {
+		let userData = {};
+		let favorites = [];
+		const documentSnapshot = await database.doc(`/users/${request.user.email}`).get();
+		const favoritesSnapshot = await database.doc(`/users/${request.user.email}`).collection('favorites').get();
+		favoritesSnapshot.forEach((element) => {
+			favorites.push(element.id);
 		});
+
+		if (documentSnapshot.exists) {
+			userData = documentSnapshot.data();
+			userData.favorites = favorites;
+			return response.json(userData);
+		}
+	} catch (error) {
+		console.error(error);
+		return response.status(500).json({ error: error.code });
+	}
 };
 
 exports.updateUserDetails = (request, response) => {
