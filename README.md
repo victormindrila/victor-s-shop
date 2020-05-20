@@ -107,9 +107,9 @@
     * [x] Cart
         * [x] Cart page
         * [x] Number of products
-    * [ ] Favorites 
+    * [x] Favorites 
         * [x] Add to favorites 
-        * [ ] Remove from favorites
+        * [x] Remove from favorites
     * [ ] About 
     * [ ] Terms and conditions
     * [ ] Checkout page
