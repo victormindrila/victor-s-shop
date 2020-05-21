@@ -10,6 +10,8 @@ import Products from './pages/Products/Products';
 import Product from './pages/Product/Product';
 import Cart from './pages/Cart/Cart';
 import Page404 from './pages/Page404/Page404';
+import About from './pages/About/About';
+import TermsAndConditions from './pages/TermsAndConditions/TermsAndConditions';
 
 class App extends React.Component {
 	render() {
@@ -22,6 +24,8 @@ class App extends React.Component {
 					<Route path='/cart' component={Cart} />
 					<Route path='/products/' component={Products} />
 					<Route path='/product/:productId' component={Product} />
+					<Route path='/about/' component={About} />
+					<Route path='/terms-and-conditions/' component={TermsAndConditions} />
 					<Route path='*' component={Page404} />
 				</Switch>
 			</div>

@@ -1,14 +1,14 @@
 import React from 'react';
 import Layout from '../../components/Layout/Layout';
 
-function About() {
+function TermsAndConditions() {
 	return (
 		<Layout>
 			<div className='cart-page'>
-				<h1>About</h1>
+				<h1>Terms and conditions</h1>
 			</div>
 		</Layout>
 	);
 }
 
-export default About;
+export default TermsAndConditions;
