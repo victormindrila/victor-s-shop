@@ -10,16 +10,16 @@ function Footer() {
 			<div className='container-fluid container-min-max-width
                             d-flex justify-content-between'>
 				<div>
-					<h3 className='h5'>Link-uri rapide:</h3>
+					<h3 className='h5'>Quick Links:</h3>
 					<p className='mb-1'>
-						<Link to='/about'>Despre</Link>
+						<Link to='/about'>About</Link>
 					</p>
 					<p className='m-0'>
-						<Link to='/terms-and-conditions'>Termeni și condiții</Link>
+						<Link to='/terms-and-conditions'>Terms And Conditions</Link>
 					</p>
 				</div>
 				<div>
-					<h3 className='h5'>Contactati-ne:</h3>
+					<h3 className='h5'>Contact Us:</h3>
 					<p className='mb-1'>
 						<a href='mailto:razvan.cirlugea@gmail.com'>
 							<Mail className='mr-1 mb-1 footer-icon' />
