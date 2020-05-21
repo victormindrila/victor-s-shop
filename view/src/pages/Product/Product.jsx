@@ -5,8 +5,10 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import Loader from '../../components/Loader/Loader';
 import BackButton from '../../components/BackButton/BackButton';
+import AddToFav from '../../components/AddToFav/AddToFav';
 
 import { addToCart } from '../../store/actions/cart';
+import { getUserData } from '../../store/actions/user';
 
 class Product extends Component {
 	constructor() {
@@ -35,6 +37,24 @@ class Product extends Component {
 				this.setState({
 					errors: error
 				});
+			});
+	}
+
+	addToFavorites(productId) {
+		const userEmail = this.props.user && this.props.user.email;
+		const { getUserData } = this.props;
+		const authToken = localStorage.getItem('Authorization');
+		axios.defaults.headers.common = { Authorization: `${authToken}` };
+		axios
+			.post('/favorite/', {
+				productId,
+				userEmail
+			})
+			.then((response) => {
+				getUserData();
+			})
+			.catch((error) => {
+				console.log(error);
 			});
 	}
 
@@ -71,6 +91,13 @@ class Product extends Component {
 								}}>
 								Add To Cart
 							</button>
+							<button
+								className='btn btn-dark mb-4 font-weight-bold ml-3'
+								onClick={() => {
+									this.addToFavorites(productId);
+								}}>
+								Add To Favorites
+							</button>
 							<p>
 								<span className='font-weight-bold'>Item Number</span>: {product.itemNumber}
 							</p>
@@ -93,10 +120,19 @@ class Product extends Component {
 	}
 }
 
-function mapDispatchToProps(dispatch) {
+function mapStateToProps(state) {
 	return {
-		addToCart: (product) => dispatch(addToCart(product))
+		user: state.user.data
 	};
 }
 
-export default connect(null, mapDispatchToProps)(Product);
+function mapDispatchToProps(dispatch) {
+	return {
+		addToCart: (product) => dispatch(addToCart(product)),
+		getUserData: () => {
+			dispatch(getUserData());
+		}
+	};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Product);

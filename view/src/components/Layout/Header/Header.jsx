@@ -27,7 +27,7 @@ class Header extends React.Component {
 	}
 
 	render() {
-		const { numberOfProducts } = this.props;
+		const { numberOfProducts, user } = this.props;
 		return (
 			<header className='border-bottom mb-3 '>
 				<div className='container-fluid container-min-max-width d-flex justify-content-between align-items-center'>
@@ -48,9 +48,11 @@ class Header extends React.Component {
 									</div>
 								</Link>
 
-								<Link to='/favorites'>
+								<Link to='/products/?category=favorites' className='d-flex'>
 									<Favorite className='mr-2' />
+									<p className='products-number ml-1 mb-0'>{user.data && user.data.favorites.length}</p>
 								</Link>
+
 								<Link to='/cart' className='d-flex'>
 									<ShoppingCart className='ml-2' />
 									<p className='products-number ml-1 mb-0'>{numberOfProducts}</p>
@@ -66,7 +68,8 @@ class Header extends React.Component {
 
 function mapStateToProps(state) {
 	return {
-		numberOfProducts: state.cart.products.length
+		numberOfProducts: state.cart.products.length,
+		user: state.user
 	};
 }
 

@@ -109,7 +109,8 @@
         * [x] Number of products
     * [x] Favorites 
         * [x] Add to favorites 
-        * [x] Remove from favorites
+        * [x] Remove from favorite
+        * [ ] Favorites page
     * [ ] About 
     * [ ] Terms and conditions
     * [ ] Checkout page
