@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 //actions
 import { getAllCategories } from '../../store/actions/categories';
+import { getAllProducts } from '../../store/actions/products';
 
 // components
 import Layout from '../../components/Layout/Layout';
@@ -12,8 +13,9 @@ import Loader from '../../components/Loader/Loader';
 
 class Home extends React.Component {
 	componentDidMount() {
-		const { categories, getAllCategories } = this.props;
+		const { categories, products, getAllCategories, getAllProducts } = this.props;
 		if (categories.data.length === 0) getAllCategories();
+		if (products.data.length === 0) getAllProducts();
 	}
 
 	render() {
@@ -46,7 +48,8 @@ class Home extends React.Component {
 
 function mapStateToProps(state) {
 	return {
-		categories: state.categories
+		categories: state.categories,
+		products: state.products
 	};
 }
 
@@ -54,6 +57,9 @@ function mapDispatchToProps(dispatch) {
 	return {
 		getAllCategories: () => {
 			dispatch(getAllCategories());
+		},
+		getAllProducts: () => {
+			dispatch(getAllProducts());
 		}
 	};
 }

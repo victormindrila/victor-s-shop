@@ -13,6 +13,7 @@ import { ReactComponent as Favorite } from '../../../assets/icons/favorite.svg';
 
 //components
 import DropdownUser from '../../Dropdown/DropdownUser';
+import DropdownSearch from '../../Dropdown/DropdownSearch';
 
 class Header extends React.Component {
 	constructor() {
@@ -34,7 +35,9 @@ class Header extends React.Component {
 					<Link to='/' className='my-3'>
 						<img src={logo} alt={`Victor's shop`} className='logo' />
 					</Link>
-					<input className='form-control mr-4' type='text' placeholder='Search' />
+
+					<DropdownSearch />
+
 					<div>
 						<div className='d-flex justify-content-end'>
 							<div className='d-flex align-items-center'>
