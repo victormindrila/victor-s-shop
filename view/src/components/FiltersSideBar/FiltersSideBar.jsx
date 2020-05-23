@@ -12,9 +12,10 @@ class FiltersSideBar extends React.Component {
 	componentDidMount() {
 		const { products } = this.props;
 		const prices = this.getOptions(products, 'price');
+		const maxPrice = Number(Math.max(...prices)) + 50;
 		this.setState({
-			maxPriceInput: Math.max(...prices),
-			maxPrice: Math.max(...prices)
+			maxPriceInput: maxPrice,
+			maxPrice: maxPrice
 		});
 	}
 	getOptions(array, key) {
