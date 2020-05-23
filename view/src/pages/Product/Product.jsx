@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import Layout from '../../components/Layout/Layout';
 import { connect } from 'react-redux';
-
 import axios from 'axios';
+
+import './Product.css';
 import Loader from '../../components/Loader/Loader';
 import BackButton from '../../components/BackButton/BackButton';
 import AddToFav from '../../components/AddToFav/AddToFav';
@@ -67,10 +68,9 @@ class Product extends Component {
 				<div className='product-page container-fluid container-min-max-width'>
 					<BackButton goBack={this.props.history.goBack} />
 					<h1 className='my-5 h2'>{product.title}</h1>
-					<div className='product-info d-flex'>
-						<div className='image-wrapper d-flex mr-5'>
+					<div className='product-info d-flex mb-5'>
+						<div className='image-wrapper d-flex justify-content-center align-items-center mr-5'>
 							<img src={product.imageUrl} alt='Product presentation' />
-							{this.state.loading && <Loader />}
 						</div>
 						<div className='product-details'>
 							<p className='h3 text-danger'>
