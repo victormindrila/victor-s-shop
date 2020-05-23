@@ -112,7 +112,8 @@
         * [x] Favorites page
     * [x] About 
     * [x] Terms and conditions
-    * [ ] Checkout page
+    * [x] Checkout page
+    * [x] Order summary
     * [x] Slider
     * [x] Search
     * [x] Sort
