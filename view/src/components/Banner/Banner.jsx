@@ -5,7 +5,6 @@ import './Banner.css';
 
 function Banner(props) {
 	const { background, link, tagLine } = props;
-	console.dir(link, tagLine);
 	return (
 		<div className='banner'>
 			<div className='image-wrapper'>
