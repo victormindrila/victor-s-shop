@@ -2,6 +2,7 @@ import React from 'react';
 import Layout from '../../components/Layout/Layout';
 
 function TermsAndConditions() {
+	window.scrollTo(0, 0);
 	return (
 		<Layout>
 			<div className='cart-page container-fluid container-min-max-width'>
