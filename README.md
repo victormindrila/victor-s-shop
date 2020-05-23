@@ -62,7 +62,6 @@
             * [x]  view user
             * [x]  delete user
         * [x] Pagination Component and functionality
-        * [ ] sort
         * [ ] add responsiveness
         * [ ] format dates 
         * [ ] add filters 
@@ -75,7 +74,7 @@
     * [x] Products functions
     * [x] Categories functions
     * [x] Orders functions
-    * [ ] Add to favorites
+    * [x] Add to favorites
     * [ ] Check for duplicate products
 
 * [ ] View 
@@ -84,7 +83,7 @@
         * [x] products 
         * [x] categories 
         * [x] cart
-        * [ ] favorites 
+        * [x] favorites 
     * [x] Header
         * [x] implement a dropdown menu for user options
     * [x] Footer
@@ -110,11 +109,11 @@
     * [x] Favorites 
         * [x] Add to favorites 
         * [x] Remove from favorite
-        * [ ] Favorites page
-    * [ ] About 
-    * [ ] Terms and conditions
+        * [x] Favorites page
+    * [x] About 
+    * [x] Terms and conditions
     * [ ] Checkout page
-    * [ ] Search
-    * [ ] Sort
+    * [x] Search
+    * [x] Sort
     * [ ] Filters  
     * [ ] route guard 
