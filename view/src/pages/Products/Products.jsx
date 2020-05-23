@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 //components
 import BackButton from '../../components/BackButton/BackButton';
 import DropdownSort from '../../components/Dropdown/DropdownSort';
+import FiltersSideBar from '../../components/FiltersSideBar/FiltersSideBar';
 
 //actions
 import { getAllProducts } from '../../store/actions/products';
@@ -34,16 +35,30 @@ class ProductList extends React.Component {
 
 	filterProducts(products, filterBy) {
 		const { favorites } = this.props;
-		let filteredProducts;
-		if (!filterBy) {
-			return products;
-		} else if (filterBy.category === 'favorites') {
-			filteredProducts = products.filter((product) => favorites.some((element) => element === product.id));
-			return filteredProducts;
-		} else {
-			filteredProducts = products.filter((product) => product.category.id === filterBy.category);
-			return filteredProducts;
+		let filteredProducts = products.slice();
+		if (!filterBy) return filteredProducts;
+
+		if (filterBy.category) {
+			if (filterBy.category === 'favorites') {
+				filteredProducts = products.filter((product) => favorites.some((element) => element === product.id));
+			} else {
+				filteredProducts = products.filter((product) => product.category.id === filterBy.category);
+			}
 		}
+
+		for (let item of [ ...Object.keys(filterBy) ]) {
+			if (item !== 'category') {
+				if (item === 'minPriceInput') {
+					filteredProducts = filteredProducts.filter((product) => Number(product.price) >= Number(filterBy[item]));
+				} else if (item === 'maxPriceInput') {
+					filteredProducts = filteredProducts.filter((product) => Number(product.price) <= Number(filterBy[item]));
+				} else {
+					filteredProducts = filteredProducts.filter((product) => product[item] === filterBy[item]);
+				}
+			}
+		}
+
+		return filteredProducts;
 	}
 
 	sortProducts(products, sortBy) {
@@ -68,6 +83,8 @@ class ProductList extends React.Component {
 				}
 				return 0;
 			});
+		} else if (sortBy === 'default') {
+			return products;
 		}
 		return arrCpy;
 	}
@@ -131,7 +148,10 @@ class ProductList extends React.Component {
 					<hr />
 					<h2>{this.state.categoryName}</h2>
 					<hr />
-					<ProductsList products={sortedProducts} />
+					<div className='d-flex'>
+						<FiltersSideBar params={params} history={this.props.history} products={filteredProducts} />
+						<ProductsList products={sortedProducts} />
+					</div>
 				</div>
 			</Layout>
 		);
