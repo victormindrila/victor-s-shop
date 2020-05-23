@@ -42,6 +42,21 @@ class FiltersSideBar extends React.Component {
 		});
 	}
 
+	handleClearFilters() {
+		const { params, history } = this.props;
+		const path = history.location.pathname;
+		params.forEach((value, key) => {
+			if (key !== 'category') {
+				params.delete(key);
+			}
+		});
+		this.setState({
+			minPriceInput: 0,
+			maxPriceInput: this.state.maxPrice
+		});
+		history.push(`${path}?${params.toString()}`);
+	}
+
 	render() {
 		const { products } = this.props;
 		const brands = this.getOptions(products, 'brand');
@@ -56,6 +71,7 @@ class FiltersSideBar extends React.Component {
 					id='minPrice'
 					name='minPriceInput'
 					min='0'
+					step='5'
 					max={this.state.maxPrice}
 					value={this.state.minPriceInput}
 					onChange={(e) => {
@@ -70,6 +86,7 @@ class FiltersSideBar extends React.Component {
 					id='maxPrice'
 					name='maxPriceInput'
 					min='0'
+					step='5'
 					max={this.state.maxPrice}
 					value={this.state.maxPriceInput}
 					onChange={(e) => {
@@ -103,6 +120,11 @@ class FiltersSideBar extends React.Component {
 						);
 					})}
 				</select>
+				<button
+					className='btn btn-outline-dark mb-3 form-control form-control-lg'
+					onClick={() => this.handleClearFilters()}>
+					Clear All Filters
+				</button>
 			</div>
 		);
 	}
