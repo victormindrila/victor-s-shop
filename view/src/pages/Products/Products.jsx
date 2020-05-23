@@ -65,20 +65,20 @@ class ProductList extends React.Component {
 		const arrCpy = products.slice();
 		if (sortBy === 'ascending') {
 			arrCpy.sort((a, b) => {
-				if (a.title < b.title) {
+				if (Number(a.price) < Number(b.price)) {
 					return -1;
 				}
-				if (a.title > b.title) {
+				if (Number(a.price) > Number(b.price)) {
 					return 1;
 				}
 				return 0;
 			});
 		} else if (sortBy === 'descending') {
 			arrCpy.sort((a, b) => {
-				if (a.title > b.title) {
+				if (Number(a.price) > Number(b.price)) {
 					return -1;
 				}
-				if (a.title < b.title) {
+				if (Number(a.price) < Number(b.price)) {
 					return 1;
 				}
 				return 0;
