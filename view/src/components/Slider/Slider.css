@@ -1,5 +1,5 @@
-* {
-	box-sizing: border-box;
+.slider {
+	position: relative;
 }
 
 .slider img {
@@ -9,7 +9,7 @@
 /* Slideshow container */
 .slideshow-container {
 	max-width: 1000px;
-	position: relative;
+	position: absolute;
 	margin: auto;
 }
 
@@ -18,9 +18,8 @@
 .next {
 	cursor: pointer;
 	position: absolute;
-	top: 50%;
+	top: 40%;
 	width: auto;
-	padding: 16px;
 	margin-top: -22px;
 	color: white;
 	font-weight: bold;

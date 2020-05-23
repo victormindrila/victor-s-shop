@@ -4,23 +4,18 @@ import { Link } from 'react-router-dom';
 import './Banner.css';
 
 function Banner(props) {
-	const { background } = props;
+	const { background, link, tagLine } = props;
+	console.dir(link, tagLine);
 	return (
-		<div className='banner container-fluid' style={{ backgroundImage: `url(${background})` }}>
-			<div className='container'>
-				<p>
-					Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolor consectetur veniam perferendis sed officiis,
-					recusandae vero velit perspiciatis? Repellendus sapiente atque quae pariatur ut eius ullam deleniti nobis,
-					illo dignissimos. Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam expedita cumque id!
-					Accusamus totam quod hic voluptatum. Explicabo, sint dignissimos ipsa dolores quam facere. Sed provident nobis
-					quod iure reiciendis?
-				</p>
-
-				<p>
-					Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta, quo culpa fugit eum accusantium itaque
-					provident nisi perspiciatis, in dignissimos tenetur voluptatum molestias incidunt tempore quae voluptas.
-					Tenetur, sint harum!
-				</p>
+		<div className='banner'>
+			<div className='image-wrapper'>
+				<img src={background} />
+				<div className='banner-elements d-flex flex-column justify-content-center align-items-center'>
+					<h2 className='my-5'>{tagLine}</h2>
+					<Link to={`${link}`}>
+						<button className='banner-button btn btn-dark'>Show Products</button>
+					</Link>
+				</div>
 			</div>
 		</div>
 	);

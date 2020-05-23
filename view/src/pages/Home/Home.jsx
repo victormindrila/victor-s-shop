@@ -10,6 +10,7 @@ import { getAllProducts } from '../../store/actions/products';
 import Layout from '../../components/Layout/Layout';
 import HomeCategory from '../../components/HomeCategory/HomeCategory';
 import Loader from '../../components/Loader/Loader';
+import Slider from '../../components/Slider/Slider';
 
 class Home extends React.Component {
 	componentDidMount() {
@@ -25,6 +26,7 @@ class Home extends React.Component {
 				<div className='d-flex justify-content-center'>{categories.loading && <Loader />}</div>
 
 				<div className='container-fluid container-min-max-width'>
+					<Slider />
 					<div className='row'>
 						{categories.data.map((category) => {
 							const { id, name, description, imageUrl } = category;

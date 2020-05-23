@@ -3,10 +3,10 @@ import './Slide.css';
 import Banner from '../../Banner/Banner';
 
 function Slide(props) {
-	const { image, total, active, clickFunction, show } = props;
+	const { image, link, tagLine, total, active, clickFunction, show } = props;
 	return (
 		<div>
-			<Banner show={show} background={image} />
+			<Banner show={show} link={link} tagLine={tagLine} background={image} />
 
 			<div className='dots mt-3'>
 				{Array.from(Array(total), (element, index) => (
