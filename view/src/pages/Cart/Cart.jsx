@@ -24,7 +24,13 @@ function Cart(props) {
 				d-flex flex-column justify-content-center align-items-center'>
 				{props.products.length ? (
 					<div className='w-100'>
-						<BackButton goBack={props.history.goBack} />
+						<div className='d-flex justify-content-between'>
+							<BackButton goBack={props.history.goBack} />
+							<Link to='/checkout'>
+								<button className='btn btn-outline-dark my-3'>Check Out</button>
+							</Link>
+						</div>
+
 						<div className='d-flex justify-content-between text-center h4 text-bold'>
 							<p className='w-25'>Product</p>
 							<p className='w-25'>Price</p>
@@ -53,7 +59,6 @@ function Cart(props) {
 								</div>
 							);
 						})}
-						{/* Am adaugat o sectiune care afiseaza totalul comenzii. */}
 						<div className='d-flex justify-content-end border-top'>
 							<div className='w-25 d-flex align-items-center justify-content-center'>
 								<p className='my-4 text-center font-weight-bold'>Total de plată: </p>
