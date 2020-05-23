@@ -5,43 +5,133 @@ import { connect } from 'react-redux';
 
 //components
 import BackButton from '../../components/BackButton/BackButton';
+import DropdownSort from '../../components/Dropdown/DropdownSort';
 
 //actions
 import { getAllProducts } from '../../store/actions/products';
 import { getAllCategories } from '../../store/actions/categories';
 
 class ProductList extends React.Component {
+	constructor() {
+		super();
+		this.state = {
+			categoryName: ''
+		};
+	}
 	componentDidMount() {
 		window.scrollTo(0, 0);
+
 		const { products, categories, getAllProducts, getAllCategories } = this.props;
-		if (products.data.length === 0) getAllProducts();
-		if (categories.data.length === 0) getAllCategories();
+		const params = new URLSearchParams(this.props.history.location.search);
+		const categoryId = params.get('category');
+		if (products.length === 0) getAllProducts();
+		if (categories.length === 0) getAllCategories();
+		const categoryName = this.getCategoryName(categoryId);
+		this.setState({
+			categoryName: categoryName
+		});
+	}
+
+	filterProducts(products, filterBy) {
+		const { favorites } = this.props;
+		let filteredProducts;
+		if (!filterBy) {
+			return products;
+		} else if (filterBy.category === 'favorites') {
+			filteredProducts = products.filter((product) => favorites.some((element) => element === product.id));
+			return filteredProducts;
+		} else {
+			filteredProducts = products.filter((product) => product.category.id === filterBy.category);
+			return filteredProducts;
+		}
+	}
+
+	sortProducts(products, sortBy) {
+		const arrCpy = products.slice();
+		if (sortBy === 'ascending') {
+			arrCpy.sort((a, b) => {
+				if (a.title < b.title) {
+					return -1;
+				}
+				if (a.title > b.title) {
+					return 1;
+				}
+				return 0;
+			});
+		} else if (sortBy === 'descending') {
+			arrCpy.sort((a, b) => {
+				if (a.title > b.title) {
+					return -1;
+				}
+				if (a.title < b.title) {
+					return 1;
+				}
+				return 0;
+			});
+		}
+		return arrCpy;
+	}
+
+	getFilters(params) {
+		let filterBy;
+		for (let pair of params.entries()) {
+			if (pair[0] !== 'sort') {
+				filterBy = {
+					...filterBy,
+					[pair[0]]: pair[1]
+				};
+			}
+		}
+		if (filterBy) return filterBy;
+	}
+
+	getSort(params) {
+		let sortBy;
+		for (let pair of params.entries()) {
+			if (pair[0] === 'sort') {
+				sortBy = pair[1];
+			}
+		}
+		return sortBy;
+	}
+
+	getCategoryName(categoryId) {
+		const { categories } = this.props;
+		const category = categories.find((category) => category.id === categoryId);
+		let categoryName;
+
+		if (categoryId === null) {
+			categoryName = 'All Products';
+		} else if (categoryId === 'favorites') {
+			categoryName = 'Favorites';
+		} else {
+			categoryName = category && category.name;
+		}
+		return categoryName;
 	}
 
 	render() {
-		const { data: products } = this.props.products;
-		const { data: categories } = this.props.categories;
-		const { favorites } = this.props;
-		const categoryId = this.props.history.location.search.split('?category=')[1];
-		const category = categories.find((category) => category.id === categoryId);
-		let filteredProducts;
-		let categoryName;
-		if (categoryId === 'favorites') {
-			categoryName = 'Favorites';
-			filteredProducts = products.filter((product) => favorites.some((element) => element === product.id));
-		} else {
-			categoryName = category && category.name;
-			filteredProducts = products.filter((product) => product.category.id === categoryId);
-		}
+		const params = new URLSearchParams(this.props.history.location.search);
+		const { products } = this.props;
+
+		const filterBy = this.getFilters(params);
+		let sortBy = this.getSort(params);
+
+		const filteredProducts = this.filterProducts(products, filterBy);
+		const sortedProducts = this.sortProducts(filteredProducts, sortBy);
 
 		return (
 			<Layout>
 				<div className='container-fluid container-min-max-width'>
-					<BackButton goBack={this.props.history.goBack} />
+					<div className='d-flex justify-content-between'>
+						<BackButton goBack={this.props.history.goBack} />
+						<DropdownSort params={params} history={this.props.history} />
+					</div>
+
 					<hr />
-					<h2>{categoryName || 'All Products'}</h2>
+					<h2>{this.state.categoryName}</h2>
 					<hr />
-					<ProductsList products={categoryId ? filteredProducts : products} />
+					<ProductsList products={sortedProducts} />
 				</div>
 			</Layout>
 		);
@@ -50,8 +140,8 @@ class ProductList extends React.Component {
 
 function mapStateToProps(state) {
 	return {
-		products: state.products,
-		categories: state.categories,
+		products: state.products.data,
+		categories: state.categories.data,
 		favorites: state.user.data.favorites
 	};
 }

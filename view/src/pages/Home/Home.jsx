@@ -34,7 +34,7 @@ class Home extends React.Component {
 					<div>
 						<hr />
 						<div className='d-flex justify-content-center'>
-							<Link to='/products'>
+							<Link to='/products/'>
 								<button className='btn btn-outline-dark my-3'>View all products</button>
 							</Link>
 						</div>
