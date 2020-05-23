@@ -102,7 +102,7 @@
     * [x] Product 
         * [x] Product item 
         * [x] Product page
-            * [ ] Fix product image 
+            * [x] Fix product image 
     * [x] Cart
         * [x] Cart page
         * [x] Number of products
@@ -115,5 +115,6 @@
     * [ ] Checkout page
     * [x] Search
     * [x] Sort
-    * [ ] Filters  
+    * [x] Filters  
     * [ ] route guard 
+    * [ ] Responsiveness
