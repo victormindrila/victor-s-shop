@@ -1,5 +1,6 @@
 const initialState = {
-	products: []
+	products: [],
+	orderDetails: {}
 };
 
 export function cartReducer(state = initialState, action) {
@@ -40,6 +41,10 @@ export function cartReducer(state = initialState, action) {
 
 			return Object.assign({}, state, {
 				products: filteredProducts
+			});
+		case 'ADD_ORDER_DETAILS':
+			return Object.assign({}, state, {
+				orderDetails: action.payload
 			});
 		default:
 			return state;

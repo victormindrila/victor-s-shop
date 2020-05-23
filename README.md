@@ -113,6 +113,7 @@
     * [x] About 
     * [x] Terms and conditions
     * [ ] Checkout page
+    * [x] Slider
     * [x] Search
     * [x] Sort
     * [x] Filters  

@@ -11,3 +11,10 @@ export function removeFromCart(payload) {
 		payload
 	};
 }
+
+export function addOrderDetails(payload) {
+	return {
+		type: 'ADD_ORDER_DETAILS',
+		payload
+	};
+}
