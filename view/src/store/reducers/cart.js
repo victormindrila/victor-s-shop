@@ -46,6 +46,11 @@ export function cartReducer(state = initialState, action) {
 			return Object.assign({}, state, {
 				orderDetails: action.payload
 			});
+		case 'CLEAR_CART':
+			return Object.assign({}, state, {
+				products: [],
+				orderDetails: {}
+			});
 		default:
 			return state;
 	}

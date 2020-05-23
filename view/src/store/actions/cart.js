@@ -18,3 +18,9 @@ export function addOrderDetails(payload) {
 		payload
 	};
 }
+
+export function clearCart() {
+	return {
+		type: 'CLEAR_CART'
+	};
+}

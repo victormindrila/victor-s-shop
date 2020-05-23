@@ -1,0 +1,7 @@
+.cart-page img {
+	max-height: 100px;
+}
+
+.cart-page svg {
+	cursor: pointer;
+}
