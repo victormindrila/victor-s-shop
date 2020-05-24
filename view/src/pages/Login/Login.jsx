@@ -30,7 +30,11 @@ class Login extends React.Component {
 	}
 	componentDidUpdate(prevProps) {
 		if (this.props.user !== prevProps.user) {
-			this.props.history.push('/');
+			if (window.history.length > 2) {
+				this.props.history.goBack();
+			} else {
+				this.props.history.push('/');
+			}
 		}
 	}
 
@@ -53,6 +57,7 @@ class Login extends React.Component {
 	}
 
 	render() {
+		console.log(window.history.length);
 		return (
 			<div className='login-page'>
 				<Link to='/'>
