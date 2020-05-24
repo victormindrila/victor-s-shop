@@ -65,7 +65,6 @@ exports.getAllOrders = async (request, response) => {
 };
 
 exports.getOrderDetails = async (request, response) => {
-	console.log(request.query.orderId);
 	try {
 		const { orderId } = request.query;
 		const orderDocument = await database.doc(`/orders/${orderId}`).get();
@@ -73,7 +72,6 @@ exports.getOrderDetails = async (request, response) => {
 		if (orderDocument.exists) {
 			let orderData = orderDocument.data();
 			orderData.id = orderDocument.id;
-
 			const productsPromises = [];
 			orderData.products.forEach((product) => {
 				const promise = database.doc(`/products/${product.productId}`).get();
@@ -101,6 +99,7 @@ exports.getOrderDetails = async (request, response) => {
 
 			return response.json(orderData);
 		}
+		return response.status(404).json({ error: 'Order not found' });
 	} catch (error) {
 		console.error(error);
 		return response.status(500).json({ error: error.code });
