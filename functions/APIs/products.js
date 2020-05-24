@@ -198,7 +198,7 @@ exports.getProductDetails = async (request, response) => {
 		if (productDoc.exists) {
 			productData = productDoc.data();
 			categoriesSnapshots.forEach((snapshot) => {
-				if (snapshot.id === productData.category) productData.category = snapshot.data().description;
+				if (snapshot.id === productData.category) productData.category = snapshot.data().name;
 			});
 			return response.json(productData);
 		}
