@@ -28,9 +28,9 @@ class DropdownSort extends React.Component {
 	}
 	render() {
 		return (
-			<div className='dropdown'>
+			<div className='dropdown my-3'>
 				<button
-					className='btn btn-outline-dark dropdown-toggle my-3'
+					className='btn btn-outline-dark dropdown-toggle mt-1'
 					type='button'
 					id='dropdownMenuButton'
 					data-toggle='dropdown'
