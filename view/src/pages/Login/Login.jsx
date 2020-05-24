@@ -96,11 +96,11 @@ class Login extends React.Component {
 							</div>
 							{this.props.userError.error && <Error error={this.props.userError.error} />}
 							<button type='submit' className='btn btn-outline-dark mb-3 form-control form-control-lg'>
-								Logare
+								Log In
 							</button>
 						</form>
 						<Link to='/signup' className='my-3'>
-							Nu ai un cont? Inregistreaza-te cu email!
+							Don't have an account? Sign Up with e-mail!
 						</Link>
 					</div>
 				</div>
@@ -109,13 +109,13 @@ class Login extends React.Component {
 					className='btn btn-outline-dark d-flex align-items-center'
 					onClick={() => this.props.loginUserWithGoogle()}>
 					<Google className='w-50 mr-3' />
-					<span className='text-nowrap pr-3'>Loghează-te cu Google</span>
+					<span className='text-nowrap pr-3'>Log In with Google</span>
 				</button>
 				<button
 					className='btn btn-outline-dark d-flex align-items-center mt-3'
 					onClick={() => this.props.loginUserWithGoogle()}>
 					<Facebook className='w-50 mr-3' />
-					<span className='text-nowrap'>Loghează-te cu Facebook</span>
+					<span className='text-nowrap'>Log In with Facebook</span>
 				</button>
 			</div>
 		);
