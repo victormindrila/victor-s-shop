@@ -119,5 +119,5 @@
     * [x] Sort
     * [x] Filters  
     * [x] route guard 
-    * [ ] Responsiveness
+    * [x] Responsiveness
     * [x] fix hover user error
