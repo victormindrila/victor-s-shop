@@ -118,5 +118,6 @@
     * [x] Search
     * [x] Sort
     * [x] Filters  
-    * [ ] route guard 
+    * [x] route guard 
     * [ ] Responsiveness
+    * [x] fix hover user error
