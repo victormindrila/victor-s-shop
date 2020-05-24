@@ -111,6 +111,7 @@ class Login extends React.Component {
 					<span className='text-nowrap pr-3'>Log In with Google</span>
 				</button>
 				<button
+					disabled
 					className='btn btn-outline-dark d-flex align-items-center mt-3'
 					onClick={() => this.props.loginUserWithGoogle()}>
 					<Facebook className='w-50 mr-3' />
