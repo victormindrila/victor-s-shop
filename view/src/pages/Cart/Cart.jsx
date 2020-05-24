@@ -65,7 +65,7 @@ function Cart(props) {
 							</div>
 							<div className='w-25'>
 								<p className='my-4 text-center'>
-									{totalSum(props.products)} {props.products[0].currency}
+									{totalSum(props.products).toFixed(2)} {props.products[0].currency}
 								</p>
 							</div>
 						</div>

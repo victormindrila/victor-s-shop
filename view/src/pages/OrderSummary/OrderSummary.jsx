@@ -30,7 +30,8 @@ function OrderSummary({ products, orderDetails, history, uid, email, clearCart }
 
 		products.forEach((product) => {
 			order.products.push({
-				[product.id]: product.quantity
+				productId: product.id,
+				quantity: product.quantity
 			});
 		});
 
@@ -93,7 +94,7 @@ function OrderSummary({ products, orderDetails, history, uid, email, clearCart }
 							</div>
 							<div className='w-25'>
 								<p className='my-4 text-center'>
-									{totalSum(products)} {products[0].currency}
+									{totalSum(products).toFixed(2)} {products[0].currency}
 								</p>
 							</div>
 						</div>
