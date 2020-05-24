@@ -6,6 +6,25 @@ class DropdownSort extends React.Component {
 		this.state = {
 			show: false
 		};
+
+		this.setWrapperRef = this.setWrapperRef.bind(this);
+		this.handleClickOutside = this.handleClickOutside.bind(this);
+	}
+
+	componentDidMount() {
+		document.addEventListener('mousedown', this.handleClickOutside);
+	}
+
+	componentWillUnmount() {
+		document.removeEventListener('mousedown', this.handleClickOutside);
+	}
+	setWrapperRef(node) {
+		this.wrapperRef = node;
+	}
+	handleClickOutside(event) {
+		if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
+			this.hideDropdown();
+		}
 	}
 	hideDropdown() {
 		this.setState({
@@ -28,7 +47,7 @@ class DropdownSort extends React.Component {
 	}
 	render() {
 		return (
-			<div className='dropdown my-3'>
+			<div className='dropdown my-3' ref={this.setWrapperRef}>
 				<button
 					className='btn btn-outline-dark dropdown-toggle mt-1'
 					type='button'

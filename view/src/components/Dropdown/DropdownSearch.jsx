@@ -10,6 +10,24 @@ class DropdownSearch extends React.Component {
 			show: false,
 			search: ''
 		};
+		this.setWrapperRef = this.setWrapperRef.bind(this);
+		this.handleClickOutside = this.handleClickOutside.bind(this);
+	}
+
+	componentDidMount() {
+		document.addEventListener('mousedown', this.handleClickOutside);
+	}
+
+	componentWillUnmount() {
+		document.removeEventListener('mousedown', this.handleClickOutside);
+	}
+	setWrapperRef(node) {
+		this.wrapperRef = node;
+	}
+	handleClickOutside(event) {
+		if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
+			this.hideDropdown();
+		}
 	}
 
 	handleChange(e) {
@@ -20,7 +38,8 @@ class DropdownSearch extends React.Component {
 
 	hideDropdown() {
 		this.setState({
-			show: false
+			show: false,
+			search: ''
 		});
 	}
 
@@ -36,7 +55,7 @@ class DropdownSearch extends React.Component {
 			this.state.search &&
 			products.data.filter((product) => product.title.toLowerCase().includes(this.state.search.toLowerCase()));
 		return (
-			<div className='dropdown w-100 mr-4'>
+			<div className='dropdown w-100 mr-4' ref={this.setWrapperRef}>
 				<input
 					className='form-control '
 					type='text'
