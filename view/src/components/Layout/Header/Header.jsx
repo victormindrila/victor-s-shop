@@ -30,7 +30,7 @@ function Header({ numberOfProducts, user }) {
 					<div className='d-flex justify-content-end'>
 						<div className='d-flex align-items-center'>
 							<Link to='/products/?category=favorites' className='d-flex'>
-								<Favorite className='mr-2' />
+								<Favorite className='mr-1' />
 								<p className='products-number ml-1 mb-0'>{user.data && user.data.favorites.length}</p>
 							</Link>
 

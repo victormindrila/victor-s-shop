@@ -46,8 +46,8 @@ class DropdownUser extends React.Component {
 	render() {
 		const { user, logoutUser } = this.props;
 		return (
-			<div className='dropdown' ref={this.setWrapperRef}>
-				<UserIcon className='mr-2 user-icon' onClick={() => this.handleClick()} />
+			<div className='dropdown mr-4' ref={this.setWrapperRef}>
+				<UserIcon className=' user-icon' onClick={() => this.handleClick()} />
 				<div className={`dropdown-menu ${this.state.show ? 'show' : ''}`}>
 					{user ? <p className='ml-4'>Salut, {user.firstName || user.displayName}!</p> : null}
 
