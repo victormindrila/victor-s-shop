@@ -8,7 +8,7 @@ import './Header.css';
 // assets
 import logo from '../../../assets/images/logo/logo.png';
 import { ReactComponent as ShoppingCart } from '../../../assets/icons/shopping-cart.svg';
-import { ReactComponent as UserIcon } from '../../../assets/icons/user.svg';
+
 import { ReactComponent as Favorite } from '../../../assets/icons/favorite.svg';
 
 //components
@@ -23,10 +23,6 @@ class Header extends React.Component {
 		};
 	}
 
-	handleHoverOnUser() {
-		this.setState({ displayUserDropdown: !this.state.displayUserDropdown });
-	}
-
 	render() {
 		const { numberOfProducts, user } = this.props;
 		return (
@@ -37,20 +33,11 @@ class Header extends React.Component {
 					</Link>
 
 					<DropdownSearch />
+					<DropdownUser />
 
 					<div>
 						<div className='d-flex justify-content-end'>
 							<div className='d-flex align-items-center'>
-								<Link>
-									<div
-										className='dropdown'
-										onMouseEnter={() => this.handleHoverOnUser()}
-										onMouseLeave={() => this.handleHoverOnUser()}>
-										<UserIcon className='mr-2' />
-										<DropdownUser isActive={this.state.displayUserDropdown} />
-									</div>
-								</Link>
-
 								<Link to='/products/?category=favorites' className='d-flex'>
 									<Favorite className='mr-2' />
 									<p className='products-number ml-1 mb-0'>{user.data && user.data.favorites.length}</p>
