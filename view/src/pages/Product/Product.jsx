@@ -4,9 +4,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 
 import './Product.css';
-import Loader from '../../components/Loader/Loader';
 import BackButton from '../../components/BackButton/BackButton';
-import AddToFav from '../../components/AddToFav/AddToFav';
 
 import { addToCart } from '../../store/actions/cart';
 import { getUserData } from '../../store/actions/user';

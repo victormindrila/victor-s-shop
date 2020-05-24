@@ -1,4 +1,4 @@
-import { signInWithGoogle, signInWithEmailAndPassword, signOut } from '../../apis/firebase';
+import { signInWithGoogle } from '../../apis/firebase';
 import axios from 'axios';
 
 export function startLoading() {

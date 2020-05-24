@@ -52,7 +52,11 @@ class DropdownSearch extends React.Component {
 					<div className={`dropdown-menu ${this.state.show ? 'show' : ''} w-100`}>
 						{filteredProducts.map((product) => {
 							return (
-								<Link to={`/product/${product.id}`} className='dropdown-item' onClick={() => this.hideDropdown()}>
+								<Link
+									key={product.id}
+									to={`/product/${product.id}`}
+									className='dropdown-item'
+									onClick={() => this.hideDropdown()}>
 									{product.title}
 								</Link>
 							);

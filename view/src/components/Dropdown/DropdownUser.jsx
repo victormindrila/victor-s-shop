@@ -16,19 +16,19 @@ class DropdownUser extends React.Component {
 
 				{user ? (
 					<div>
-						<div class='dropdown-divider' />
+						<div className='dropdown-divider' />
 						<button className='dropdown-item' onClick={() => logoutUser()}>
-							Delogare
+							Log Out
 						</button>
 					</div>
 				) : (
 					<div>
 						<Link to='/login' className='dropdown-item'>
-							Logare
+							Log In
 						</Link>
-						<div class='dropdown-divider' />
+						<div className='dropdown-divider' />
 						<Link to='/signup' className='dropdown-item'>
-							Inregistrate
+							Sign Up
 						</Link>
 					</div>
 				)}

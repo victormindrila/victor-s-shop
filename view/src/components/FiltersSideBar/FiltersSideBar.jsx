@@ -65,10 +65,10 @@ class FiltersSideBar extends React.Component {
 		return (
 			<div className='col-12 col-md-3'>
 				<h2>Filter</h2>
-				<label for='minPrice'>Price from: {this.state.minPriceInput} EUR</label>
+				<label htmlFor='minPrice'>Price from: {this.state.minPriceInput} EUR</label>
 				<input
 					type='range'
-					class='custom-range'
+					className='custom-range'
 					id='minPrice'
 					name='minPriceInput'
 					min='0'
@@ -80,10 +80,10 @@ class FiltersSideBar extends React.Component {
 						this.handleOptionSelect(e.target.name, e.target.value);
 					}}
 				/>
-				<label for='maxPrice'>Price to: {this.state.maxPriceInput} EUR</label>
+				<label htmlFor='maxPrice'>Price to: {this.state.maxPriceInput} EUR</label>
 				<input
 					type='range'
-					class='custom-range'
+					className='custom-range'
 					id='maxPrice'
 					name='maxPriceInput'
 					min='0'
@@ -96,7 +96,7 @@ class FiltersSideBar extends React.Component {
 					}}
 				/>
 				<select
-					class='custom-select my-3'
+					className='custom-select my-3'
 					name='brand'
 					onChange={(e) => this.handleOptionSelect(e.target.name, e.target.value)}>
 					<option value=''>Filter by brand</option>
@@ -109,7 +109,7 @@ class FiltersSideBar extends React.Component {
 					})}
 				</select>
 				<select
-					class='custom-select my-3'
+					className='custom-select my-3'
 					name='material'
 					onChange={(e) => this.handleOptionSelect(e.target.name, e.target.value)}>
 					<option value=''>Filter by material</option>

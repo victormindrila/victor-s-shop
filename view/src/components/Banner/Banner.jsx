@@ -8,7 +8,7 @@ function Banner(props) {
 	return (
 		<div className='banner'>
 			<div className='image-wrapper'>
-				<img src={background} />
+				<img src={background} alt='promotion banner' />
 				<div className='banner-elements d-flex flex-column justify-content-center align-items-center'>
 					<h2 className='my-5'>{tagLine}</h2>
 					<Link to={`${link}`}>

@@ -52,7 +52,8 @@ class Slider extends React.Component {
 		this.timer.stop();
 	}
 
-	handleClick(number) {
+	handleClick(e, number) {
+		e.preventDefault();
 		let slideNumber = number <= this.state.banners.length - 1 && number >= 0 ? number : 0;
 		this.setState({ displayBanner: this.state.banners[slideNumber], activeBannerIndex: slideNumber, show: true });
 		this.timer.reset();
@@ -68,7 +69,7 @@ class Slider extends React.Component {
 					active={this.state.activeBannerIndex}
 					total={this.state.banners.length}
 					show={this.state.show}
-					clickFunction={(e) => this.handleClick(e)}
+					clickFunction={(e, number) => this.handleClick(e, number)}
 				/>
 			</div>
 		);
