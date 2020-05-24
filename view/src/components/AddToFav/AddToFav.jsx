@@ -6,8 +6,10 @@ import { connect } from 'react-redux';
 import { getUserData } from '../../store/actions/user';
 import { useHistory } from 'react-router-dom';
 
-function AddToFav({ productId, userEmail, userFavorites, getUserData }) {
+function AddToFav({ productId, user, getUserData }) {
 	const history = useHistory();
+	const userEmail = user.data && user.data.email;
+	const userFavorites = user.data && user.data.favorites;
 	const isFavorite = () => userFavorites.some((favorite) => favorite === productId);
 	function addToFavorites(productId) {
 		const authToken = localStorage.getItem('Authorization');
@@ -76,8 +78,7 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
 	return {
-		userEmail: state.user.data.email,
-		userFavorites: state.user.data.favorites
+		user: state.user
 	};
 }
 
