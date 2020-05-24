@@ -197,6 +197,33 @@ exports.updateUserDetails = (request, response) => {
 		});
 };
 
+exports.setUserDetails = async (request, response) => {
+	const userCredentials = {
+		firstName: request.body.firstName,
+		lastName: request.body.lastName,
+		phoneNumber: request.body.phoneNumber,
+		country: request.body.country,
+		email: request.body.email,
+		createdAt: new Date().toISOString(),
+		userId: request.body.uid
+	};
+	console.log(userCredentials);
+	try {
+		const checkSnapshot = await database.doc(`/users/${userCredentials.email}`).get();
+		if (checkSnapshot.exists) {
+			return response.status(201).json(checkSnapshot.data());
+		}
+
+		await database.doc(`/users/${userCredentials.email}`).set(userCredentials);
+		return response.status(201).json(userCredentials);
+	} catch (error) {
+		console.log(error);
+		return response.status(500).json({
+			message: 'Something went wrong'
+		});
+	}
+};
+
 exports.getAllUsers = async (req, res) => {
 	try {
 		let users = [];

@@ -17,7 +17,8 @@ const {
 	getUserDetails,
 	updateUserDetails,
 	getAllUsers,
-	deleteUser
+	deleteUser,
+	setUserDetails
 } = require('./APIs/users');
 const {
 	addCategory,
@@ -73,6 +74,7 @@ app.get('/categories', getAllCategories);
 app.get('/products', getAllProducts);
 app.get('/product', getProductDetails);
 app.post('/favorite/', auth, addToFavorites);
+app.post('/user/setDetails', auth, setUserDetails);
 app.delete('/favorite/', auth, deleteFromFavorites);
 
 exports.api = functions.https.onRequest(app);

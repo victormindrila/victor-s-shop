@@ -121,7 +121,7 @@ function mapStateToProps(state) {
 	return {
 		products: state.cart.products,
 		orderDetails: state.cart.orderDetails,
-		uid: state.user.data.id,
+		uid: state.user.data.userId,
 		email: state.user.data.email
 	};
 }

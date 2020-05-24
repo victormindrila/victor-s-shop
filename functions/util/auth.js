@@ -16,8 +16,11 @@ module.exports = (request, response, next) => {
 			return database.collection('users').where('userId', '==', request.user.uid).limit(1).get();
 		})
 		.then((data) => {
-			request.user.email = data.docs[0].data().email;
-			request.user.imageUrl = data.docs[0].data().imageUrl;
+			if (data.docs[0]) {
+				request.user.email = data.docs[0].data().email;
+				request.user.imageUrl = data.docs[0].data().imageUrl;
+			}
+
 			return next();
 		})
 		.catch((err) => {

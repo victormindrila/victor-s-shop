@@ -10,7 +10,13 @@ function AddToFav({ productId, user, getUserData }) {
 	const history = useHistory();
 	const userEmail = user.data && user.data.email;
 	const userFavorites = user.data && user.data.favorites;
-	const isFavorite = () => userFavorites.some((favorite) => favorite === productId);
+	const isFavorite = () => {
+		if (userFavorites) {
+			return userFavorites.some((favorite) => favorite === productId);
+		} else {
+			return false;
+		}
+	};
 	function addToFavorites(productId) {
 		const authToken = localStorage.getItem('Authorization');
 		axios.defaults.headers.common = { Authorization: `${authToken}` };
@@ -53,7 +59,7 @@ function AddToFav({ productId, user, getUserData }) {
 		}
 	}
 
-	if (userFavorites) {
+	if (user.data) {
 		return (
 			<div className={`add-to-fav ${isFavorite() ? 'is-red' : ''}`} onClick={(e) => handleOnIconClick(productId)}>
 				<FavoriteSmall />

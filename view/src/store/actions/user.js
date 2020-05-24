@@ -27,12 +27,32 @@ export function loginUserWithGoogle() {
 
 		signInWithGoogle()
 			.then((response) => {
-				const payload = response.user;
-
+				const data = response.user;
+				localStorage.setItem('Authorization', 'Bearer ' + data.xa);
+				const userData = {
+					firstName: data.displayName.split(' ')[0],
+					lastName: data.displayName.split(' ')[1],
+					phoneNumber: 123456,
+					country: 'Not provided',
+					email: data.email,
+					uid: data.uid
+				};
+				return userData;
+			})
+			.then((data) => {
+				const authToken = localStorage.getItem('Authorization');
+				axios.defaults.headers.common = { Authorization: `${authToken}` };
+				return axios.post('http://localhost:5000/aligo-test/us-central1/api/user/setDetails', data);
+			})
+			.then((response) => {
+				const payload = response.data;
 				dispatch(updateUserData(payload));
 			})
 			.catch((error) => {
 				dispatch(updateError(error));
+				if (error.response.status === 400) {
+					getUserData();
+				}
 			});
 	};
 }
@@ -82,7 +102,7 @@ export function signUpUser(userData) {
 				dispatch(updateUserData(payload));
 			})
 			.catch((error) => {
-				dispatch(updateError(error.response.data));
+				dispatch(updateError(error));
 			});
 	};
 }
