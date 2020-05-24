@@ -12,6 +12,9 @@ import FiltersSideBar from '../../components/FiltersSideBar/FiltersSideBar';
 import { getAllProducts } from '../../store/actions/products';
 import { getAllCategories } from '../../store/actions/categories';
 
+// CSS
+import './Products.css';
+
 class ProductList extends React.Component {
 	constructor() {
 		super();
@@ -148,7 +151,7 @@ class ProductList extends React.Component {
 					<hr />
 					<h2>{this.state.categoryName}</h2>
 					<hr />
-					<div className='d-flex'>
+					<div className='d-flex products-container'>
 						<FiltersSideBar params={params} history={this.props.history} products={filteredProducts} />
 						<ProductsList products={sortedProducts} />
 					</div>

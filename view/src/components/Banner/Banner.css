@@ -1,5 +1,7 @@
 .banner {
-	height: 350px;
+	max-height: 350px;
+	height: auto;
+	position: relative;
 }
 
 .banner .image-wrapper {
@@ -12,9 +14,40 @@
 }
 
 .banner .image-wrapper .banner-elements {
-	width: 250px;
+	height: 100px;
+	width: 100px;
 	position: absolute;
-	top: 15%;
-	left: 40%;
+	left: 50%;
+	margin-left: -50px;
+	top: 50%;
+	margin-top: -50px;
 	color: white !important;
+}
+
+.banner .image-wrapper .banner-elements h2 {
+	text-align: center;
+	width: 250px;
+}
+
+.banner .image-wrapper .banner-elements button {
+	width: 140px;
+	align-self: center;
+}
+
+.banner .image-wrapper .banner-elements button {
+	opacity: 0.8;
+}
+
+@media (max-width: 576px) {
+	.banner .image-wrapper .banner-elements {
+	}
+
+	.banner .image-wrapper .banner-elements h2 {
+		margin: 10px !important;
+		font-size: 1.5rem;
+	}
+
+	.banner .image-wrapper .banner-elements button {
+		padding: 0.2rem !important;
+	}
 }

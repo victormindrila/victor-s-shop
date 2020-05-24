@@ -9,7 +9,7 @@ function Footer() {
 		<footer className='py-5'>
 			<div className='container-fluid container-min-max-width
                             d-flex justify-content-between'>
-				<div>
+				<div className='footer-group'>
 					<h3 className='h5'>Quick Links:</h3>
 					<p className='mb-1'>
 						<Link to='/about'>About</Link>
@@ -18,7 +18,7 @@ function Footer() {
 						<Link to='/terms-and-conditions'>Terms And Conditions</Link>
 					</p>
 				</div>
-				<div>
+				<div className='footer-group'>
 					<h3 className='h5'>Contact Us:</h3>
 					<p className='mb-1'>
 						<a href='mailto:razvan.cirlugea@gmail.com'>

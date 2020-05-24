@@ -7,3 +7,13 @@ footer {
 	color: #999493;
 	background-color: #333132;
 }
+
+@media (max-width: 576px) {
+	footer > div {
+		flex-direction: column;
+	}
+
+	footer .footer-group {
+		margin-bottom: 1.5rem;
+	}
+}

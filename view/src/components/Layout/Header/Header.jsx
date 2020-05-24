@@ -18,26 +18,30 @@ import DropdownSearch from '../../Dropdown/DropdownSearch';
 function Header({ numberOfProducts, user }) {
 	return (
 		<header className='border-bottom mb-3 '>
-			<div className='container-fluid container-min-max-width d-flex justify-content-between align-items-center'>
-				<Link to='/' className='my-3'>
+			<div className='nav-bar container-fluid container-min-max-width d-flex justify-content-between align-items-center'>
+				<Link to='/' className='my-3 logo-link'>
 					<img src={logo} alt={`Victor's shop`} className='logo' />
 				</Link>
 
-				<DropdownSearch />
-				<DropdownUser />
+				<div className='search-wrapper w-100 mr-4'>
+					<DropdownSearch />
+				</div>
 
-				<div>
-					<div className='d-flex justify-content-end'>
-						<div className='d-flex align-items-center'>
-							<Link to='/products/?category=favorites' className='d-flex'>
-								<Favorite className='mr-1' />
-								<p className='products-number ml-1 mb-0'>{user.data && user.data.favorites.length}</p>
-							</Link>
+				<div className='icons-wrapper d-flex'>
+					<DropdownUser />
+					<div>
+						<div className='d-flex justify-content-end'>
+							<div className='d-flex align-items-center'>
+								<Link to='/products/?category=favorites' className='d-flex'>
+									<Favorite className='mr-1' />
+									<p className='products-number ml-1 mb-0'>{user.data && user.data.favorites.length}</p>
+								</Link>
 
-							<Link to='/cart' className='d-flex'>
-								<ShoppingCart className='ml-2' />
-								<p className='products-number ml-1 mb-0'>{numberOfProducts}</p>
-							</Link>
+								<Link to='/cart' className='d-flex'>
+									<ShoppingCart className='ml-2' />
+									<p className='products-number ml-1 mb-0'>{numberOfProducts}</p>
+								</Link>
+							</div>
 						</div>
 					</div>
 				</div>

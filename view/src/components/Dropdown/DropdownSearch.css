@@ -1,0 +1,10 @@
+a.dropdown-item {
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+@media (max-width: 576px) {
+	a.dropdown-item {
+		padding: 0.25rem 0.5rem !important;
+	}
+}

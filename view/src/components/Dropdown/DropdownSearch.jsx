@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 
+import './DropdownSearch.css';
+
 class DropdownSearch extends React.Component {
 	constructor() {
 		super();
@@ -55,7 +57,7 @@ class DropdownSearch extends React.Component {
 			this.state.search &&
 			products.data.filter((product) => product.title.toLowerCase().includes(this.state.search.toLowerCase()));
 		return (
-			<div className='dropdown w-100 mr-4' ref={this.setWrapperRef}>
+			<div className='dropdown w-100' ref={this.setWrapperRef}>
 				<input
 					className='form-control '
 					type='text'

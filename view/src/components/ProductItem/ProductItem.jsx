@@ -7,7 +7,7 @@ import AddToFav from '../AddToFav/AddToFav';
 
 function ProductItem({ title, price, currency, imageUrl, id, addToCart }) {
 	return (
-		<div className='product-item col-12 col-md-4 d-flex flex-column justify-content-between align-items-center mb-3'>
+		<div className='product-item col-12 col-md-4 col-sm-6 d-flex flex-column justify-content-between align-items-center mb-3'>
 			<AddToFav productId={id} />
 			<Link to={`/product/${id}`} className='d-flex flex-column justify-content-center align-items-center '>
 				<div className='d-flex flex-column justify-content-center align-items-center image-container'>
