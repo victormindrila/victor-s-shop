@@ -10,7 +10,11 @@ function Slide(props) {
 
 			<div className='dots mt-3'>
 				{Array.from(Array(total), (element, index) => (
-					<span key={index} className={active === index ? 'dot active' : 'dot'} onClick={() => clickFunction(index)} />
+					<span
+						key={index}
+						className={active === index ? 'dot active' : 'dot'}
+						onClick={(e) => clickFunction(e, index)}
+					/>
 				))}
 			</div>
 			<a href='/' className='prev' onClick={(e) => clickFunction(e, active - 1)}>
