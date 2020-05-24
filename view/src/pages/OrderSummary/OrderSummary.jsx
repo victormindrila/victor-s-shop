@@ -34,13 +34,11 @@ function OrderSummary({ products, orderDetails, history, uid, email, clearCart }
 			});
 		});
 
-		console.log(order);
 		const authToken = localStorage.getItem('Authorization');
 		axios.defaults.headers.common = { Authorization: `${authToken}` };
 		axios
 			.post('/order', order)
 			.then((response) => {
-				console.log(response);
 				clearCart();
 			})
 			.catch((error) => {

@@ -24,7 +24,6 @@ function AddToFav({ productId, userEmail, userFavorites, getUserData }) {
 	}
 
 	function deleteFromFavorites(productId) {
-		console.log('delte');
 		const authToken = localStorage.getItem('Authorization');
 		axios.defaults.headers.common = { Authorization: `${authToken}` };
 		axios
@@ -35,7 +34,6 @@ function AddToFav({ productId, userEmail, userFavorites, getUserData }) {
 				}
 			})
 			.then((response) => {
-				console.log(response);
 				getUserData();
 			})
 			.catch((error) => {
@@ -45,10 +43,8 @@ function AddToFav({ productId, userEmail, userFavorites, getUserData }) {
 
 	function handleOnIconClick(productId) {
 		if (isFavorite() === true) {
-			console.log(isFavorite());
 			deleteFromFavorites(productId);
 		} else {
-			console.log(isFavorite());
 			addToFavorites(productId);
 		}
 	}

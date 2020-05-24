@@ -57,7 +57,6 @@ class Signup extends React.Component {
 			confirmPassword: this.state.passwordConfirmation
 		};
 		const { valid, errors } = validateSignUpData(userData);
-		console.log(valid, errors);
 		if (valid) signUpUser(userData);
 		if (!valid) updateError(errors);
 	}
