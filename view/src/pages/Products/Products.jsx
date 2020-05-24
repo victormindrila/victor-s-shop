@@ -39,7 +39,7 @@ class ProductList extends React.Component {
 		if (!filterBy) return filteredProducts;
 
 		if (filterBy.category) {
-			if (filterBy.category === 'favorites') {
+			if (filterBy.category === 'favorites' && favorites) {
 				filteredProducts = products.filter((product) => favorites.some((element) => element === product.id));
 			} else {
 				filteredProducts = products.filter((product) => product.category.id === filterBy.category);
