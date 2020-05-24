@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 // components
 import Layout from '../../components/Layout/Layout';
 import BackButton from '../../components/BackButton/BackButton';
+import Error from '../../components/Error/Error';
 
 import { addOrderDetails } from '../../store/actions/cart';
 
@@ -15,9 +16,18 @@ class Checkout extends React.Component {
 		this.state = {
 			deliveryAddress: '',
 			billingAddress: '',
-			comments: ''
+			comments: '',
+			error: ''
 		};
 	}
+	componentDidMount() {
+		this.setState({
+			deliveryAddress: this.props.orderDetails.deliveryAddress,
+			billingAddress: this.props.orderDetails.billingAddress,
+			comments: this.props.orderDetails.comments
+		});
+	}
+
 	handleChange(e) {
 		this.setState({
 			[e.target.name]: e.target.value
@@ -34,6 +44,12 @@ class Checkout extends React.Component {
 		};
 
 		addOrderDetails(orderDetails);
+		if (!this.props.user) {
+			this.setState({
+				error: 'Please login first!'
+			});
+			return;
+		}
 		this.props.history.push('/order-summary');
 	}
 
@@ -79,7 +95,7 @@ class Checkout extends React.Component {
 										onChange={(e) => this.handleChange(e)}
 									/>
 								</div>
-
+								{this.state.error && <Error error={this.state.error} />}
 								<button className='btn btn-outline-dark mb-3 form-control form-control-lg'>Submit</button>
 							</form>
 						</div>
@@ -92,7 +108,9 @@ class Checkout extends React.Component {
 
 function mapStateToProps(state) {
 	return {
-		products: state.cart.products
+		products: state.cart.products,
+		orderDetails: state.cart.orderDetails,
+		user: state.user.data
 	};
 }
 
