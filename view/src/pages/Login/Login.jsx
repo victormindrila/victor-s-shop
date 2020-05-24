@@ -57,7 +57,6 @@ class Login extends React.Component {
 	}
 
 	render() {
-		console.log(window.history.length);
 		return (
 			<div className='login-page'>
 				<Link to='/'>
