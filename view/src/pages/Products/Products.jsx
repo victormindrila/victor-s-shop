@@ -34,7 +34,7 @@ class ProductList extends React.Component {
 	}
 
 	filterProducts(products, filterBy) {
-		const { favorites } = this.props;
+		const favorites = this.props.user.data && this.props.user.data.favorites;
 		let filteredProducts = products.slice();
 		if (!filterBy) return filteredProducts;
 
@@ -162,7 +162,7 @@ function mapStateToProps(state) {
 	return {
 		products: state.products.data,
 		categories: state.categories.data,
-		favorites: state.user.data.favorites
+		user: state.user
 	};
 }
 
