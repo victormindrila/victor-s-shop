@@ -39,9 +39,6 @@
 }
 
 @media (max-width: 576px) {
-	.banner .image-wrapper .banner-elements {
-	}
-
 	.banner .image-wrapper .banner-elements h2 {
 		margin: 10px !important;
 		font-size: 1.5rem;
