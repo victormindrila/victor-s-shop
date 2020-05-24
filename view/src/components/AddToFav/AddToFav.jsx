@@ -4,8 +4,10 @@ import { ReactComponent as FavoriteSmall } from '../../assets/icons/favorite_sma
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { getUserData } from '../../store/actions/user';
+import { useHistory } from 'react-router-dom';
 
 function AddToFav({ productId, userEmail, userFavorites, getUserData }) {
+	const history = useHistory();
 	const isFavorite = () => userFavorites.some((favorite) => favorite === productId);
 	function addToFavorites(productId) {
 		const authToken = localStorage.getItem('Authorization');
@@ -49,11 +51,19 @@ function AddToFav({ productId, userEmail, userFavorites, getUserData }) {
 		}
 	}
 
-	return (
-		<div className={`add-to-fav ${isFavorite() ? 'is-red' : ''}`} onClick={(e) => handleOnIconClick(productId)}>
-			<FavoriteSmall />
-		</div>
-	);
+	if (userFavorites) {
+		return (
+			<div className={`add-to-fav ${isFavorite() ? 'is-red' : ''}`} onClick={(e) => handleOnIconClick(productId)}>
+				<FavoriteSmall />
+			</div>
+		);
+	} else {
+		return (
+			<div className={`add-to-fav`} onClick={(e) => history.push('/login')}>
+				<FavoriteSmall />
+			</div>
+		);
+	}
 }
 
 function mapDispatchToProps(dispatch) {
