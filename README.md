@@ -68,16 +68,16 @@
         * [ ] add sort
         * [ ] route guard
 
-* [ ] Firebase functions
+* [x] Firebase functions
     * [x] Users functions
-        * [ ] add user to database after login with Google
+        * [x] add user to database after login with Google
     * [x] Products functions
     * [x] Categories functions
     * [x] Orders functions
     * [x] Add to favorites
     * [ ] Check for duplicate products
 
-* [ ] View 
+* [x] View 
     * [x] Add store 
         * [x] user
         * [x] products 
@@ -90,7 +90,7 @@
     * [x] Login
         * [x] Login page
             * [x] Signin with google
-            * [ ] Signin with facebook 
+            * [x] Signin with facebook - disables
             * [x] Signin with email and password
         * [x] Logout page
     * [x] Signup
