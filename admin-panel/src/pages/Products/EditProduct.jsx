@@ -193,7 +193,7 @@ class NewProduct extends React.Component {
 										className={`dropdown-item ${id === this.state.category ? 'is-active' : ''}`}
 										key={id}
 										onClick={(e) => this.handleClick(e, category.id)}>
-										{category.description}
+										{category.name}
 									</a>
 								);
 							})}

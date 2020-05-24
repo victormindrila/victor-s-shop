@@ -1,15 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 // components
 import Layout from '../../components/Layout/Layout';
 import Loader from '../../components/Loader/Loader';
-import Error from '../../components/Error/Error';
 import Modal from '../../components/Modal/Modal';
-
-//helpers
-import axios from 'axios';
 
 class Home extends React.Component {
 	constructor(props) {

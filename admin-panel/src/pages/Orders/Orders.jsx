@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 // components
 import Layout from '../../components/Layout/Layout';
 import Loader from '../../components/Loader/Loader';
-import Error from '../../components/Error/Error';
 import Modal from '../../components/Modal/Modal';
 import Pagination from '../../components/Pagination/Pagination';
 

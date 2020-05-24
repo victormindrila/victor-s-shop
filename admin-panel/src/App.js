@@ -24,10 +24,6 @@ import Orders from './pages/Orders/Orders';
 import ViewOrder from './pages/Orders/ViewOrder';
 
 class App extends React.Component {
-	constructor(props) {
-		super(props);
-	}
-
 	componentDidMount() {
 		const { getUserData } = this.props;
 		if (localStorage.getItem('Authorization')) {
