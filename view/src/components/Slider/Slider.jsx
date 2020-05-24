@@ -48,6 +48,10 @@ class Slider extends React.Component {
 		this.timer.start();
 	}
 
+	componentWillUnmount() {
+		this.timer.stop();
+	}
+
 	handleClick(number) {
 		let slideNumber = number <= this.state.banners.length - 1 && number >= 0 ? number : 0;
 		this.setState({ displayBanner: this.state.banners[slideNumber], activeBannerIndex: slideNumber, show: true });
