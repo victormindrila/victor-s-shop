@@ -24,7 +24,7 @@ export function getAllProducts() {
 	return (dispatch) => {
 		dispatch(startLoadingProducts());
 		axios
-			.get('http://localhost:5000/aligo-test/us-central1/api/products')
+			.get('/products')
 			.then((response) => {
 				const payload = response.data;
 				dispatch(updateProductsData(payload));

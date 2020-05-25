@@ -30,12 +30,12 @@ class ViewCategory extends React.Component {
 	}
 
 	fetchUser() {
-		const userId = this.props.match.params.userId;
+		const userEmail = this.props.match.params.userEmail;
 		const authToken = localStorage.getItem('Authorization');
 		axios.defaults.headers.common = { Authorization: `${authToken}` };
 		axios
 			.get('/admin/users/view', {
-				params: { userId }
+				params: { userEmail }
 			})
 			.then((response) => {
 				this.setState({

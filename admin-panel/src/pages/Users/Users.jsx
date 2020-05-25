@@ -114,7 +114,7 @@ class Users extends React.Component {
 											<td>{user.lastName}</td>
 											<td>{user.email}</td>
 											<td>
-												<Link to={`/admin/users/view/${user.uid}`}>
+												<Link to={`/admin/users/view/${user.email}`}>
 													<button className='button is-link'>View</button>
 												</Link>
 											</td>

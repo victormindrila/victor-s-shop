@@ -47,7 +47,7 @@ export function loginUser(email, password) {
 		};
 
 		axios
-			.post('http://localhost:5000/aligo-test/us-central1/api/login', userData)
+			.post('/login', userData)
 			.then((response) => {
 				const payload = response.data;
 				localStorage.setItem('Authorization', 'Bearer ' + payload.token);
@@ -76,7 +76,7 @@ export function signUpUser(userData) {
 		dispatch(startLoading());
 
 		axios
-			.post('http://localhost:5000/aligo-test/us-central1/api/signup', userData)
+			.post('/signup', userData)
 			.then((response) => {
 				const payload = response.data;
 				localStorage.setItem('Authorization', 'Bearer ' + payload.token);
@@ -94,7 +94,7 @@ export function getUserData() {
 		const authToken = localStorage.getItem('Authorization');
 		axios.defaults.headers.common = { Authorization: `${authToken}` };
 		axios
-			.get('http://localhost:5000/aligo-test/us-central1/api/user')
+			.get('/user')
 			.then((response) => {
 				const payload = response.data;
 				dispatch(updateUserData(payload));

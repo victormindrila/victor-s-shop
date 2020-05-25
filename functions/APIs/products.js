@@ -12,8 +12,12 @@ exports.getAllProducts = async (req, res) => {
 			categoriesSnapshots.forEach((snapshot) => {
 				if (snapshot.id === productsSnapshot.data().category) categoryDescription = snapshot.data().name;
 			});
+			const productData = productsSnapshot.data();
+
 			products.push({
-				...productsSnapshot.data(),
+				// eslint-disable-next-line no-alert
+				...productData,
+				// eslint-disable-next-line
 				id: productsSnapshot.id,
 				category: {
 					id: productsSnapshot.data().category,

@@ -24,7 +24,7 @@ export function getAllCategories() {
 	return (dispatch) => {
 		dispatch(startLoadingCategories());
 		axios
-			.get('http://localhost:5000/aligo-test/us-central1/api/categories')
+			.get('/categories')
 			.then((response) => {
 				const payload = response.data;
 				dispatch(updateCategoriesData(payload));
