@@ -66,7 +66,7 @@
         * [ ] format dates 
         * [ ] add filters 
         * [ ] add sort
-        * [ ] route guard
+        * [x] route guard
 
 * [x] Firebase functions
     * [x] Users functions
