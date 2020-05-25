@@ -10,7 +10,11 @@ const rootReducer = combineReducers({
 	user: userReducer
 });
 
-const middleWares = [ ReduxThunk, logger ];
+const middleWares = [ ReduxThunk ];
+
+if (process.env.NODE_ENV === 'development') {
+	middleWares.push(logger);
+}
 
 const store = createStore(rootReducer, applyMiddleware(...middleWares));
 
