@@ -26,7 +26,7 @@ class Home extends React.Component {
 			return (
 				<Layout>
 					<Modal error={this.state.modalError} message={this.state.success} active={this.state.displayModal} />
-					<p>Something</p>
+					<p>In development</p>
 				</Layout>
 			);
 		}

@@ -1,6 +1,7 @@
 import React from 'react';
 import Layout from '../../components/Layout/Layout';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 //actions
 import { getAllProducts } from '../../store/actions/products';
@@ -329,4 +330,4 @@ function mapDispatchToProps(dispatch) {
 	};
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewProduct);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NewProduct));

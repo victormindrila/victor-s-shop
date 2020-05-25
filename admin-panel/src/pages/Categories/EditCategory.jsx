@@ -1,6 +1,7 @@
 import React from 'react';
 import Layout from '../../components/Layout/Layout';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 // components
 import Error from '../../components/Error/Error';
@@ -182,4 +183,4 @@ function mapStateToProps(state) {
 	};
 }
 
-export default connect(mapStateToProps)(EditCategory);
+export default withRouter(connect(mapStateToProps)(EditCategory));

@@ -1,6 +1,6 @@
 import React from 'react';
 import Layout from '../../components/Layout/Layout';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 //components
@@ -183,7 +183,6 @@ class ViewOrder extends React.Component {
 									<button className='button is-primary' onClick={(e) => this.handleShipped(orderId)}>
 										Shipped
 									</button>
-
 									<button className='button is-danger' onClick={(e) => this.handleDelete(orderId)}>
 										Delete
 									</button>
@@ -244,4 +243,4 @@ function mapDispatchToProps(dispatch) {
 		}
 	};
 }
-export default connect(null, mapDispatchToProps)(ViewOrder);
+export default withRouter(connect(null, mapDispatchToProps)(ViewOrder));

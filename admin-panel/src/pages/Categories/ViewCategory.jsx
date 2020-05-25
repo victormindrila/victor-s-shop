@@ -1,6 +1,6 @@
 import React from 'react';
 import Layout from '../../components/Layout/Layout';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 //components
@@ -136,4 +136,4 @@ function mapStateToProps(state) {
 	};
 }
 
-export default connect(mapStateToProps)(ViewCategory);
+export default withRouter(connect(mapStateToProps)(ViewCategory));

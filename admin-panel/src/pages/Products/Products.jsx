@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 //actions
@@ -42,7 +42,6 @@ class Products extends React.Component {
 
 	componentDidMount() {
 		const pageNumber = this.props.history.location.search.split('?page=')[1] || 1;
-		if (!this.props.user) this.props.history.push('/admin/signin');
 		if (!this.props.products.data) this.props.getAllProducts();
 		this.setState({
 			pageNumber: pageNumber
@@ -180,4 +179,4 @@ function mapDispatchToProps(dispatch) {
 	};
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Products);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Products));

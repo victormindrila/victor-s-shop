@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 // components
@@ -187,4 +187,4 @@ function mapStateToProps(state) {
 	};
 }
 
-export default connect(mapStateToProps)(Categories);
+export default withRouter(connect(mapStateToProps)(Categories));

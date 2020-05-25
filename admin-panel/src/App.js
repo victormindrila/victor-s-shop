@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import 'bulma/css/bulma.css';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 //pages
 import Products from './pages/Products/Products';
@@ -32,30 +32,56 @@ class App extends React.Component {
 	}
 
 	render() {
+		const { state } = this.props;
+		const isLoggedIn = state.user.data;
 		return (
 			<div className='App'>
 				<Switch>
-					<Route exact path={'/admin/'} component={Home} />
 					<Route exact path={'/admin/signin'} component={Signin} />
 					<Route exact path={'/admin/signup'} component={Signup} />
+					<Route exact path={'/admin/'}>
+						{!isLoggedIn ? <Redirect to='/admin/signin' /> : <Home />}
+					</Route>
+					<Route exact path={'/admin/products/'}>
+						{!isLoggedIn ? <Redirect to='/admin/signin' /> : <Products />}
+					</Route>
+					<Route exact path={'/admin/products/new'}>
+						{!isLoggedIn ? <Redirect to='/admin/signin' /> : <NewProduct />}
+					</Route>
+					<Route exact path={'/admin/products/edit/:productId'}>
+						{!isLoggedIn ? <Redirect to='/admin/signin' /> : <EditProduct />}
+					</Route>
+					<Route exact path={'/admin/products/view/:productId'}>
+						{!isLoggedIn ? <Redirect to='/admin/signin' /> : <ViewProduct />}
+					</Route>
+					<Route exact path={'/admin/categories/new'}>
+						{!isLoggedIn ? <Redirect to='/admin/signin' /> : <NewCategory />}
+					</Route>
+					<Route exact path={'/admin/categories/'}>
+						{!isLoggedIn ? <Redirect to='/admin/signin' /> : <Categories />}
+					</Route>
+					<Route exact path={'/admin/categories/edit/:categoryId'}>
+						{!isLoggedIn ? <Redirect to='/admin/signin' /> : <EditCategory />}
+					</Route>
+					<Route exact path={'/admin/categories/view/:categoryId'}>
+						{!isLoggedIn ? <Redirect to='/admin/signin' /> : <ViewCategory />}
+					</Route>
+					<Route exact path={'/admin/users/'}>
+						{!isLoggedIn ? <Redirect to='/admin/signin' /> : <Users />}
+					</Route>
+					<Route exact path={'/admin/users/view/:userId'}>
+						{!isLoggedIn ? <Redirect to='/admin/signin' /> : <ViewUser />}
+					</Route>
+					<Route exact path={'/admin/orders/'}>
+						{!isLoggedIn ? <Redirect to='/admin/signin' /> : <Orders />}
+					</Route>
+					<Route exact path={'/admin/orders/view/:orderId'}>
+						{!isLoggedIn ? <Redirect to='/admin/signin' /> : <ViewOrder />}
+					</Route>
 
-					<Route exact path={'/admin/products/'} component={Products} />
-					<Route exact path={'/admin/products/new'} component={NewProduct} />
-					<Route exact path={'/admin/products/edit/:productId'} component={EditProduct} />
-					<Route exact path={'/admin/products/view/:productId'} component={ViewProduct} />
-
-					<Route exact path={'/admin/categories/new'} component={NewCategory} />
-					<Route exact path={'/admin/categories/'} component={Categories} />
-					<Route exact path={'/admin/categories/edit/:categoryId'} component={EditCategory} />
-					<Route exact path={'/admin/categories/view/:categoryId'} component={ViewCategory} />
-
-					<Route exact path={'/admin/users/'} component={Users} />
-					<Route exact path={'/admin/users/view/:userId'} component={ViewUser} />
-
-					<Route exact path={'/admin/orders/'} component={Orders} />
-					<Route exact path={'/admin/orders/view/:orderId'} component={ViewOrder} />
-
-					<Route exact path={'*'} component={Page404} />
+					<Route exact path={'*'}>
+						{!isLoggedIn ? <Redirect to='/admin/signin' /> : <Page404 />}
+					</Route>
 				</Switch>
 			</div>
 		);
@@ -63,7 +89,9 @@ class App extends React.Component {
 }
 
 function mapStateToProps(state) {
-	return state;
+	return {
+		state: state
+	};
 }
 
 function mapDispatchToProps(dispatch) {

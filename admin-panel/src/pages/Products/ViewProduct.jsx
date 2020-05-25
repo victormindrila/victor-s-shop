@@ -1,6 +1,6 @@
 import React from 'react';
 import Layout from '../../components/Layout/Layout';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 //components
@@ -193,4 +193,4 @@ function mapDispatchToProps(dispatch) {
 		}
 	};
 }
-export default connect(null, mapDispatchToProps)(ViewProduct);
+export default withRouter(connect(null, mapDispatchToProps)(ViewProduct));
