@@ -5,3 +5,8 @@
 .cart-page svg {
 	cursor: pointer;
 }
+
+.product-wrapper img {
+	height: auto;
+	max-width: 350px;
+}
