@@ -1,10 +1,96 @@
-# Build a full stack application using React.js and Firebase
+# A full stack e-commerce app built with React.js and Firebase
 
-## DEMO
+## DEMO:
 
 ### View: https://victor-s-shop.herokuapp.com/
+### Admin panel: https://victor-s-shop-admin.herokuapp.com/
 
-### Admin panel: victor-s-shop-admin.herokuapp.com/
+## Admin panel: 
+A single page application created for managing the e-commerce data stored in the firebase database. Built with React.js, React Router, Redux and Bulma CSS. 
+
+### Functions: 
+    * sign in and sign up with firebase auth / front side and server side validation
+    * view all users / view user / delete user
+    * view all categories / create, read, update, delete a category 
+    * view all products / create, read, update, delete a product
+    * view all orders / view, read, delete order
+    * pagination
+    * interactivity using modal, loader and error handling
+    * routes 
+    * filter / sort / search /// TODO
+
+### Stack: 
+    * React
+    * React Router
+    * Redux
+    * Redux Thunk
+    * Bulma CSS
+    * Axios
+    * Firebase
+
+## Firebase functions: 
+Firebase functions that serve as RESTful APIs for the e-commerce app. Built using Node.js, Firebase functions and Express.
+
+### Endpoints: 
+    * api/categories 
+    * api/favorites 
+    * api/orders
+    * api/products
+    * api/users
+
+### Authentication:
+    * authentication using username and email
+    * authentication using oauth
+
+### Database
+    * perform CRUD operations in firestore database
+
+### Storage: 
+    * image upload / delete / update
+
+### Functions: 
+    * functions that serve the RESTful requests to perform CRUD operations in the database and image upload / delete / update
+    * uses firebase auth and middleware for authorization handling
+
+### Stack: 
+    * Firebase 
+    * Firebase admin
+    * Firebase functions
+    * Node.js
+    * Express
+    * Busboy
+    * async requests handling
+
+
+## View: 
+An online shop built as a single page application using React.js, React Router, Redux and Bootstrap. 
+
+### Functions: 
+    * Sign in / Signup with username and email or google
+    * Home page with categories 
+    * View all products
+    * View products based on categories
+    * View product
+    * View favorites
+    * Add to cart
+    * Add to favorites
+    * Order summary
+    * Order submit
+    * Carousel for promotions
+    * Search product
+    * Filter by price, brand, material
+    * Sort by price
+    * mobile responsive
+All RESTful requests perform CRUD operation in the firebase database. 
+
+### Stack: 
+    * React
+    * React Router
+    * Redux
+    * Redux Thunk
+    * Bootstrap
+    * Axios
+    * Firebase
 
 ## TODO 
 
