@@ -1,5 +1,11 @@
 # Build a full stack application using React.js and Firebase
 
+## DEMO
+
+### View: https://victor-s-shop.herokuapp.com/
+
+### Admin panel: victor-s-shop-admin.herokuapp.com/
+
 ## TODO 
 
 * [ ] Admin-panel
