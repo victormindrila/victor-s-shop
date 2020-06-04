@@ -9,7 +9,7 @@
 A single page application created for managing the e-commerce data stored in the firebase database. Built with React.js, React Router, Redux and Bulma CSS. 
 
 ### Functions: 
-    * sign in and sign up with firebase auth / front side and server side validation
+* Sign in and sign up with firebase auth / front side and server side validation
     * view all users / view user / delete user
     * view all categories / create, read, update, delete a category 
     * view all products / create, read, update, delete a product
