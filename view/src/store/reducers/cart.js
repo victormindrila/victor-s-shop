@@ -1,3 +1,5 @@
+import CartActionTypes from '../types/cart';
+
 const initialState = {
 	products: [],
 	orderDetails: {}
@@ -5,7 +7,7 @@ const initialState = {
 
 export function cartReducer(state = initialState, action) {
 	switch (action.type) {
-		case 'ADD_TO_CART':
+		case CartActionTypes.ADD_TO_CART:
 			let productInCart = false;
 			const updatedProducts = state.products.map((product) => {
 				if (product.id === action.payload.product.id) {
@@ -34,7 +36,7 @@ export function cartReducer(state = initialState, action) {
 					products: updatedProducts
 				});
 			}
-		case 'REMOVE_FROM_CART':
+		case CartActionTypes.REMOVE_FROM_CART:
 			const filteredProducts = state.products.filter((product) => {
 				return product.id !== action.payload.id;
 			});
@@ -42,11 +44,11 @@ export function cartReducer(state = initialState, action) {
 			return Object.assign({}, state, {
 				products: filteredProducts
 			});
-		case 'ADD_ORDER_DETAILS':
+		case CartActionTypes.ADD_ORDER_DETAILS:
 			return Object.assign({}, state, {
 				orderDetails: action.payload
 			});
-		case 'CLEAR_CART':
+		case CartActionTypes.CLEAR_CART:
 			return Object.assign({}, state, {
 				products: [],
 				orderDetails: {}

@@ -1,85 +1,70 @@
-import { signInWithGoogle } from '../../apis/firebase';
-import axios from 'axios';
+import {
+	loginUserWithEmail,
+	signUpUserWithEmail,
+	fetchUserData,
+	loginWithGoogleApi,
+	setUserDetails
+} from '../../apis/endpoints';
+import UserActionTypes from '../types/user';
 
 export function startLoading() {
 	return {
-		type: 'START_LOADING'
+		type: UserActionTypes.START_LOADING
 	};
 }
 
 export function updateUserData(payload) {
 	return {
-		type: 'UPDATE_USER_DATA',
+		type: UserActionTypes.UPDATE_USER_DATA,
 		payload
 	};
 }
 
 export function updateError(payload) {
 	return {
-		type: 'UPDATE_ERROR',
+		type: UserActionTypes.UPDATE_ERROR,
 		payload
 	};
 }
 
 export function loginUserWithGoogle() {
-	return (dispatch) => {
+	return async (dispatch) => {
 		dispatch(startLoading());
 
-		signInWithGoogle()
-			.then((response) => {
-				const data = response.user;
-				localStorage.setItem('Authorization', 'Bearer ' + data.xa);
-				const userData = {
-					firstName: data.displayName.split(' ')[0],
-					lastName: data.displayName.split(' ')[1],
-					phoneNumber: 123456,
-					country: 'Not provided',
-					email: data.email,
-					uid: data.uid
-				};
-				return userData;
-			})
-			.then((data) => {
-				const authToken = localStorage.getItem('Authorization');
-				axios.defaults.headers.common = { Authorization: `${authToken}` };
-				return axios.post('/user/setDetails', data);
-			})
-			.then((response) => {
-				const payload = response.data;
-				dispatch(updateUserData(payload));
-			})
-			.catch((error) => {
+		try {
+			const { token, data } = await loginWithGoogleApi();
+			localStorage.setItem('Authorization', 'Bearer ' + token);
+			const payload = await setUserDetails(data);
+			dispatch(updateUserData(payload));
+		} catch (error) {
+			if (!error.response) {
+				dispatch(updateError({ error: 'no response from resource' }));
+			} else {
 				dispatch(updateError(error));
+				/*error 400 means the user is already in the database */
 				if (error.response.status === 400) {
 					getUserData();
 				}
-			});
+			}
+		}
 	};
 }
 
 export function loginUser(email, password) {
-	return (dispatch) => {
+	return async (dispatch) => {
 		dispatch(startLoading());
 
-		const userData = {
-			email,
-			password
-		};
-
-		axios
-			.post('/login', userData)
-			.then((response) => {
-				const payload = response.data;
-				localStorage.setItem('Authorization', 'Bearer ' + payload.token);
-				dispatch(getUserData());
-			})
-			.catch((error) => {
-				if (!error.response) {
-					dispatch(updateError({ error: 'no response from resource' }));
-				} else {
-					dispatch(updateError(error.response.data));
-				}
-			});
+		try {
+			const payload = await loginUserWithEmail(email, password);
+			localStorage.setItem('Authorization', 'Bearer ' + payload.token);
+			dispatch(getUserData());
+		} catch (error) {
+			if (!error.response) {
+				dispatch(updateError({ error: 'no response from resource' }));
+			} else {
+				dispatch(updateError(error.response.data));
+			}
+		}
 	};
 }
 
@@ -91,35 +76,36 @@ export function logoutUser() {
 }
 
 export function signUpUser(userData) {
-	return (dispatch) => {
+	return async (dispatch) => {
 		dispatch(startLoading());
 
-		axios
-			.post('/signup', userData)
-			.then((response) => {
-				const payload = response.data;
-				localStorage.setItem('Authorization', 'Bearer ' + payload.token);
-				dispatch(updateUserData(payload));
-			})
-			.catch((error) => {
+		try {
+			const payload = await signUpUserWithEmail(userData);
+			localStorage.setItem('Authorization', 'Bearer ' + payload.token);
+			dispatch(updateUserData(payload));
+		} catch (error) {
+			if (!error.response) {
+				dispatch(updateError({ error: 'no response from resource' }));
+			} else {
 				dispatch(updateError(error));
-			});
+			}
+		}
 	};
 }
 
 export function getUserData() {
-	return (dispatch) => {
+	return async (dispatch) => {
 		dispatch(startLoading());
-		const authToken = localStorage.getItem('Authorization');
-		axios.defaults.headers.common = { Authorization: `${authToken}` };
-		axios
-			.get('/user')
-			.then((response) => {
-				const payload = response.data;
-				dispatch(updateUserData(payload));
-			})
-			.catch((error) => {
+
+		try {
+			const payload = await fetchUserData();
+			dispatch(updateUserData(payload));
+		} catch (error) {
+			if (!error.response) {
+				dispatch(updateError({ error: 'no response from resource' }));
+			} else {
 				dispatch(updateError(error.response.data));
-			});
+			}
+		}
 	};
 }

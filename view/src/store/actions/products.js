@@ -1,36 +1,35 @@
-import axios from 'axios';
+import { fetchProducts } from '../../apis/endpoints';
+import ProductsActionTypes from '../types/products';
 
 export function startLoadingProducts() {
 	return {
-		type: 'START_LOADING_PRODUCTS'
+		type: ProductsActionTypes.START_LOADING_PRODUCTS
 	};
 }
 
 export function updateProductsData(payload) {
 	return {
-		type: 'UPDATE_PRODUCTS_DATA',
+		type: ProductsActionTypes.UPDATE_PRODUCTS_DATA,
 		payload
 	};
 }
 
 export function updateErrorProducts(payload) {
 	return {
-		type: 'UPDATE_ERROR_PRODUCTS',
+		type: ProductsActionTypes.UPDATE_ERROR_PRODUCTS,
 		payload
 	};
 }
 
 export function getAllProducts() {
-	return (dispatch) => {
+	return async (dispatch) => {
 		dispatch(startLoadingProducts());
-		axios
-			.get('/products')
-			.then((response) => {
-				const payload = response.data;
-				dispatch(updateProductsData(payload));
-			})
-			.catch((error) => {
-				dispatch(updateErrorProducts(error.response.data));
-			});
+
+		try {
+			const payload = await fetchProducts();
+			dispatch(updateProductsData(payload));
+		} catch (error) {
+			dispatch(updateErrorProducts(error.response.data));
+		}
 	};
 }
