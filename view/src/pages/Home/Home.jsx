@@ -1,10 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
 //actions
 import { getAllCategories } from '../../store/actions/categories';
 import { getAllProducts } from '../../store/actions/products';
+import { selectCategoriesData, selectCategoriesLoading } from '../../store/selectors/categories';
+import { selectProductsData } from '../../store/selectors/products';
 
 // components
 import Layout from '../../components/Layout/Layout';
@@ -15,21 +18,20 @@ import Slider from '../../components/Slider/Slider';
 class Home extends React.Component {
 	componentDidMount() {
 		const { categories, products, getAllCategories, getAllProducts } = this.props;
-		if (categories.data.length === 0) getAllCategories();
-		if (products.data.length === 0) getAllProducts();
+		if (categories.length === 0) getAllCategories();
+		if (products.length === 0) getAllProducts();
 	}
 
 	render() {
-		const { categories } = this.props;
+		const { categoriesLoading, categories } = this.props;
 		return (
 			<Layout>
-				<div className='d-flex justify-content-center'>{categories.loading && <Loader />}</div>
+				<div className='d-flex justify-content-center'>{categoriesLoading && <Loader />}</div>
 
 				<div className='container-fluid container-min-max-width'>
 					<Slider />
 					<div className='row'>
-						{categories.data.map((category) => {
-							const { id, name, description, imageUrl } = category;
+						{categories.map(({ id, name, description, imageUrl }) => {
 							return <HomeCategory key={id} route={id} name={name} description={description} image={imageUrl} />;
 						})}
 					</div>
@@ -48,12 +50,11 @@ class Home extends React.Component {
 	}
 }
 
-function mapStateToProps(state) {
-	return {
-		categories: state.categories,
-		products: state.products
-	};
-}
+const mapStateToProps = createStructuredSelector({
+	categories: selectCategoriesData,
+	products: selectProductsData,
+	categoriesLoading: selectCategoriesLoading
+});
 
 function mapDispatchToProps(dispatch) {
 	return {

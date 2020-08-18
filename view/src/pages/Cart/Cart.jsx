@@ -1,12 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { createStructuredSelector } from 'reselect';
 
 // components
 import Layout from '../../components/Layout/Layout';
 import BackButton from '../../components/BackButton/BackButton';
 
 import { removeFromCart } from '../../store/actions/cart';
+import { selectCartProducts } from '../../store/selectors/cart';
 
 import './Cart.css';
 import { ReactComponent as Close } from '../../assets/icons/close.svg';
@@ -83,11 +85,9 @@ function Cart(props) {
 	);
 }
 
-function mapStateToProps(state) {
-	return {
-		products: state.cart.products
-	};
-}
+const mapStateToProps = createStructuredSelector({
+	products: selectCartProducts
+});
 
 function mapDispatchToProps(dispatch) {
 	return {

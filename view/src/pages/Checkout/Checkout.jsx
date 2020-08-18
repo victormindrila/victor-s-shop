@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
 // components
 import Layout from '../../components/Layout/Layout';
@@ -7,6 +8,8 @@ import BackButton from '../../components/BackButton/BackButton';
 import Error from '../../components/Error/Error';
 
 import { addOrderDetails } from '../../store/actions/cart';
+import { selectUserData } from '../../store/selectors/user';
+import { selectCartProducts, selectOrderDetails } from '../../store/selectors/cart';
 
 import './Checkout.css';
 
@@ -106,13 +109,11 @@ class Checkout extends React.Component {
 	}
 }
 
-function mapStateToProps(state) {
-	return {
-		products: state.cart.products,
-		orderDetails: state.cart.orderDetails,
-		user: state.user.data
-	};
-}
+const mapStateToProps = createStructuredSelector({
+	products: selectCartProducts,
+	orderDetails: selectOrderDetails,
+	user: selectUserData
+});
 
 function mapDispatchToProps(dispatch) {
 	return {

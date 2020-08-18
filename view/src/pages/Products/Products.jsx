@@ -2,6 +2,7 @@ import React from 'react';
 import Layout from '../../components/Layout/Layout';
 import ProductsList from '../../components/ProductsList/ProductsList';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
 //components
 import BackButton from '../../components/BackButton/BackButton';
@@ -11,6 +12,9 @@ import FiltersSideBar from '../../components/FiltersSideBar/FiltersSideBar';
 //actions
 import { getAllProducts } from '../../store/actions/products';
 import { getAllCategories } from '../../store/actions/categories';
+import { selectProductsData } from '../../store/selectors/products';
+import { selectCategoriesData } from '../../store/selectors/categories';
+import { selectUserData } from '../../store/selectors/user';
 
 // CSS
 import './Products.css';
@@ -37,7 +41,7 @@ class ProductList extends React.Component {
 	}
 
 	filterProducts(products, filterBy) {
-		const favorites = this.props.user.data && this.props.user.data.favorites;
+		const favorites = this.props.user && this.props.user.favorites;
 		let filteredProducts = products.slice();
 		if (!filterBy) return filteredProducts;
 
@@ -161,13 +165,11 @@ class ProductList extends React.Component {
 	}
 }
 
-function mapStateToProps(state) {
-	return {
-		products: state.products.data,
-		categories: state.categories.data,
-		user: state.user
-	};
-}
+const mapStateToProps = createStructuredSelector({
+	products: selectProductsData,
+	categories: selectCategoriesData,
+	user: selectUserData
+});
 
 function mapDispatchToProps(dispatch) {
 	return {

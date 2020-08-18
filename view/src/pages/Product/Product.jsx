@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import Layout from '../../components/Layout/Layout';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import { createStructuredSelector } from 'reselect';
 
 import './Product.css';
 import BackButton from '../../components/BackButton/BackButton';
 
 import { addToCart } from '../../store/actions/cart';
 import { getUserData } from '../../store/actions/user';
+import { selectUserData } from '../../store/selectors/user';
 
 class Product extends Component {
 	constructor() {
@@ -118,11 +120,9 @@ class Product extends Component {
 	}
 }
 
-function mapStateToProps(state) {
-	return {
-		user: state.user.data
-	};
-}
+const mapStateToProps = createStructuredSelector({
+	user: selectUserData
+});
 
 function mapDispatchToProps(dispatch) {
 	return {

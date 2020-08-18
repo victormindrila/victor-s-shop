@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { createStructuredSelector } from 'reselect';
 
 // components
 import Layout from '../../components/Layout/Layout';
@@ -9,15 +10,12 @@ import BackButton from '../../components/BackButton/BackButton';
 
 //actions
 import { clearCart } from '../../store/actions/cart';
+import { selectCartProducts, selectOrderDetails, selectCartTotal } from '../../store/selectors/cart';
+import { selectUserId, selectUserEmail } from '../../store/selectors/user';
 
 import './OrderSummary.css';
 
-function OrderSummary({ products, orderDetails, history, uid, email, clearCart }) {
-	const totalSum = (products) => {
-		return products.reduce((acc, product) => {
-			return acc + product.quantity * product.price;
-		}, 0);
-	};
+function OrderSummary({ products, orderDetails, history, uid, email, clearCart, totalSum }) {
 	function handleSubmit() {
 		const order = {
 			email: email,
@@ -94,7 +92,7 @@ function OrderSummary({ products, orderDetails, history, uid, email, clearCart }
 							</div>
 							<div className='w-25'>
 								<p className='my-4 text-center'>
-									{totalSum(products).toFixed(2)} {products[0].currency}
+									{totalSum.toFixed(2)} {products[0].currency}
 								</p>
 							</div>
 						</div>
@@ -118,14 +116,13 @@ function OrderSummary({ products, orderDetails, history, uid, email, clearCart }
 	);
 }
 
-function mapStateToProps(state) {
-	return {
-		products: state.cart.products,
-		orderDetails: state.cart.orderDetails,
-		uid: state.user.data.userId,
-		email: state.user.data.email
-	};
-}
+const mapStateToProps = createStructuredSelector({
+	products: selectCartProducts,
+	orderDetails: selectOrderDetails,
+	uid: selectUserId,
+	email: selectUserEmail,
+	totalSum: selectCartTotal
+});
 
 function mapDispatchToProps(dispatch) {
 	return {

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
 //style
 import './SignUp.css';
@@ -17,6 +18,7 @@ import { signUpUser, updateError } from '../../store/actions/user';
 
 //helpers
 import { validateSignUpData } from './../../utils/validators';
+import { selectUserData, selectUserError, selectUserLoading } from '../../store/selectors/user';
 
 class Signup extends React.Component {
 	constructor(props) {
@@ -162,13 +164,11 @@ class Signup extends React.Component {
 	}
 }
 
-function mapStateToProps(state) {
-	return {
-		userData: state.user.data,
-		userError: state.user.error,
-		userLoading: state.user.loading
-	};
-}
+const mapStateToProps = createStructuredSelector({
+	userData: selectUserData,
+	userError: selectUserError,
+	userLoading: selectUserLoading
+});
 
 function mapDispatchToProps(dispatch) {
 	return {

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
 //style
 import './Login.css';
@@ -16,6 +17,7 @@ import { ReactComponent as Facebook } from '../../assets/icons/facebook.svg';
 
 // actions
 import { loginUser, loginUserWithGoogle, updateError } from '../../store/actions/user';
+import { selectUserData, selectUserLoading, selectUserError } from '../../store/selectors/user';
 
 //helpers
 import { validateLoginData } from './../../utils/validators';
@@ -29,11 +31,12 @@ class Login extends React.Component {
 		};
 	}
 	componentDidUpdate(prevProps) {
-		if (this.props.user !== prevProps.user) {
+		const { user, history } = this.props;
+		if (user !== prevProps.user) {
 			if (window.history.length > 2) {
-				this.props.history.goBack();
+				history.goBack();
 			} else {
-				this.props.history.push('/');
+				history.push('/');
 			}
 		}
 	}
@@ -122,13 +125,11 @@ class Login extends React.Component {
 	}
 }
 
-function mapStateToProps(state) {
-	return {
-		user: state.user.data,
-		userLoading: state.user.loading,
-		userError: state.user.error
-	};
-}
+const mapStateToProps = createStructuredSelector({
+	user: selectUserData,
+	userLoading: selectUserLoading,
+	userError: selectUserError
+});
 
 function mapDispatchToProps(dispatch) {
 	return {

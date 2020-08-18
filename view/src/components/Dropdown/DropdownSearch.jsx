@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { createStructuredSelector } from 'reselect';
 
 import { connect } from 'react-redux';
 
 import './DropdownSearch.css';
+import { selectProductsData } from '../../store/selectors/products';
 
 class DropdownSearch extends React.Component {
 	constructor() {
@@ -55,7 +57,7 @@ class DropdownSearch extends React.Component {
 		const { products } = this.props;
 		const filteredProducts =
 			this.state.search &&
-			products.data.filter((product) => product.title.toLowerCase().includes(this.state.search.toLowerCase()));
+			products.filter((product) => product.title.toLowerCase().includes(this.state.search.toLowerCase()));
 		return (
 			<div className='dropdown w-100' ref={this.setWrapperRef}>
 				<input
@@ -89,10 +91,8 @@ class DropdownSearch extends React.Component {
 	}
 }
 
-function mapStateToProps(state) {
-	return {
-		products: state.products
-	};
-}
+const mapStateToProps = createStructuredSelector({
+	products: selectProductsData
+});
 
 export default connect(mapStateToProps)(DropdownSearch);

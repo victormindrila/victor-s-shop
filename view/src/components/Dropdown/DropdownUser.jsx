@@ -1,8 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { createStructuredSelector } from 'reselect';
+
 // redux
 import { connect } from 'react-redux';
 import { logoutUser, getUserData } from '../../store/actions/user';
+import { selectUserData } from '../../store/selectors/user';
 
 // components
 import { ReactComponent as UserIcon } from '../../assets/icons/user.svg';
@@ -49,7 +52,7 @@ class DropdownUser extends React.Component {
 			<div className='dropdown mr-4' ref={this.setWrapperRef}>
 				<UserIcon className=' user-icon' onClick={() => this.handleClick()} />
 				<div className={`dropdown-menu ${this.state.show ? 'show' : ''}`}>
-					{user ? <p className='ml-4'>Salut, {user.firstName || user.displayName}!</p> : null}
+					{user ? <p className='ml-4'>Hello, {user.firstName || user.displayName}!</p> : null}
 
 					{user ? (
 						<div>
@@ -80,11 +83,9 @@ class DropdownUser extends React.Component {
 	}
 }
 
-function mapStateToProps(state) {
-	return {
-		user: state.user.data
-	};
-}
+const mapStateToProps = createStructuredSelector({
+	user: selectUserData
+});
 
 function mapDispatchToProps(dispatch) {
 	return {

@@ -1,6 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+
+//selectors
+import { selectNumberOfProductsInCart } from '../../../store/selectors/cart';
+import { selectUserData, selectNumberOfFavoritesProducts } from '../../../store/selectors/user';
 
 // css
 import './Header.css';
@@ -15,7 +20,7 @@ import { ReactComponent as Favorite } from '../../../assets/icons/favorite.svg';
 import DropdownUser from '../../Dropdown/DropdownUser';
 import DropdownSearch from '../../Dropdown/DropdownSearch';
 
-function Header({ numberOfProducts, user }) {
+function Header({ numberOfProducts, numberOfFavorites }) {
 	return (
 		<header className='border-bottom mb-3 '>
 			<div className='nav-bar container-fluid container-min-max-width d-flex justify-content-between align-items-center'>
@@ -34,9 +39,7 @@ function Header({ numberOfProducts, user }) {
 							<div className='d-flex align-items-center'>
 								<Link to='/products/?category=favorites' className='d-flex'>
 									<Favorite className='mr-1' />
-									<p className='products-number ml-1 mb-0'>
-										{user.data && user.data.favorites && user.data.favorites.length}
-									</p>
+									<p className='products-number ml-1 mb-0'>{numberOfFavorites}</p>
 								</Link>
 
 								<Link to='/cart' className='d-flex'>
@@ -52,11 +55,9 @@ function Header({ numberOfProducts, user }) {
 	);
 }
 
-function mapStateToProps(state) {
-	return {
-		numberOfProducts: state.cart.products.length,
-		user: state.user
-	};
-}
+const mapStateToProps = createStructuredSelector({
+	numberOfProducts: selectNumberOfProductsInCart,
+	numberOfFavorites: selectNumberOfFavoritesProducts
+});
 
 export default connect(mapStateToProps)(Header);

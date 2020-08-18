@@ -5,11 +5,11 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { getUserData } from '../../store/actions/user';
 import { useHistory } from 'react-router-dom';
+import { createStructuredSelector } from 'reselect';
+import { selectUserFavorites, selectUserEmail, selectUserData } from '../../store/selectors/user';
 
-function AddToFav({ productId, user, getUserData }) {
+function AddToFav({ productId, userData, getUserData, userFavorites, userEmail }) {
 	const history = useHistory();
-	const userEmail = user.data && user.data.email;
-	const userFavorites = user.data && user.data.favorites;
 	const isFavorite = () => {
 		if (userFavorites) {
 			return userFavorites.some((favorite) => favorite === productId);
@@ -59,7 +59,7 @@ function AddToFav({ productId, user, getUserData }) {
 		}
 	}
 
-	if (user.data) {
+	if (userData) {
 		return (
 			<div className={`add-to-fav ${isFavorite() ? 'is-red' : ''}`} onClick={(e) => handleOnIconClick(productId)}>
 				<FavoriteSmall />
@@ -82,10 +82,10 @@ function mapDispatchToProps(dispatch) {
 	};
 }
 
-function mapStateToProps(state) {
-	return {
-		user: state.user
-	};
-}
+const mapStateToProps = createStructuredSelector({
+	userData: selectUserData,
+	userFavorites: selectUserFavorites,
+	userEmail: selectUserEmail
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddToFav);
