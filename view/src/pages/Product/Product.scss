@@ -10,23 +10,22 @@
 }
 
 @media (max-width: 768px) {
-	.product-page .image-wrapper {
-		width: 100%;
-		height: auto;
-		justify-content: start;
-	}
-
-	.product-page .image-wrapper img {
-		width: auto;
-		height: auto;
-	}
-
-	.product-page .product-info {
-		flex-direction: column;
-	}
-
-	.product-page .product-details {
-		margin-top: 1.5rem;
+	.product-page {
+		& .image-wrapper {
+			width: 100%;
+			height: auto;
+			justify-content: start;
+			& img {
+				width: auto;
+				height: auto;
+			}
+		}
+		& .product-info {
+			flex-direction: column;
+		}
+		& .product-details {
+			margin-top: 1.5rem;
+		}
 	}
 }
 

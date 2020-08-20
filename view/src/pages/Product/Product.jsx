@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import { createStructuredSelector } from 'reselect';
 
-import './Product.css';
+import './Product.scss';
 import BackButton from '../../components/BackButton/BackButton';
 
 import { addToCart } from '../../store/actions/cart';
