@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import BackButton from '../../components/BackButton/BackButton';
 import DropdownSort from '../../components/Dropdown/DropdownSort';
 import FiltersSideBar from '../../components/FiltersSideBar/FiltersSideBar';
+import Loader from '../../components/Loader/Loader';
 
 //actions
 import { getAllProducts } from '../../store/actions/products';
@@ -15,7 +16,8 @@ import {
 	selectProductsData,
 	selectSortedProducts,
 	selectFilteredProducts,
-	selectURLSearchParams
+	selectURLSearchParams,
+	selectProductsLoading
 } from '../../store/selectors/products';
 import { selectCategoriesData } from '../../store/selectors/categories';
 import { selectUserData } from '../../store/selectors/user';
@@ -60,7 +62,7 @@ class ProductList extends React.Component {
 	}
 
 	render() {
-		const { history, visibleProducts, filteredProducts, params } = this.props;
+		const { history, visibleProducts, filteredProducts, params, productsLoading } = this.props;
 		const { categoryName } = this.state;
 
 		return (
@@ -76,7 +78,7 @@ class ProductList extends React.Component {
 					<hr />
 					<div className='d-flex products-container'>
 						<FiltersSideBar params={params} history={history} products={filteredProducts} />
-						<ProductsList products={visibleProducts} />
+						{productsLoading ? <Loader /> : <ProductsList products={visibleProducts} />}
 					</div>
 				</div>
 			</Layout>
@@ -90,7 +92,8 @@ const mapStateToProps = (state, ownProps) => ({
 	user: selectUserData(state),
 	params: selectURLSearchParams(state, ownProps),
 	filteredProducts: selectFilteredProducts(state, ownProps),
-	visibleProducts: selectSortedProducts(state, ownProps)
+	visibleProducts: selectSortedProducts(state, ownProps),
+	productsLoading: selectProductsLoading(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

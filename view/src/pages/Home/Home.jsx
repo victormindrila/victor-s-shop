@@ -11,9 +11,9 @@ import { selectProductsData } from '../../store/selectors/products';
 
 // components
 import Layout from '../../components/Layout/Layout';
-import HomeCategory from '../../components/HomeCategory/HomeCategory';
 import Loader from '../../components/Loader/Loader';
 import Slider from '../../components/Slider/Slider';
+import CategoriesList from '../../components/CategoriesList/CategoriesList';
 
 class Home extends React.Component {
 	componentDidMount() {
@@ -24,26 +24,29 @@ class Home extends React.Component {
 
 	render() {
 		const { categoriesLoading, categories } = this.props;
+		console.log(categoriesLoading);
 		return (
 			<Layout>
 				<div className='d-flex justify-content-center'>{categoriesLoading && <Loader />}</div>
 
 				<div className='container-fluid container-min-max-width'>
-					<Slider />
-					<div className='row'>
-						{categories.map(({ id, name, description, imageUrl }) => {
-							return <HomeCategory key={id} route={id} name={name} description={description} image={imageUrl} />;
-						})}
-					</div>
-					<div>
-						<hr />
-						<div className='d-flex justify-content-center'>
-							<Link to='/products/'>
-								<button className='btn btn-outline-dark my-3'>View all products</button>
-							</Link>
-						</div>
-						<hr />
-					</div>
+					{categoriesLoading ? (
+						<Loader />
+					) : (
+						<React.Fragment>
+							<Slider />
+							<CategoriesList categories={categories} />
+							<div>
+								<hr />
+								<div className='d-flex justify-content-center'>
+									<Link to='/products/'>
+										<button className='btn btn-outline-dark my-3'>View all products</button>
+									</Link>
+								</div>
+								<hr />
+							</div>
+						</React.Fragment>
+					)}
 				</div>
 			</Layout>
 		);

@@ -10,6 +10,8 @@ import BackButton from '../../components/BackButton/BackButton';
 import { addToCart } from '../../store/actions/cart';
 import { getUserData } from '../../store/actions/user';
 import { selectUserData } from '../../store/selectors/user';
+import ProductInfo from '../../components/ProductInfo/ProductInfo';
+import Loader from '../../components/Loader/Loader';
 
 class Product extends Component {
 	constructor() {
@@ -19,6 +21,7 @@ class Product extends Component {
 			loading: true,
 			errors: ''
 		};
+		this.addToFavorites = this.addToFavorites.bind(this);
 	}
 	componentDidMount() {
 		const productId = this.props.match.params.productId;
@@ -63,57 +66,22 @@ class Product extends Component {
 		const productId = this.props.match.params.productId;
 		const product = this.state.product;
 		const { addToCart } = this.props;
+		const { loading } = this.state;
 		return (
 			<Layout>
 				<div className='product-page container-fluid container-min-max-width'>
 					<BackButton goBack={this.props.history.goBack} />
 					<h1 className='my-5 h2'>{product.title}</h1>
-					<div className='product-info d-flex mb-5'>
-						<div className='image-wrapper d-flex justify-content-center align-items-center mr-5'>
-							<img src={product.imageUrl} alt='Product presentation' />
-						</div>
-						<div className='product-details'>
-							<p className='h3 text-danger'>
-								{product.price} {product.currency}
-							</p>
-							<button
-								className='btn btn-dark mb-4 font-weight-bold'
-								onClick={() => {
-									addToCart({
-										product: {
-											id: productId,
-											title: product.title,
-											price: product.price,
-											currency: product.currency,
-											imageUrl: product.imageUrl
-										}
-									});
-								}}>
-								Add To Cart
-							</button>
-							<button
-								className='btn btn-dark mb-4 font-weight-bold ml-3'
-								onClick={() => {
-									this.addToFavorites(productId);
-								}}>
-								Add To Favorites
-							</button>
-							<p>
-								<span className='font-weight-bold'>Item Number</span>: {product.itemNumber}
-							</p>
-							<p>
-								<span className='font-weight-bold'>Brand</span>: {product.brand}
-							</p>
-							<p>
-								<span className='font-weight-bold'>Material</span>: {product.material}
-							</p>
-							<p>
-								<span className='font-weight-bold'>Weight</span>: {product.weight}
-							</p>
-							<p className='font-weight-bold mb-1'>Description:</p>
-							<p>{product.description}</p>
-						</div>
-					</div>
+					{loading ? (
+						<Loader />
+					) : (
+						<ProductInfo
+							productId={productId}
+							product={product}
+							addToCart={addToCart}
+							addToFavorites={this.addToFavorites}
+						/>
+					)}
 				</div>
 			</Layout>
 		);

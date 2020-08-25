@@ -31,6 +31,8 @@ const selectSort = createSelector([ selectURLSearchParams ], (params) => {
 
 export const selectProductsData = createSelector([ selectProducts ], (products) => products.data);
 
+export const selectProductsLoading = createSelector([ selectProducts ], (products) => products.loading);
+
 export const selectFilteredProducts = createSelector(
 	[ selectProductsData, selectFilters, selectUserFavorites ],
 	(products, filters, favorites) => {

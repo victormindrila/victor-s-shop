@@ -3,14 +3,12 @@ import { Link } from 'react-router-dom';
 import AnimatedImage from '../AnimatedImage/AnimatedImage';
 import './HomeCategory.scss';
 
-const HomeCategory = (props) => {
-	const { route, name, description, image } = props;
-
+const HomeCategory = ({ category: { id, name, description, imageUrl } }) => {
 	return (
 		<div className='col-12 col-md-6 mb-3 home-category'>
-			<Link to={`/products/?category=${route}`}>
+			<Link to={`/products/?category=${id}`}>
 				<div className='w-100 home-category-image'>
-					<AnimatedImage imageUrl={image} alt={name} className='w-100' />
+					<AnimatedImage imageUrl={imageUrl} alt={name} className='w-100' />
 				</div>
 				<h2 className='h4 my-1'>
 					<strong>{name}:</strong>
