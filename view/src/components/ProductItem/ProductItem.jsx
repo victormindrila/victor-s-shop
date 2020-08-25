@@ -1,5 +1,5 @@
 import React from 'react';
-import './ProductItem.css';
+import './ProductItem.scss';
 import { connect } from 'react-redux';
 import { addToCart } from '../../store/actions/cart';
 import { Link } from 'react-router-dom';

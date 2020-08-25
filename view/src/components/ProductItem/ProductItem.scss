@@ -7,6 +7,9 @@
 .image-container {
 	height: 250px;
 	max-width: 250px;
+	&:hover {
+		opacity: 0.85;
+	}
 }
 
 .product-item {
