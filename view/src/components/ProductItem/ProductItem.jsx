@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { addToCart } from '../../store/actions/cart';
 import { Link } from 'react-router-dom';
 import AddToFav from '../AddToFav/AddToFav';
+import AnimatedImage from '../AnimatedImage/AnimatedImage';
 
 function ProductItem({ title, price, currency, imageUrl, id, addToCart }) {
 	return (
@@ -11,7 +12,7 @@ function ProductItem({ title, price, currency, imageUrl, id, addToCart }) {
 			<AddToFav productId={id} />
 			<Link to={`/product/${id}`} className='d-flex flex-column justify-content-center align-items-center '>
 				<div className='d-flex flex-column justify-content-center align-items-center image-container'>
-					<img src={imageUrl} alt='productPhoto' className='mb-2' />
+					<AnimatedImage imageUrl={imageUrl} alt='productPhoto' className='mb-2' />
 				</div>
 				<p className='mb-1 text-center'>{title}</p>
 				<p className='text-center'>{price + currency}</p>
