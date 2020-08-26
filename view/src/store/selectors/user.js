@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
 
-const selectUser = (state) => state.user;
+const selectUser = (state, ownProps) => state.user;
+const selectCurrentProductId = (state, ownProps) => ownProps.productId;
 
 export const selectUserData = createSelector([ selectUser ], (user) => user.data);
 
@@ -12,9 +13,14 @@ export const selectUserId = createSelector([ selectUser ], (user) => user.data.u
 
 export const selectUserEmail = createSelector([ selectUser ], (user) => user.data.email);
 
-export const selectUserFavorites = createSelector([ selectUser ], (user) => user.data.favorites);
+export const selectUserFavorites = createSelector([ selectUser ], (user) => user.data.favorites || []);
 
 export const selectNumberOfFavoritesProducts = createSelector(
 	[ selectUser ],
 	(user) => user.data && user.data.favorites && user.data.favorites.length
+);
+
+export const selectIsFavorite = createSelector(
+	[ selectUserFavorites, selectCurrentProductId ],
+	(favorites, productId) => favorites.some((favorite) => favorite === productId)
 );

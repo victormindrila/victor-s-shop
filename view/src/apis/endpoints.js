@@ -51,3 +51,29 @@ export const setUserDetails = async (data) => {
 	const response = await axios.post('/user/setDetails', data);
 	return response.data;
 };
+
+export const addToFavorites = async (productId, userEmail, cb) => {
+	try {
+		await axios.post('/favorite/', {
+			productId,
+			userEmail
+		});
+		cb();
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+export const deleteFromFavorites = async (productId, userEmail, cb) => {
+	try {
+		await axios.delete('/favorite/', {
+			data: {
+				productId,
+				userEmail
+			}
+		});
+		cb();
+	} catch (error) {
+		console.log(error);
+	}
+};

@@ -1,77 +1,31 @@
 import React from 'react';
 import './AddToFav.css';
 import { ReactComponent as FavoriteSmall } from '../../assets/icons/favorite_small.svg';
-import axios from 'axios';
 import { connect } from 'react-redux';
 import { getUserData } from '../../store/actions/user';
 import { useHistory } from 'react-router-dom';
-import { createStructuredSelector } from 'reselect';
-import { selectUserFavorites, selectUserEmail, selectUserData } from '../../store/selectors/user';
+import { selectUserEmail, selectUserData, selectIsFavorite } from '../../store/selectors/user';
 
-function AddToFav({ productId, userData, getUserData, userFavorites, userEmail }) {
+import { addToFavorites, deleteFromFavorites } from '../../apis/endpoints';
+
+function AddToFav({ productId, userData, getUserData, userEmail, isFavorite }) {
 	const history = useHistory();
-	const isFavorite = () => {
-		if (userFavorites) {
-			return userFavorites.some((favorite) => favorite === productId);
-		} else {
-			return false;
+
+	function handleOnIconClick() {
+		if (!userData) {
+			history.push('/login');
+			return;
 		}
-	};
-	function addToFavorites(productId) {
-		const authToken = localStorage.getItem('Authorization');
-		axios.defaults.headers.common = { Authorization: `${authToken}` };
-		axios
-			.post('/favorite/', {
-				productId,
-				userEmail
-			})
-			.then((response) => {
-				getUserData();
-			})
-			.catch((error) => {
-				console.log(error);
-			});
+		isFavorite
+			? deleteFromFavorites(productId, userEmail, getUserData)
+			: addToFavorites(productId, userEmail, getUserData);
 	}
 
-	function deleteFromFavorites(productId) {
-		const authToken = localStorage.getItem('Authorization');
-		axios.defaults.headers.common = { Authorization: `${authToken}` };
-		axios
-			.delete('/favorite/', {
-				data: {
-					productId,
-					userEmail
-				}
-			})
-			.then((response) => {
-				getUserData();
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-	}
-
-	function handleOnIconClick(productId) {
-		if (isFavorite() === true) {
-			deleteFromFavorites(productId);
-		} else {
-			addToFavorites(productId);
-		}
-	}
-
-	if (userData) {
-		return (
-			<div className={`add-to-fav ${isFavorite() ? 'is-red' : ''}`} onClick={(e) => handleOnIconClick(productId)}>
-				<FavoriteSmall />
-			</div>
-		);
-	} else {
-		return (
-			<div className={`add-to-fav`} onClick={(e) => history.push('/login')}>
-				<FavoriteSmall />
-			</div>
-		);
-	}
+	return (
+		<div className={`add-to-fav ${isFavorite ? 'is-red' : ''}`} onClick={() => handleOnIconClick()}>
+			<FavoriteSmall />
+		</div>
+	);
 }
 
 function mapDispatchToProps(dispatch) {
@@ -82,10 +36,12 @@ function mapDispatchToProps(dispatch) {
 	};
 }
 
-const mapStateToProps = createStructuredSelector({
-	userData: selectUserData,
-	userFavorites: selectUserFavorites,
-	userEmail: selectUserEmail
-});
+const mapStateToProps = (state, ownProps) => {
+	return {
+		userData: selectUserData(state),
+		userEmail: selectUserEmail(state),
+		isFavorite: selectIsFavorite(state, ownProps)
+	};
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddToFav);
