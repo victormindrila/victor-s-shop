@@ -4,8 +4,7 @@ import AnimatedImage from '../AnimatedImage/AnimatedImage';
 
 import './Banner.css';
 
-function Banner(props) {
-	const { background, link, tagLine } = props;
+function Banner({ background, link, tagLine }) {
 	return (
 		<div className='banner'>
 			<div className='image-wrapper'>
