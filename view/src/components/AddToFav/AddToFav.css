@@ -3,6 +3,7 @@
 	top: 10px;
 	right: 50px;
 	cursor: pointer;
+	z-index: 20;
 }
 
 .is-red {

@@ -24,7 +24,6 @@ class Home extends React.Component {
 
 	render() {
 		const { categoriesLoading, categories } = this.props;
-		console.log(categoriesLoading);
 		return (
 			<Layout>
 				<div className='d-flex justify-content-center'>{categoriesLoading && <Loader />}</div>
