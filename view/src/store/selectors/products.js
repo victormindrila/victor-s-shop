@@ -89,3 +89,20 @@ export const selectSortedProducts = createSelector([ selectFilteredProducts, sel
 	}
 	return arrCpy;
 });
+
+export const selectFilterOptions = createSelector([ selectProductsData ], (products) => {
+	const brands = [];
+	const materials = [];
+	const prices = [];
+
+	products.forEach((item) => {
+		brands.push(item['brand']);
+		materials.push(item['material']);
+		prices.push(item['price']);
+	});
+	return {
+		brands: [ ...new Set(brands) ],
+		materials: [ ...new Set(materials) ],
+		prices: [ ...new Set(prices) ]
+	};
+});

@@ -1,5 +1,8 @@
 import React from 'react';
 
+import CustomSelect from '../CustomSelect/CustomSelect';
+import CustomInput from '../CustomInput/CustomInput';
+
 class FiltersSideBar extends React.Component {
 	constructor() {
 		super();
@@ -8,22 +11,15 @@ class FiltersSideBar extends React.Component {
 			maxPriceInput: 0,
 			maxPrice: 0
 		};
+		this.handleOptionSelect = this.handleOptionSelect.bind(this);
 	}
 	componentDidMount() {
-		const { products } = this.props;
-		const prices = this.getOptions(products, 'price');
+		const { prices } = this.props.filterOptions;
 		const maxPrice = Number(Math.max(...prices)) + 50;
 		this.setState({
 			maxPriceInput: maxPrice,
 			maxPrice: maxPrice
 		});
-	}
-	getOptions(array, key) {
-		let options = [];
-		array.forEach((item) => {
-			options.push(item[key]);
-		});
-		return [ ...new Set(options) ];
 	}
 
 	handleOptionSelect(criteria, value) {
@@ -59,14 +55,13 @@ class FiltersSideBar extends React.Component {
 	}
 
 	render() {
-		const { products } = this.props;
-		const brands = this.getOptions(products, 'brand');
-		const materials = this.getOptions(products, 'material');
+		const { brands, materials } = this.props.filterOptions;
 		return (
 			<div className='col-12 col-md-3'>
 				<h2>Filter</h2>
-				<label htmlFor='minPrice'>Price from: {this.state.minPriceInput} EUR</label>
-				<input
+				<CustomInput
+					htmlFor='minPrice'
+					label={`Price from: ${this.state.minPriceInput} EUR`}
 					type='range'
 					className='custom-range'
 					id='minPrice'
@@ -80,8 +75,9 @@ class FiltersSideBar extends React.Component {
 						this.handleOptionSelect(e.target.name, e.target.value);
 					}}
 				/>
-				<label htmlFor='maxPrice'>Price to: {this.state.maxPriceInput} EUR</label>
-				<input
+				<CustomInput
+					htmlFor='maxPrice'
+					label={`Price to: ${this.state.maxPriceInput} EUR`}
 					type='range'
 					className='custom-range'
 					id='maxPrice'
@@ -95,32 +91,20 @@ class FiltersSideBar extends React.Component {
 						this.handleOptionSelect(e.target.name, e.target.value);
 					}}
 				/>
-				<select
+				<CustomSelect
 					className='custom-select my-3'
 					name='brand'
-					onChange={(e) => this.handleOptionSelect(e.target.name, e.target.value)}>
-					<option value=''>Filter by brand</option>
-					{brands.map((brand, index) => {
-						return (
-							<option value={brand} key={index}>
-								{brand}
-							</option>
-						);
-					})}
-				</select>
-				<select
+					defaultOption='Filter by brand'
+					options={brands}
+					handleOptionSelect={this.handleOptionSelect}
+				/>
+				<CustomSelect
 					className='custom-select my-3'
 					name='material'
-					onChange={(e) => this.handleOptionSelect(e.target.name, e.target.value)}>
-					<option value=''>Filter by material</option>
-					{materials.map((material, index) => {
-						return (
-							<option value={material} key={index}>
-								{material}
-							</option>
-						);
-					})}
-				</select>
+					defaultOption='Filter by material'
+					options={materials}
+					handleOptionSelect={this.handleOptionSelect}
+				/>
 				<button
 					className='btn btn-outline-dark mb-3 form-control form-control-lg'
 					onClick={() => this.handleClearFilters()}>

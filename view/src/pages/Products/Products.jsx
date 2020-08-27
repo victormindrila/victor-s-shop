@@ -17,7 +17,8 @@ import {
 	selectSortedProducts,
 	selectFilteredProducts,
 	selectURLSearchParams,
-	selectProductsLoading
+	selectProductsLoading,
+	selectFilterOptions
 } from '../../store/selectors/products';
 import { selectCategoriesData } from '../../store/selectors/categories';
 import { selectUserData } from '../../store/selectors/user';
@@ -62,7 +63,7 @@ class ProductList extends React.Component {
 	}
 
 	render() {
-		const { history, visibleProducts, filteredProducts, params, productsLoading } = this.props;
+		const { history, visibleProducts, filteredProducts, params, productsLoading, filterOptions } = this.props;
 		const { categoryName } = this.state;
 
 		return (
@@ -77,7 +78,12 @@ class ProductList extends React.Component {
 					<h2>{categoryName}</h2>
 					<hr />
 					<div className='d-flex products-container'>
-						<FiltersSideBar params={params} history={history} products={filteredProducts} />
+						<FiltersSideBar
+							params={params}
+							history={history}
+							products={filteredProducts}
+							filterOptions={filterOptions}
+						/>
 						{productsLoading ? <Loader /> : <ProductsList products={visibleProducts} />}
 					</div>
 				</div>
@@ -93,7 +99,8 @@ const mapStateToProps = (state, ownProps) => ({
 	params: selectURLSearchParams(state, ownProps),
 	filteredProducts: selectFilteredProducts(state, ownProps),
 	visibleProducts: selectSortedProducts(state, ownProps),
-	productsLoading: selectProductsLoading(state)
+	productsLoading: selectProductsLoading(state),
+	filterOptions: selectFilterOptions(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
