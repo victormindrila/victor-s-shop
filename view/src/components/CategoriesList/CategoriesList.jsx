@@ -5,7 +5,7 @@ function CategoriesList({ categories }) {
 	return (
 		<div className='row'>
 			{categories.map((category) => {
-				return <HomeCategory category={category} />;
+				return <HomeCategory category={category} key={category.id} />;
 			})}
 		</div>
 	);
