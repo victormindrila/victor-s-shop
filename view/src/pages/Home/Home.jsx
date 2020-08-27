@@ -14,6 +14,7 @@ import Layout from '../../components/Layout/Layout';
 import Loader from '../../components/Loader/Loader';
 import Slider from '../../components/Slider/Slider';
 import CategoriesList from '../../components/CategoriesList/CategoriesList';
+import ShowAllProductsButton from '../../components/ShowAllProductsButton/ShowAllProductsButton';
 
 class Home extends React.Component {
 	componentDidMount() {
@@ -26,8 +27,6 @@ class Home extends React.Component {
 		const { categoriesLoading, categories } = this.props;
 		return (
 			<Layout>
-				<div className='d-flex justify-content-center'>{categoriesLoading && <Loader />}</div>
-
 				<div className='container-fluid container-min-max-width'>
 					{categoriesLoading ? (
 						<Loader />
@@ -35,15 +34,7 @@ class Home extends React.Component {
 						<React.Fragment>
 							<Slider />
 							<CategoriesList categories={categories} />
-							<div>
-								<hr />
-								<div className='d-flex justify-content-center'>
-									<Link to='/products/'>
-										<button className='btn btn-outline-dark my-3'>View all products</button>
-									</Link>
-								</div>
-								<hr />
-							</div>
+							<ShowAllProductsButton />
 						</React.Fragment>
 					)}
 				</div>
