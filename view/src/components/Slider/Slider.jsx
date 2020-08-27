@@ -60,15 +60,16 @@ class Slider extends React.Component {
 	}
 
 	render() {
+		const { displayBanner: { image, link, tagLine }, activeBannerIndex, banners, show } = this.state;
 		return (
 			<div className='slider mb-3'>
 				<Slide
-					image={this.state.displayBanner.image}
-					link={this.state.displayBanner.link}
-					tagLine={this.state.displayBanner.tagLine}
-					active={this.state.activeBannerIndex}
-					total={this.state.banners.length}
-					show={this.state.show}
+					image={image}
+					link={link}
+					tagLine={tagLine}
+					active={activeBannerIndex}
+					total={banners.length}
+					show={show}
 					clickFunction={(e, number) => this.handleClick(e, number)}
 				/>
 			</div>

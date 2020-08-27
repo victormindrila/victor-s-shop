@@ -1,19 +1,18 @@
-header .logo {
-	width: auto;
-	height: 60px;
-}
-
-header a {
-	margin-right: 20px;
-}
-
-header a {
-	color: grey;
-}
-
-header .logout:hover {
-	cursor: pointer;
-	text-decoration: underline;
+header {
+	& .logo {
+		width: auto;
+		height: 60px;
+	}
+	& a {
+		margin-right: 20px;
+		color: grey;
+	}
+	& .logout {
+		&:hover {
+			cursor: pointer;
+			text-decoration: underline;
+		}
+	}
 }
 
 .products-number {

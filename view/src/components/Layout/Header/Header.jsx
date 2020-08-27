@@ -5,10 +5,10 @@ import { createStructuredSelector } from 'reselect';
 
 //selectors
 import { selectNumberOfProductsInCart } from '../../../store/selectors/cart';
-import { selectUserData, selectNumberOfFavoritesProducts } from '../../../store/selectors/user';
+import { selectNumberOfFavoritesProducts } from '../../../store/selectors/user';
 
 // css
-import './Header.css';
+import './Header.scss';
 
 // assets
 import logo from '../../../assets/images/logo/logo.png';
