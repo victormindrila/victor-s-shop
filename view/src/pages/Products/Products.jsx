@@ -12,6 +12,8 @@ import Loader from '../../components/Loader/Loader';
 //actions
 import { getAllProducts } from '../../store/actions/products';
 import { getAllCategories } from '../../store/actions/categories';
+
+//selectors
 import {
 	selectProductsData,
 	selectSortedProducts,
@@ -20,52 +22,23 @@ import {
 	selectProductsLoading,
 	selectFilterOptions
 } from '../../store/selectors/products';
-import { selectCategoriesData } from '../../store/selectors/categories';
+import { selectCategoriesData, selectCategoryName } from '../../store/selectors/categories';
 import { selectUserData } from '../../store/selectors/user';
 
 // CSS
 import './Products.css';
 
 class ProductList extends React.Component {
-	constructor() {
-		super();
-		this.state = {
-			categoryName: ''
-		};
-	}
 	componentDidMount() {
 		window.scrollTo(0, 0);
 
 		const { products, categories, getAllProducts, getAllCategories } = this.props;
-		const params = new URLSearchParams(this.props.history.location.search);
-		const categoryId = params.get('category');
 		if (products.length === 0) getAllProducts();
 		if (categories.length === 0) getAllCategories();
-		const categoryName = this.getCategoryName(categoryId);
-		this.setState({
-			categoryName: categoryName
-		});
-	}
-
-	getCategoryName(categoryId) {
-		const { categories } = this.props;
-		const category = categories.find((category) => category.id === categoryId);
-		let categoryName;
-
-		if (categoryId === null) {
-			categoryName = 'All Products';
-		} else if (categoryId === 'favorites') {
-			categoryName = 'Favorites';
-		} else {
-			categoryName = category && category.name;
-		}
-		return categoryName;
 	}
 
 	render() {
-		const { history, visibleProducts, filteredProducts, params, productsLoading, filterOptions } = this.props;
-		const { categoryName } = this.state;
-
+		const { history, visibleProducts, categoryName, params, productsLoading, filterOptions } = this.props;
 		return (
 			<Layout>
 				<div className='container-fluid container-min-max-width'>
@@ -95,7 +68,8 @@ const mapStateToProps = (state, ownProps) => ({
 	filteredProducts: selectFilteredProducts(state, ownProps),
 	visibleProducts: selectSortedProducts(state, ownProps),
 	productsLoading: selectProductsLoading(state),
-	filterOptions: selectFilterOptions(state)
+	filterOptions: selectFilterOptions(state),
+	categoryName: selectCategoryName(state, ownProps)
 });
 
 const mapDispatchToProps = (dispatch) => ({
