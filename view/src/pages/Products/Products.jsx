@@ -78,12 +78,7 @@ class ProductList extends React.Component {
 					<h2>{categoryName}</h2>
 					<hr />
 					<div className='d-flex products-container'>
-						<FiltersSideBar
-							params={params}
-							history={history}
-							products={filteredProducts}
-							filterOptions={filterOptions}
-						/>
+						<FiltersSideBar params={params} history={history} filterOptions={filterOptions} />
 						{productsLoading ? <Loader /> : <ProductsList products={visibleProducts} />}
 					</div>
 				</div>
