@@ -1,29 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './AddToFav.css';
 import { ReactComponent as FavoriteSmall } from '../../assets/icons/favorite_small.svg';
 import { connect } from 'react-redux';
 import { getUserData } from '../../store/actions/user';
 import { useHistory } from 'react-router-dom';
 import { selectUserEmail, selectUserData, selectIsFavorite } from '../../store/selectors/user';
+import withSpinner from '../WithSpinner/WithSpinner';
 
 import { addToFavorites, deleteFromFavorites } from '../../apis/endpoints';
 
+const FavoritesWithLoading = withSpinner((props) => <FavoriteSmall {...props} />);
+
 function AddToFav({ productId, userData, getUserData, userEmail, isFavorite }) {
 	const history = useHistory();
+	const [ loading, setLoading ] = useState(false);
 
 	function handleOnIconClick() {
+		setLoading(true);
 		if (!userData) {
 			history.push('/login');
 			return;
 		}
 		isFavorite
-			? deleteFromFavorites(productId, userEmail, getUserData)
-			: addToFavorites(productId, userEmail, getUserData);
+			? deleteFromFavorites(productId, userEmail, setLoading, getUserData)
+			: addToFavorites(productId, userEmail, setLoading, getUserData);
 	}
 
 	return (
-		<div className={`add-to-fav ${isFavorite ? 'is-red' : ''}`} onClick={() => handleOnIconClick()}>
-			<FavoriteSmall />
+		<div className={`add-to-fav ${isFavorite ? 'is-red' : ''}`}>
+			<FavoritesWithLoading onClick={() => handleOnIconClick()} isLoading={loading} />
 		</div>
 	);
 }

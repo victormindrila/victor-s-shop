@@ -52,19 +52,20 @@ export const setUserDetails = async (data) => {
 	return response.data;
 };
 
-export const addToFavorites = async (productId, userEmail, cb) => {
+export const addToFavorites = async (productId, userEmail, setLoading, cb) => {
 	try {
 		await axios.post('/favorite/', {
 			productId,
 			userEmail
 		});
 		cb();
+		setLoading(false);
 	} catch (error) {
 		console.log(error);
 	}
 };
 
-export const deleteFromFavorites = async (productId, userEmail, cb) => {
+export const deleteFromFavorites = async (productId, userEmail, setLoading, cb) => {
 	try {
 		await axios.delete('/favorite/', {
 			data: {
@@ -73,6 +74,7 @@ export const deleteFromFavorites = async (productId, userEmail, cb) => {
 			}
 		});
 		cb();
+		setLoading(false);
 	} catch (error) {
 		console.log(error);
 	}
