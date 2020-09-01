@@ -1,6 +1,6 @@
 import UserActionTypes from '../types/user';
 const initialState = {
-	data: '',
+	data: null,
 	loading: false,
 	error: ''
 };

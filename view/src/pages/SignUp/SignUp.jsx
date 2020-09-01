@@ -12,6 +12,8 @@ import Logo from '../../assets/images/logo/logo.png';
 //components
 import Error from '../../components/Error/Error';
 import Loader from '../../components/Loader/Loader';
+import CustomInput from '../../components/CustomInput/CustomInput';
+import CustomButton from '../../components/CustomButton/CustomButton';
 
 // actions
 import { signUpUser, updateError } from '../../store/actions/user';
@@ -32,6 +34,7 @@ class Signup extends React.Component {
 			password: '',
 			passwordConfirmation: ''
 		};
+		this.handleChange = this.handleChange.bind(this);
 	}
 
 	componentDidUpdate(prevProps) {
@@ -64,101 +67,100 @@ class Signup extends React.Component {
 	}
 
 	render() {
+		const { firstName, lastName, phone, country, email, password, passwordConfirmation } = this.state;
+		const { userError, userLoading } = this.props;
 		return (
 			<div className='signup-page'>
 				<Link to='/'>
 					<img src={Logo} alt='logo' className='' />
 				</Link>
 				<h1 className='h2 mb-3'>Sign Up</h1>
-				{this.props.userLoading && <Loader />}
-				<div className='columns is-centered is-vcentered'>
-					<div className='column is-one-quarter'>
-						<form onSubmit={(e) => this.handleSubmit(e)}>
-							{this.props.userError.error && <Error error={this.props.userError.error} />}
-							<div className='form-group'>
-								<label className='label'>First Name</label>
-								<input
-									className='form-control form-control-lg'
-									placeholder='First Name'
-									name='firstName'
-									value={this.state.firstName}
-									onChange={(e) => this.handleChange(e)}
-								/>
-								{this.props.userError.firstName && <Error error={this.props.userError.firstName} />}
-							</div>
-							<div className='form-group'>
-								<label className='label'>Last Name</label>
-								<input
-									className='form-control form-control-lg'
-									placeholder='Last Name'
-									name='lastName'
-									value={this.state.lastName}
-									onChange={(e) => this.handleChange(e)}
-								/>
-								{this.props.userError.lastName && <Error error={this.props.userError.lastName} />}
-							</div>
-							<div className='form-group'>
-								<label className='label'>Phone Number</label>
-								<input
-									className='form-control form-control-lg'
-									placeholder='Phone Number'
-									name='phone'
-									value={this.state.phone}
-									onChange={(e) => this.handleChange(e)}
-								/>
-								{this.props.userError.phoneNumber && <Error error={this.props.userError.phoneNumber} />}
-							</div>
-							<div className='form-group'>
-								<label className='label'>Country</label>
-								<input
-									className='form-control form-control-lg'
-									placeholder='Country'
-									name='country'
-									value={this.state.country}
-									onChange={(e) => this.handleChange(e)}
-								/>
-								{this.props.userError.country && <Error error={this.props.userError.country} />}
-							</div>
-							<div className='form-group'>
-								<label className='label'>Email</label>
-								<input
-									className='form-control form-control-lg'
-									placeholder='Email'
-									name='email'
-									value={this.state.email}
-									onChange={(e) => this.handleChange(e)}
-								/>
-								{this.props.userError.email && <Error error={this.props.userError.email} />}
-							</div>
-							<div className='form-group'>
-								<label className='label'>Password</label>
-								<input
-									className='form-control form-control-lg'
-									placeholder='Password'
-									name='password'
-									type='password'
-									value={this.state.password}
-									onChange={(e) => this.handleChange(e)}
-								/>
-								{this.props.userError.password && <Error error={this.props.userError.password} />}
-							</div>
-							<div className='form-group'>
-								<label className='label'>Password Confirmation</label>
-								<input
-									className='form-control form-control-lg'
-									placeholder='Password Confirmation'
-									name='passwordConfirmation'
-									type='password'
-									value={this.state.passwordConfirmation}
-									onChange={(e) => this.handleChange(e)}
-								/>
-								{this.props.userError.confirmPassword && <Error error={this.props.userError.confirmPassword} />}
-							</div>
-							<button className='btn btn-outline-dark mb-3 form-control form-control-lg'>Submit</button>
-						</form>
-						<Link to='/login'>Have an account? Sign In</Link>
-					</div>
-				</div>
+				<form onSubmit={(e) => this.handleSubmit(e)}>
+					{userError.error && <Error error={userError.error} />}
+					<CustomInput
+						label='First Name'
+						htmlFor='firstName'
+						className='form-control form-control-lg'
+						placeholder='First Name'
+						name='firstName'
+						value={firstName}
+						onChange={(e) => this.handleChange(e)}
+						error={userError.firstName}
+					/>
+
+					<CustomInput
+						label='Last Name'
+						htmlFor='lastName'
+						className='form-control form-control-lg'
+						placeholder='Last Name'
+						name='lastName'
+						value={lastName}
+						onChange={(e) => this.handleChange(e)}
+						error={userError.lastName}
+					/>
+
+					<CustomInput
+						label='Phone Number'
+						htmlFor='phoneNumber'
+						className='form-control form-control-lg'
+						placeholder='Phone Number'
+						name='phone'
+						value={phone}
+						onChange={(e) => this.handleChange(e)}
+						error={userError.phoneNumber}
+					/>
+
+					<CustomInput
+						label='Country'
+						htmlFor='country'
+						className='form-control form-control-lg'
+						placeholder='Country'
+						name='country'
+						value={country}
+						onChange={(e) => this.handleChange(e)}
+						error={userError.country}
+					/>
+
+					<CustomInput
+						label='Email'
+						htmlFor='email'
+						className='form-control form-control-lg'
+						placeholder='Email'
+						name='email'
+						value={email}
+						onChange={(e) => this.handleChange(e)}
+						error={userError.email}
+					/>
+
+					<CustomInput
+						label='Password'
+						htmlFor='password'
+						className='form-control form-control-lg'
+						placeholder='Password'
+						type='password'
+						name='password'
+						value={password}
+						onChange={(e) => this.handleChange(e)}
+						error={userError.password}
+					/>
+
+					<CustomInput
+						label='Password Confirmation'
+						htmlFor='passwordConfirmation'
+						className='form-control form-control-lg'
+						placeholder='Password Confirmation'
+						name='passwordConfirmation'
+						type='password'
+						value={passwordConfirmation}
+						onChange={(e) => this.handleChange(e)}
+						error={userError.passwordConfirmation}
+					/>
+
+					<CustomButton className='btn btn-outline-dark mb-3 form-control form-control-lg' isLoading={userLoading}>
+						Submit
+					</CustomButton>
+				</form>
+				<Link to='/login'>Have an account? Sign In</Link>
 			</div>
 		);
 	}

@@ -11,7 +11,7 @@ export const selectUserError = createSelector([ selectUser ], (user) => user.err
 
 export const selectUserId = createSelector([ selectUser ], (user) => user.data.userId);
 
-export const selectUserEmail = createSelector([ selectUser ], (user) => user.data.email);
+export const selectUserEmail = createSelector([ selectUser ], (user) => user.data && user.data.email);
 
 export const selectUserFavorites = createSelector([ selectUser ], (user) => (user.data && user.data.favorites) || []);
 
