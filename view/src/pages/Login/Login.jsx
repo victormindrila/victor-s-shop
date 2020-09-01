@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Children } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -8,7 +8,8 @@ import './Login.css';
 
 //components
 import Error from '../../components/Error/Error';
-import Loader from '../../components/Loader/Loader';
+import CustomButton from '../../components/CustomButton/CustomButton';
+import CustomInput from '../../components/CustomInput/CustomInput';
 
 //assets
 import Logo from '../../assets/images/logo/logo.png';
@@ -33,11 +34,7 @@ class Login extends React.Component {
 	componentDidUpdate(prevProps) {
 		const { user, history } = this.props;
 		if (user !== prevProps.user) {
-			if (window.history.length > 2) {
-				history.goBack();
-			} else {
-				history.push('/');
-			}
+			history.push('/');
 		}
 	}
 
@@ -60,12 +57,14 @@ class Login extends React.Component {
 	}
 
 	render() {
+		const { userError, userLoading } = this.props;
+		const { email, password } = this.state;
 		return (
 			<div className='login-page'>
 				<Link to='/'>
 					<img src={Logo} alt='logo' className='' />
 				</Link>
-				{this.props.userLoading && <Loader />}
+
 				<h1 className='h2 mb-3'>Login</h1>
 
 				<div className='columns is-centered is-vcentered'>
@@ -74,52 +73,51 @@ class Login extends React.Component {
 							onSubmit={(e) => {
 								this.handleSubmit(e);
 							}}>
-							<div className='form-group'>
-								<input
-									className='form-control form-control-lg'
-									name='email'
-									placeholder='Email'
-									aria-describedby='emailHelp'
-									value={this.state.email}
-									onChange={(e) => this.handleChange(e)}
-								/>
-								{this.props.userError.email && <Error error={this.props.userError.email} />}
-							</div>
-							<div className='form-group'>
-								<input
-									type='password'
-									className='form-control form-control-lg'
-									name='password'
-									placeholder='Parola'
-									value={this.state.password}
-									onChange={(e) => this.handleChange(e)}
-								/>
-								{this.props.userError.password && <Error error={this.props.userError.password} />}
-							</div>
-							{this.props.userError.error && <Error error={this.props.userError.error} />}
-							<button type='submit' className='btn btn-outline-dark mb-3 form-control form-control-lg'>
+							<CustomInput
+								className='form-control form-control-lg'
+								name='email'
+								placeholder='Email'
+								aria-describedby='emailHelp'
+								value={email}
+								onChange={(e) => this.handleChange(e)}
+								error={userError.email}
+							/>
+							<CustomInput
+								type='password'
+								className='form-control form-control-lg'
+								name='password'
+								placeholder='Password'
+								value={password}
+								onChange={(e) => this.handleChange(e)}
+								error={userError.password}
+							/>
+							{userError.error && <Error error={userError.error} />}
+							<CustomButton
+								isLoading={userLoading}
+								type='submit'
+								className='btn btn-outline-dark mb-3 form-control form-control-lg'>
 								Log In
-							</button>
+							</CustomButton>
 						</form>
 						<Link to='/signup' className='my-3'>
 							Don't have an account? Sign Up with e-mail!
 						</Link>
 					</div>
 				</div>
-				<p className='my-2'>sau</p>
-				<button
+				<p className='my-2'>or</p>
+				<CustomButton
 					className='btn btn-outline-dark d-flex align-items-center'
 					onClick={() => this.props.loginUserWithGoogle()}>
 					<Google className='w-50 mr-3' />
 					<span className='text-nowrap pr-3'>Log In with Google</span>
-				</button>
-				<button
+				</CustomButton>
+				<CustomButton
 					disabled
 					className='btn btn-outline-dark d-flex align-items-center mt-3'
 					onClick={() => this.props.loginUserWithGoogle()}>
 					<Facebook className='w-50 mr-3' />
 					<span className='text-nowrap'>Log In with Facebook</span>
-				</button>
+				</CustomButton>
 			</div>
 		);
 	}

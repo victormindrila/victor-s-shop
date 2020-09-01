@@ -1,16 +1,18 @@
 import React from 'react';
+import Error from '../Error/Error';
 
-function CustomInput({ htmlFor, label, onChange, ...rest }) {
+function CustomInput({ htmlFor, label, onChange, error, ...rest }) {
 	return (
-		<React.Fragment>
-			<label htmlFor={htmlFor}>{label}</label>
+		<div className='form-group'>
+			{label && <label htmlFor={htmlFor}>{label}</label>}
 			<input
 				{...rest}
 				onChange={(e) => {
 					onChange(e);
 				}}
 			/>
-		</React.Fragment>
+			{error && <Error error={error} />}
+		</div>
 	);
 }
 
