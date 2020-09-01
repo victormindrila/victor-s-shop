@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
@@ -18,9 +17,8 @@ import ShowAllProductsButton from '../../components/ShowAllProductsButton/ShowAl
 
 class Home extends React.Component {
 	componentDidMount() {
-		const { categories, products, getAllCategories, getAllProducts } = this.props;
+		const { categories, getAllCategories } = this.props;
 		if (categories.length === 0) getAllCategories();
-		if (products.length === 0) getAllProducts();
 	}
 
 	render() {
