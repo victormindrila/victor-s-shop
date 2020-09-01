@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 
 const selectUser = (state, ownProps) => state.user;
-const selectCurrentProductId = (state, ownProps) => ownProps.productId;
+const selectCurrentProductId = (state, ownProps) => ownProps.productId || ownProps.match.params.productId;
 
 export const selectUserData = createSelector([ selectUser ], (user) => user.data);
 
@@ -13,7 +13,7 @@ export const selectUserId = createSelector([ selectUser ], (user) => user.data.u
 
 export const selectUserEmail = createSelector([ selectUser ], (user) => user.data.email);
 
-export const selectUserFavorites = createSelector([ selectUser ], (user) => user.data.favorites || []);
+export const selectUserFavorites = createSelector([ selectUser ], (user) => (user.data && user.data.favorites) || []);
 
 export const selectNumberOfFavoritesProducts = createSelector(
 	[ selectUser ],

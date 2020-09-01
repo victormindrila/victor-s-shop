@@ -1,71 +1,63 @@
 import React, { Component } from 'react';
 import Layout from '../../components/Layout/Layout';
 import { connect } from 'react-redux';
-import axios from 'axios';
-import { createStructuredSelector } from 'reselect';
 
 import './Product.scss';
 import BackButton from '../../components/BackButton/BackButton';
 
 import { addToCart } from '../../store/actions/cart';
 import { getUserData } from '../../store/actions/user';
-import { selectUserData } from '../../store/selectors/user';
+import { selectUserEmail, selectUserData } from '../../store/selectors/user';
+import { selectIsFavorite } from '../../store/selectors/user';
 import ProductInfo from '../../components/ProductInfo/ProductInfo';
 import Loader from '../../components/Loader/Loader';
+
+import { fetchProductData, addToFavorites, deleteFromFavorites } from '../../apis/endpoints';
 
 class Product extends Component {
 	constructor() {
 		super();
 		this.state = {
 			product: '',
-			loading: true,
+			loading: false,
 			errors: ''
 		};
 		this.addToFavorites = this.addToFavorites.bind(this);
 	}
 	componentDidMount() {
 		const productId = this.props.match.params.productId;
-		axios
-			.get(`/product/`, {
-				params: {
-					productId
-				}
-			})
-			.then((response) => {
+		this.setState({ loading: true });
+		try {
+			fetchProductData(productId, (response) => {
 				this.setState({
 					loading: false,
 					product: response.data
 				});
-			})
-			.catch((error) => {
-				this.setState({
-					errors: error
-				});
 			});
+		} catch (error) {
+			this.setState({
+				errors: error
+			});
+		}
 	}
 
 	addToFavorites(productId) {
-		const userEmail = this.props.user && this.props.user.email;
-		const { getUserData } = this.props;
-		const authToken = localStorage.getItem('Authorization');
-		axios.defaults.headers.common = { Authorization: `${authToken}` };
-		axios
-			.post('/favorite/', {
-				productId,
-				userEmail
-			})
-			.then((response) => {
-				getUserData();
-			})
-			.catch((error) => {
-				console.log(error);
-			});
+		const { userEmail, userData, getUserData, history, isFavorite } = this.props;
+
+		if (!userData) {
+			history.push('/login');
+			return;
+		}
+
+		isFavorite
+			? deleteFromFavorites(productId, userEmail, () => {}, getUserData)
+			: addToFavorites(productId, userEmail, () => {}, getUserData);
 	}
 
 	render() {
 		const productId = this.props.match.params.productId;
 		const product = this.state.product;
-		const { addToCart } = this.props;
+		const { addToCart, isFavorite } = this.props;
 		const { loading } = this.state;
 		return (
 			<Layout>
@@ -80,6 +72,7 @@ class Product extends Component {
 							product={product}
 							addToCart={addToCart}
 							addToFavorites={this.addToFavorites}
+							isFavorite={isFavorite}
 						/>
 					)}
 				</div>
@@ -88,8 +81,10 @@ class Product extends Component {
 	}
 }
 
-const mapStateToProps = createStructuredSelector({
-	user: selectUserData
+const mapStateToProps = (state, ownProps) => ({
+	userEmail: selectUserEmail(state),
+	userData: selectUserData(state),
+	isFavorite: selectIsFavorite(state, ownProps)
 });
 
 function mapDispatchToProps(dispatch) {

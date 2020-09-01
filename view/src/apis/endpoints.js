@@ -79,3 +79,13 @@ export const deleteFromFavorites = async (productId, userEmail, setLoading, cb) 
 		console.log(error);
 	}
 };
+
+export const fetchProductData = async (productId, cb) => {
+	const response = await axios.get(`/product/`, {
+		params: {
+			productId
+		}
+	});
+
+	cb(response);
+};

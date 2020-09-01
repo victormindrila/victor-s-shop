@@ -5,7 +5,8 @@ function ProductInfo({
 	productId,
 	product: { title, price, currency, imageUrl, itemNumber, brand, material, weight, description },
 	addToCart,
-	addToFavorites
+	addToFavorites,
+	isFavorite
 }) {
 	return (
 		<div className='product-info d-flex mb-5'>
@@ -36,7 +37,7 @@ function ProductInfo({
 					onClick={() => {
 						addToFavorites(productId);
 					}}>
-					Add To Favorites
+					{isFavorite ? 'Remove from favorites' : 'Add to favorites'}
 				</button>
 				<p>
 					<span className='font-weight-bold'>Item Number</span>: {itemNumber}
