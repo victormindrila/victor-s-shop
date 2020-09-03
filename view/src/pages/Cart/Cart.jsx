@@ -18,7 +18,7 @@ import './Cart.css';
 
 function Cart({ products, removeFromCart, history, total }) {
 	return (
-		<Layout>
+		<Layout title='Cart'>
 			<div className='cart-page container-fluid container-min-max-width
 				d-flex flex-column justify-content-center align-items-center'>
 				{products.length ? (

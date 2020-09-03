@@ -42,7 +42,7 @@ class Products extends React.Component {
 	render() {
 		const { history, visibleProducts, categoryName, params, productsLoading, filterOptions } = this.props;
 		return (
-			<Layout>
+			<Layout title='Products'>
 				<div className='container-fluid container-min-max-width'>
 					<div className='d-flex justify-content-between'>
 						<BackButton goBack={history.goBack} />

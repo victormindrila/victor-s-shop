@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 function Page404() {
 	return (
-		<Layout>
+		<Layout title='Page Not Found'>
 			<div className='d-flex flex-column align-items-center'>
 				<p className='h3'>OOOPS! PAGE 404!</p>
 				<Link to='/'>

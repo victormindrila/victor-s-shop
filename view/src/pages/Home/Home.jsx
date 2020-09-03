@@ -34,7 +34,7 @@ class Home extends React.Component {
 	render() {
 		const { categoriesLoading, categories } = this.props;
 		return (
-			<Layout>
+			<Layout title='Home'>
 				<CategoriesSectionWithSpinner isLoading={categoriesLoading} categories={categories} />
 			</Layout>
 		);

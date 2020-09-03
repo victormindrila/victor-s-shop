@@ -66,7 +66,7 @@ class Product extends Component {
 		const { addToCart, isFavorite } = this.props;
 		const { loading } = this.state;
 		return (
-			<Layout>
+			<Layout title='View Product'>
 				<div className='product-page container-fluid container-min-max-width'>
 					<BackButton goBack={this.props.history.goBack} />
 					<h1 className='my-5 h2'>{product.title}</h1>

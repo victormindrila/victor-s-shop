@@ -4,7 +4,7 @@ import Layout from '../../components/Layout/Layout';
 function TermsAndConditions() {
 	window.scrollTo(0, 0);
 	return (
-		<Layout>
+		<Layout title='Terms and Conditions'>
 			<div className='cart-page container-fluid container-min-max-width'>
 				<h1>Terms and Conditions</h1>
 				<p>Last updated: May 23, 2020</p>

@@ -128,7 +128,7 @@ class Checkout extends React.Component {
 		const { products, history, totalSum } = this.props;
 		const checkoutState = checkoutStates[currentStep - 1];
 		return (
-			<Layout>
+			<Layout title='Checkout'>
 				<div className='cart-page container-fluid container-min-max-width
 					d-flex flex-column justify-content-center align-items-center'>
 					{products.length === 0 ? (
