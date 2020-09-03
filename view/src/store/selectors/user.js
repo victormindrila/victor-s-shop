@@ -24,3 +24,5 @@ export const selectIsFavorite = createSelector(
 	[ selectUserFavorites, selectCurrentProductId ],
 	(favorites, productId) => favorites.some((favorite) => favorite === productId)
 );
+
+export const isAuthenticated = createSelector([ selectUserData ], (userData) => (userData ? true : false));

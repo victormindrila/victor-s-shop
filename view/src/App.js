@@ -13,7 +13,7 @@ import Page404 from './pages/Page404/Page404';
 import About from './pages/About/About';
 import TermsAndConditions from './pages/TermsAndConditions/TermsAndConditions';
 import Checkout from './pages/Checkout/Checkout';
-import OrderSummary from './pages/OrderSummary/OrderSummary';
+import ProtectedRoute from './utils/ProtectedRoute';
 
 class App extends React.Component {
 	render() {
@@ -28,8 +28,7 @@ class App extends React.Component {
 					<Route path='/product/:productId' component={Product} />
 					<Route path='/about/' component={About} />
 					<Route path='/terms-and-conditions/' component={TermsAndConditions} />
-					<Route path='/checkout' component={Checkout} />
-					<Route path='/order-summary' component={OrderSummary} />
+					<ProtectedRoute exact path='/checkout' component={Checkout} />
 					<Route path='*' component={Page404} />
 				</Switch>
 			</div>

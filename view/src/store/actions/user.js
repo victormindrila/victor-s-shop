@@ -6,6 +6,7 @@ import {
 	setUserDetails
 } from '../../apis/endpoints';
 import UserActionTypes from '../types/user';
+import axios from '../../apis/axios';
 
 export function startLoading() {
 	return {
@@ -56,7 +57,10 @@ export function loginUser(email, password) {
 
 		try {
 			const payload = await loginUserWithEmail(email, password);
-			localStorage.setItem('Authorization', 'Bearer ' + payload.token);
+			const authToken = payload.token;
+			localStorage.setItem('Authorization', 'Bearer ' + authToken);
+			/*override the token from axios initial instantiation*/
+			axios.defaults.headers.common = { Authorization: `Bearer ${authToken}` };
 			dispatch(getUserData());
 		} catch (error) {
 			if (!error.response) {
@@ -71,6 +75,7 @@ export function loginUser(email, password) {
 export function logoutUser() {
 	return (dispatch) => {
 		localStorage.clear();
+		axios.defaults.headers.common = { Authorization: `${null}` };
 		dispatch(updateUserData(null));
 	};
 }

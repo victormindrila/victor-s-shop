@@ -1,17 +1,34 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 // components
 import Layout from '../../components/Layout/Layout';
-import BackButton from '../../components/BackButton/BackButton';
 import Error from '../../components/Error/Error';
+import Stepper from 'react-stepper-horizontal';
 
-import { addOrderDetails } from '../../store/actions/cart';
-import { selectUserData } from '../../store/selectors/user';
-import { selectCartProducts, selectOrderDetails } from '../../store/selectors/cart';
+import { addOrderDetails, clearCart } from '../../store/actions/cart';
+import { selectUserData, selectUserEmail, selectUserId } from '../../store/selectors/user';
+import { selectCartProducts, selectCartTotal } from '../../store/selectors/cart';
 
 import './Checkout.css';
+import CustomTextarea from '../../components/CustomTextarea/CustomTextarea';
+import OrderSummary from '../../components/OrderSummary/OrderSummary';
+import CartIsEmpty from '../../components/CartIsEmpty/CartIsEmpty';
+
+import { isEmpty } from '../../utils/validators';
+import { orderSubmit } from '../../apis/endpoints';
+
+const Buttons = ({ backDisabled, nextDisabled, backFn, nextFn }) => (
+	<div className='d-flex justify-content-between'>
+		<button disabled={backDisabled} type='button' className='btn btn-outline-dark mb-3 w-25' onClick={(e) => backFn(e)}>
+			Back
+		</button>
+		<button disabled={nextDisabled} type='button' className='btn btn-outline-dark mb-3 w-25' onClick={(e) => nextFn(e)}>
+			Next
+		</button>
+	</div>
+);
 
 class Checkout extends React.Component {
 	constructor() {
@@ -20,15 +37,18 @@ class Checkout extends React.Component {
 			deliveryAddress: '',
 			billingAddress: '',
 			comments: '',
-			error: ''
+			error: null,
+			currentStep: 1,
+			checkoutStates: [ 'deliveryAddress', 'billingAddress', 'comments', 'orderSummary' ],
+			steps: [
+				{ title: 'Delivery Address' },
+				{ title: 'Billing Address' },
+				{ title: 'Comments' },
+				{ title: 'Order Summary' }
+			]
 		};
-	}
-	componentDidMount() {
-		this.setState({
-			deliveryAddress: this.props.orderDetails.deliveryAddress,
-			billingAddress: this.props.orderDetails.billingAddress,
-			comments: this.props.orderDetails.comments
-		});
+		this._next = this._next.bind(this);
+		this._back = this._back.bind(this);
 	}
 
 	handleChange(e) {
@@ -38,71 +58,142 @@ class Checkout extends React.Component {
 	}
 
 	handleSubmit(e) {
-		const { addOrderDetails } = this.props;
 		e.preventDefault();
-		const orderDetails = {
-			deliveryAddress: this.state.deliveryAddress,
-			billingAddress: this.state.billingAddress,
-			comments: this.state.comments
-		};
+		const { deliveryAddress, billingAddress, comments } = this.state;
 
-		addOrderDetails(orderDetails);
 		if (!this.props.user) {
 			this.setState({
 				error: 'Please login first!'
 			});
 			return;
 		}
-		this.props.history.push('/order-summary');
+
+		const { email, uid, products, clearCart } = this.props;
+
+		const normalizedProducts = products.map((product) => ({
+			productId: product.id,
+			quantity: product.quantity
+		}));
+
+		const order = {
+			email,
+			uid,
+			deliveryAddress,
+			billingAddress,
+			comments,
+			products: normalizedProducts
+		};
+
+		try {
+			orderSubmit(order, () => {
+				clearCart();
+			});
+		} catch (error) {
+			this.setState({
+				error: 'Something went wrong'
+			});
+		}
+	}
+
+	_next(e) {
+		e.preventDefault();
+		let { currentStep } = this.state;
+		let currentInput = this.state[this.state.checkoutStates[currentStep - 1]];
+		let invalidInput = isEmpty(currentInput);
+		if (invalidInput) {
+			this.setState({
+				error: 'must not be empty'
+			});
+		} else {
+			this.setState({
+				error: null,
+				currentStep: currentStep >= 3 ? 4 : currentStep + 1
+			});
+		}
+	}
+
+	_back(e) {
+		e.preventDefault();
+		let { currentStep } = this.state;
+		this.setState({
+			currentStep: currentStep <= 1 ? 1 : currentStep - 1
+		});
 	}
 
 	render() {
+		const { deliveryAddress, billingAddress, comments, error, currentStep, checkoutStates, steps } = this.state;
+		const { products, history, totalSum } = this.props;
+		const checkoutState = checkoutStates[currentStep - 1];
 		return (
 			<Layout>
 				<div className='cart-page container-fluid container-min-max-width
-                    d-flex flex-column justify-content-center align-items-center'>
-					<div className='d-flex justify-content-between w-100'>
-						<BackButton goBack={this.props.history.goBack} />
-					</div>
-					<div className='columns is-centered is-vcentered'>
-						<div className='column is-one-quarter'>
-							<h2>Please provide the following details: </h2>
-							<form onSubmit={(e) => this.handleSubmit(e)}>
-								<div className='form-group'>
-									<label className='label'>Delivery Address: </label>
-									<textarea
-										className='form-control form-control-lg'
-										placeholder='Delivery Address'
-										name='deliveryAddress'
-										value={this.state.deliveryAddress}
-										onChange={(e) => this.handleChange(e)}
-									/>
-								</div>
-								<div className='form-group'>
-									<label className='label'>Billing Address: </label>
-									<textarea
-										className='form-control form-control-lg'
-										placeholder='Billing Address'
-										name='billingAddress'
-										value={this.state.billingAddress}
-										onChange={(e) => this.handleChange(e)}
-									/>
-								</div>
-								<div className='form-group'>
-									<label className='label'>Comments: </label>
-									<textarea
-										className='form-control form-control-lg'
-										placeholder='Comments'
-										name='comments'
-										value={this.state.comments}
-										onChange={(e) => this.handleChange(e)}
-									/>
-								</div>
-								{this.state.error && <Error error={this.state.error} />}
-								<button className='btn btn-outline-dark mb-3 form-control form-control-lg'>Submit</button>
+					d-flex flex-column justify-content-center align-items-center'>
+					{products.length === 0 ? (
+						<CartIsEmpty />
+					) : (
+						<Fragment>
+							<Stepper steps={steps} activeStep={currentStep - 1} />
+
+							<form onSubmit={(e) => this.handleSubmit(e)} className='w-75 mt-5'>
+								{
+									{
+										deliveryAddress: (
+											<Fragment>
+												<CustomTextarea
+													className='form-control form-control-lg'
+													placeholder='Delivery Address'
+													name='deliveryAddress'
+													value={deliveryAddress}
+													onChange={(e) => this.handleChange(e)}
+												/>
+												<Buttons backDisabled={true} nextFn={this._next} backFn={this._back} />
+											</Fragment>
+										),
+										billingAddress: (
+											<Fragment>
+												<CustomTextarea
+													className='form-control form-control-lg'
+													placeholder='Billing Address'
+													name='billingAddress'
+													value={billingAddress}
+													onChange={(e) => this.handleChange(e)}
+												/>
+												<Buttons nextFn={this._next} backFn={this._back} />
+											</Fragment>
+										),
+										comments: (
+											<Fragment>
+												<CustomTextarea
+													className='form-control form-control-lg'
+													placeholder='Comments'
+													name='comments'
+													value={comments}
+													onChange={(e) => this.handleChange(e)}
+												/>
+												<Buttons nextFn={this._next} backFn={this._back} />
+											</Fragment>
+										),
+										orderSummary: (
+											<Fragment>
+												<OrderSummary
+													products={products}
+													orderDetails={{ deliveryAddress, billingAddress, comments }}
+													history={history}
+													totalSum={totalSum}
+												/>
+												<Buttons nextDisabled={true} nextFn={this._next} backFn={this._back} />
+												<button className='btn btn-outline-dark mb-3 form-control form-control-lg' type='submit'>
+													Submit
+												</button>
+											</Fragment>
+										)
+									}[checkoutState]
+								}
+
+								{error && <Error error={error} />}
 							</form>
-						</div>
-					</div>
+						</Fragment>
+					)}
 				</div>
 			</Layout>
 		);
@@ -111,14 +202,15 @@ class Checkout extends React.Component {
 
 const mapStateToProps = createStructuredSelector({
 	products: selectCartProducts,
-	orderDetails: selectOrderDetails,
-	user: selectUserData
+	user: selectUserData,
+	totalSum: selectCartTotal,
+	uid: selectUserId,
+	email: selectUserEmail
 });
 
-function mapDispatchToProps(dispatch) {
-	return {
-		addOrderDetails: (payload) => dispatch(addOrderDetails(payload))
-	};
-}
+const mapDispatchToProps = (dispatch) => ({
+	addOrderDetails: (payload) => dispatch(addOrderDetails(payload)),
+	clearCart: () => dispatch(clearCart())
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Checkout);

@@ -89,3 +89,8 @@ export const fetchProductData = async (productId, cb) => {
 
 	cb(response);
 };
+
+export const orderSubmit = async (order, cb) => {
+	await axios.post('/order', order);
+	cb();
+};

@@ -1,4 +1,4 @@
-const isEmpty = (input) => {
+export const isEmpty = (input) => {
 	if (input === '') return true;
 	if (input === 0) return true;
 	else return false;
@@ -11,7 +11,7 @@ const isEmail = (email) => {
 	else return false;
 };
 
-exports.validateLoginData = (data) => {
+export const validateLoginData = (data) => {
 	let errors = {};
 
 	if (isEmpty(data.email)) errors.email = 'Must not be empty';
@@ -23,7 +23,7 @@ exports.validateLoginData = (data) => {
 	};
 };
 
-exports.validateSignUpData = (data) => {
+export const validateSignUpData = (data) => {
 	let errors = {};
 
 	if (isEmpty(data.email)) {
@@ -46,7 +46,7 @@ exports.validateSignUpData = (data) => {
 	};
 };
 
-exports.validateNewProductData = (data) => {
+export const validateNewProductData = (data) => {
 	let errors = {};
 	let keys = Object.keys(data);
 
@@ -62,7 +62,7 @@ exports.validateNewProductData = (data) => {
 	};
 };
 
-exports.validateNewCategoryData = (data) => {
+export const validateNewCategoryData = (data) => {
 	let errors = {};
 
 	if (isEmpty(data.description)) errors.description = 'Must not be empty';
