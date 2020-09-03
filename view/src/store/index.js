@@ -1,18 +1,9 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux';
-import { userReducer } from './reducers/user';
-import { productsReducer } from './reducers/products';
-import { categoriesReducer } from './reducers/categories';
-import { cartReducer } from './reducers/cart';
+import { createStore, applyMiddleware } from 'redux';
+import rootReducer from './reducers/index';
 
 import logger from 'redux-logger';
 import ReduxThunk from 'redux-thunk';
-
-const rootReducer = combineReducers({
-	products: productsReducer,
-	categories: categoriesReducer,
-	cart: cartReducer,
-	user: userReducer
-});
+import { persistStore } from 'redux-persist';
 
 const middleWares = [ ReduxThunk ];
 
@@ -20,6 +11,8 @@ if (process.env.NODE_ENV === 'development') {
 	middleWares.push(logger);
 }
 
-const store = createStore(rootReducer, applyMiddleware(...middleWares));
+export const store = createStore(rootReducer, applyMiddleware(...middleWares));
 
-export default store;
+export const persistor = persistStore(store);
+
+export default { store, persistor };

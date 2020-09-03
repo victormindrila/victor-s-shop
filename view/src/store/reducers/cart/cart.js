@@ -1,4 +1,4 @@
-import CartActionTypes from '../types/cart';
+import CartActionTypes from '../../types/cart';
 
 const initialState = {
 	products: [],

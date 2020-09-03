@@ -1,24 +1,25 @@
-import ProductsActionTypes from '../types/products';
+import CategoriesActionTypes from '../../types/categories';
+
 const initialState = {
 	data: [],
 	loading: false,
 	error: ''
 };
 
-export function productsReducer(state = initialState, action) {
+export function categoriesReducer(state = initialState, action) {
 	switch (action.type) {
-		case ProductsActionTypes.START_LOADING_PRODUCTS:
+		case CategoriesActionTypes.START_LOADING_CATEGORIES:
 			return {
 				...state,
 				loading: true
 			};
-		case ProductsActionTypes.UPDATE_PRODUCTS_DATA:
+		case CategoriesActionTypes.UPDATE_CATEGORIES_DATA:
 			return {
 				...state,
 				data: [ ...state.data, ...action.payload ],
 				loading: false
 			};
-		case ProductsActionTypes.UPDATE_ERROR_PRODUCTS:
+		case CategoriesActionTypes.UPDATE_ERROR_CATEGORIES:
 			return {
 				...state,
 				error: action.payload,
