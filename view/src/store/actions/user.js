@@ -100,9 +100,8 @@ export function signUpUser(userData) {
 
 export function getUserData() {
 	return async (dispatch) => {
-		dispatch(startLoading());
-
 		try {
+			dispatch(startLoading());
 			const payload = await fetchUserData();
 			dispatch(updateUserData(payload));
 		} catch (error) {

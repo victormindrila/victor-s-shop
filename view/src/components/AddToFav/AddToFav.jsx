@@ -4,7 +4,7 @@ import { ReactComponent as FavoriteSmall } from '../../assets/icons/favorite_sma
 import { connect } from 'react-redux';
 import { getUserData } from '../../store/actions/user';
 import { useHistory } from 'react-router-dom';
-import { selectUserEmail, selectUserData, selectIsFavorite } from '../../store/selectors/user';
+import { selectUserEmail, selectUserData, selectIsFavorite, selectUserLoading } from '../../store/selectors/user';
 import withSpinner from '../WithSpinner/WithSpinner';
 
 import { addToFavorites, deleteFromFavorites } from '../../apis/endpoints';
@@ -15,15 +15,19 @@ function AddToFav({ productId, userData, getUserData, userEmail, isFavorite }) {
 	const history = useHistory();
 	const [ loading, setLoading ] = useState(false);
 
-	function handleOnIconClick() {
+	async function handleOnIconClick() {
 		setLoading(true);
 		if (!userData) {
 			history.push('/login');
 			return;
 		}
-		isFavorite
-			? deleteFromFavorites(productId, userEmail, setLoading, getUserData)
-			: addToFavorites(productId, userEmail, setLoading, getUserData);
+		if (isFavorite) {
+			await deleteFromFavorites(productId, userEmail);
+		} else {
+			await addToFavorites(productId, userEmail);
+		}
+		getUserData();
+		setLoading(false);
 	}
 
 	return (
