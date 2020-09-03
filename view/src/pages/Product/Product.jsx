@@ -4,15 +4,17 @@ import { connect } from 'react-redux';
 
 import './Product.scss';
 import BackButton from '../../components/BackButton/BackButton';
+import WithSpinner from '../../components/WithSpinner/WithSpinner';
 
 import { addToCart } from '../../store/actions/cart';
 import { getUserData } from '../../store/actions/user';
 import { selectUserEmail, selectUserData } from '../../store/selectors/user';
 import { selectIsFavorite } from '../../store/selectors/user';
 import ProductInfo from '../../components/ProductInfo/ProductInfo';
-import Loader from '../../components/Loader/Loader';
 
 import { fetchProductData, addToFavorites, deleteFromFavorites } from '../../apis/endpoints';
+
+const ProductInfoWithSpinner = WithSpinner(ProductInfo);
 
 class Product extends Component {
 	constructor() {
@@ -68,17 +70,14 @@ class Product extends Component {
 				<div className='product-page container-fluid container-min-max-width'>
 					<BackButton goBack={this.props.history.goBack} />
 					<h1 className='my-5 h2'>{product.title}</h1>
-					{loading ? (
-						<Loader />
-					) : (
-						<ProductInfo
-							productId={productId}
-							product={product}
-							addToCart={addToCart}
-							addToFavorites={this.addToFavorites}
-							isFavorite={isFavorite}
-						/>
-					)}
+					<ProductInfoWithSpinner
+						isLoading={loading}
+						productId={productId}
+						product={product}
+						addToCart={addToCart}
+						addToFavorites={this.addToFavorites}
+						isFavorite={isFavorite}
+					/>
 				</div>
 			</Layout>
 		);

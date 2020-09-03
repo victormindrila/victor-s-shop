@@ -1,13 +1,13 @@
 import React from 'react';
 import Layout from '../../components/Layout/Layout';
-import ProductsList from '../../components/ProductsList/ProductsList';
 import { connect } from 'react-redux';
 
 //components
 import BackButton from '../../components/BackButton/BackButton';
 import DropdownSort from '../../components/Dropdown/DropdownSort';
 import FiltersSideBar from '../../components/FiltersSideBar/FiltersSideBar';
-import Loader from '../../components/Loader/Loader';
+import WithSpinner from '../../components/WithSpinner/WithSpinner';
+import ProductsList from '../../components/ProductsList/ProductsList';
 
 //actions
 import { getAllProducts } from '../../store/actions/products';
@@ -28,7 +28,9 @@ import { selectUserData } from '../../store/selectors/user';
 // CSS
 import './Products.css';
 
-class ProductList extends React.Component {
+const ProductsListWithSpinner = WithSpinner(ProductsList);
+
+class Products extends React.Component {
 	componentDidMount() {
 		window.scrollTo(0, 0);
 
@@ -52,7 +54,7 @@ class ProductList extends React.Component {
 					<hr />
 					<div className='d-flex products-container'>
 						<FiltersSideBar params={params} history={history} filterOptions={filterOptions} />
-						{productsLoading ? <Loader /> : <ProductsList products={visibleProducts} />}
+						<ProductsListWithSpinner isLoading={productsLoading} products={visibleProducts} />
 					</div>
 				</div>
 			</Layout>
@@ -81,4 +83,4 @@ const mapDispatchToProps = (dispatch) => ({
 	}
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductList);
+export default connect(mapStateToProps, mapDispatchToProps)(Products);
