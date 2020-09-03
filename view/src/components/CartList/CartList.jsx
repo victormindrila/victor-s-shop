@@ -11,7 +11,7 @@ function CartList({ goBack, products, removeFromCart, total }) {
 			<CartNavButtons goBack={goBack} />
 			<CartListHeader />
 			{products.map((product) => {
-				return <CartListItem product={product} removeFromCart={removeFromCart} />;
+				return <CartListItem product={product} removeFromCart={removeFromCart} key={product.id} />;
 			})}
 			<CartListFooter total={total} currency={products[0].currency} />
 		</div>

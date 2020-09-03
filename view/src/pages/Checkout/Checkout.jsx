@@ -6,6 +6,7 @@ import { createStructuredSelector } from 'reselect';
 import Layout from '../../components/Layout/Layout';
 import Error from '../../components/Error/Error';
 import Stepper from 'react-stepper-horizontal';
+import StripCheckoutButton from '../../components/StripeButton/StripeButton';
 
 import { addOrderDetails, clearCart } from '../../store/actions/cart';
 import { selectUserData, selectUserEmail, selectUserId } from '../../store/selectors/user';
@@ -24,6 +25,7 @@ const Buttons = ({ backDisabled, nextDisabled, backFn, nextFn }) => (
 		<button disabled={backDisabled} type='button' className='btn btn-outline-dark mb-3 w-25' onClick={(e) => backFn(e)}>
 			Back
 		</button>
+
 		<button disabled={nextDisabled} type='button' className='btn btn-outline-dark mb-3 w-25' onClick={(e) => nextFn(e)}>
 			Next
 		</button>
@@ -44,11 +46,12 @@ class Checkout extends React.Component {
 				{ title: 'Delivery Address' },
 				{ title: 'Billing Address' },
 				{ title: 'Comments' },
-				{ title: 'Order Summary' }
+				{ title: 'Order Summary & Payment' }
 			]
 		};
 		this._next = this._next.bind(this);
 		this._back = this._back.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
 	handleChange(e) {
@@ -57,8 +60,7 @@ class Checkout extends React.Component {
 		});
 	}
 
-	handleSubmit(e) {
-		e.preventDefault();
+	handleSubmit(token) {
 		const { deliveryAddress, billingAddress, comments } = this.state;
 
 		if (!this.props.user) {
@@ -76,6 +78,7 @@ class Checkout extends React.Component {
 		}));
 
 		const order = {
+			token,
 			email,
 			uid,
 			deliveryAddress,
@@ -134,7 +137,7 @@ class Checkout extends React.Component {
 						<Fragment>
 							<Stepper steps={steps} activeStep={currentStep - 1} />
 
-							<form onSubmit={(e) => this.handleSubmit(e)} className='w-75 mt-5'>
+							<div className='w-75 mt-5'>
 								{
 									{
 										deliveryAddress: (
@@ -181,17 +184,16 @@ class Checkout extends React.Component {
 													history={history}
 													totalSum={totalSum}
 												/>
-												<Buttons nextDisabled={true} nextFn={this._next} backFn={this._back} />
-												<button className='btn btn-outline-dark mb-3 form-control form-control-lg' type='submit'>
-													Submit
-												</button>
+												<div className='d-flex align-items-center justify-content-center my-5 w-100'>
+													<StripCheckoutButton price={totalSum} handleSubmit={this.handleSubmit} />
+												</div>
 											</Fragment>
 										)
 									}[checkoutState]
 								}
 
 								{error && <Error error={error} />}
-							</form>
+							</div>
 						</Fragment>
 					)}
 				</div>

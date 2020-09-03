@@ -11,7 +11,6 @@ import Logo from '../../assets/images/logo/logo.png';
 
 //components
 import Error from '../../components/Error/Error';
-import Loader from '../../components/Loader/Loader';
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
 
