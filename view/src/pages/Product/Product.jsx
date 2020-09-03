@@ -41,7 +41,7 @@ class Product extends Component {
 		}
 	}
 
-	addToFavorites(productId) {
+	async addToFavorites(productId) {
 		const { userEmail, userData, getUserData, history, isFavorite } = this.props;
 
 		if (!userData) {
@@ -49,9 +49,13 @@ class Product extends Component {
 			return;
 		}
 
-		isFavorite
-			? deleteFromFavorites(productId, userEmail, () => {}, getUserData)
-			: addToFavorites(productId, userEmail, () => {}, getUserData);
+		if (isFavorite) {
+			await deleteFromFavorites(productId, userEmail);
+		} else {
+			await addToFavorites(productId, userEmail);
+		}
+
+		getUserData();
 	}
 
 	render() {
