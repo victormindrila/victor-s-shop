@@ -8,6 +8,7 @@ import DropdownSort from '../../components/Dropdown/DropdownSort';
 import FiltersSideBar from '../../components/FiltersSideBar/FiltersSideBar';
 import WithSpinner from '../../components/WithSpinner/WithSpinner';
 import ProductsList from '../../components/ProductsList/ProductsList';
+import CartIsEmpty from '../../components/CartIsEmpty/CartIsEmpty';
 
 //actions
 import { getAllProducts } from '../../store/actions/products';
@@ -44,18 +45,26 @@ class Products extends React.Component {
 		return (
 			<Layout title='Products'>
 				<div className='container-fluid container-min-max-width'>
-					<div className='d-flex justify-content-between'>
-						<BackButton goBack={history.goBack} />
-						<DropdownSort params={params} history={history} />
-					</div>
+					{visibleProducts.length !== 0 ? (
+						<React.Fragment>
+							<div className='d-flex justify-content-between'>
+								<BackButton goBack={history.goBack} />
+								<DropdownSort params={params} history={history} />
+							</div>
 
-					<hr />
-					<h2>{categoryName}</h2>
-					<hr />
-					<div className='d-flex products-container'>
-						<FiltersSideBar params={params} history={history} filterOptions={filterOptions} />
-						<ProductsListWithSpinner isLoading={productsLoading} products={visibleProducts} />
-					</div>
+							<hr />
+							<h2>{categoryName}</h2>
+							<hr />
+							<div className='d-flex products-container'>
+								<FiltersSideBar params={params} history={history} filterOptions={filterOptions} />
+								<ProductsListWithSpinner isLoading={productsLoading} products={visibleProducts} />
+							</div>
+						</React.Fragment>
+					) : (
+						<div className='w-100 vh-100 d-flex align-items-center justify-content-center flex-direction-column'>
+							<CartIsEmpty />
+						</div>
+					)}
 				</div>
 			</Layout>
 		);
