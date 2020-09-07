@@ -1,5 +1,6 @@
 import { fetchCategories } from '../../apis/endpoints';
 import CategoriesActionTypes from '../types/categories';
+import { isEmptyArray } from '../../utils/misc';
 
 export function startLoadingCategories() {
 	return {
@@ -29,6 +30,23 @@ export function getAllCategories() {
 			dispatch(updateCategoriesData(payload));
 		} catch (error) {
 			dispatch(updateErrorCategories(error.response.data));
+		}
+	};
+}
+
+const shouldGetCategories = (state) => {
+	const categories = state.categories.data;
+	if (isEmptyArray(categories)) {
+		return true;
+	} else {
+		return false;
+	}
+};
+
+export function getAllCategoriesIfNecessary() {
+	return (dispatch, getState) => {
+		if (shouldGetCategories(getState())) {
+			return dispatch(getAllCategories());
 		}
 	};
 }

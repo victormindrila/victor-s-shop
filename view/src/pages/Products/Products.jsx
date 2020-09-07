@@ -6,38 +6,57 @@ import { connect } from 'react-redux';
 import BackButton from '../../components/BackButton/BackButton';
 import DropdownSort from '../../components/Dropdown/DropdownSort';
 import FiltersSideBar from '../../components/FiltersSideBar/FiltersSideBar';
-import WithSpinner from '../../components/WithSpinner/WithSpinner';
+import WithSpinner from '../../components/HOCs/WithSpinner';
 import ProductsList from '../../components/ProductsList/ProductsList';
 import CartIsEmpty from '../../components/CartIsEmpty/CartIsEmpty';
 
 //actions
-import { getAllProducts } from '../../store/actions/products';
-import { getAllCategories } from '../../store/actions/categories';
+import { getAllProductsIfNecessary } from '../../store/actions/products';
+import { getAllCategoriesIfNecessary } from '../../store/actions/categories';
 
 //selectors
 import {
-	selectProductsData,
 	selectSortedProducts,
-	selectFilteredProducts,
 	selectURLSearchParams,
 	selectProductsLoading,
 	selectFilterOptions
 } from '../../store/selectors/products';
-import { selectCategoriesData, selectCategoryName } from '../../store/selectors/categories';
-import { selectUserData } from '../../store/selectors/user';
+import { selectCategoryName } from '../../store/selectors/categories';
 
 // CSS
 import './Products.css';
 
-const ProductsListWithSpinner = WithSpinner(ProductsList);
+//helpers
+import { isEmptyArray } from '../../utils/misc';
+
+const ProductsListWithSpinner = WithSpinner(({ history, params, categoryName, filterOptions, products }) => (
+	<React.Fragment>
+		<div className='d-flex justify-content-between'>
+			<BackButton goBack={history.goBack} />
+			<DropdownSort params={params} history={history} />
+		</div>
+
+		<hr />
+		<h2>{categoryName}</h2>
+		<hr />
+		<div className='d-flex products-container'>
+			<FiltersSideBar params={params} history={history} filterOptions={filterOptions} />
+			<ProductsList products={products} />
+		</div>
+	</React.Fragment>
+));
+
+const EmptyList = () => (
+	<div className='w-100 vh-100 d-flex align-items-center justify-content-center flex-direction-column'>
+		<CartIsEmpty />
+	</div>
+);
 
 class Products extends React.Component {
 	componentDidMount() {
 		window.scrollTo(0, 0);
-
-		const { products, categories, getAllProducts, getAllCategories } = this.props;
-		if (products.length === 0) getAllProducts();
-		if (categories.length === 0) getAllCategories();
+		this.props.getAllProductsIfNecessary();
+		this.props.getAllCategoriesIfNecessary();
 	}
 
 	render() {
@@ -45,25 +64,17 @@ class Products extends React.Component {
 		return (
 			<Layout title='Products'>
 				<div className='container-fluid container-min-max-width'>
-					{visibleProducts.length !== 0 ? (
-						<React.Fragment>
-							<div className='d-flex justify-content-between'>
-								<BackButton goBack={history.goBack} />
-								<DropdownSort params={params} history={history} />
-							</div>
-
-							<hr />
-							<h2>{categoryName}</h2>
-							<hr />
-							<div className='d-flex products-container'>
-								<FiltersSideBar params={params} history={history} filterOptions={filterOptions} />
-								<ProductsListWithSpinner isLoading={productsLoading} products={visibleProducts} />
-							</div>
-						</React.Fragment>
+					{isEmptyArray(visibleProducts) && !productsLoading ? (
+						<EmptyList />
 					) : (
-						<div className='w-100 vh-100 d-flex align-items-center justify-content-center flex-direction-column'>
-							<CartIsEmpty />
-						</div>
+						<ProductsListWithSpinner
+							isLoading={productsLoading}
+							history={history}
+							products={visibleProducts}
+							categoryName={categoryName}
+							params={params}
+							filterOptions={filterOptions}
+						/>
 					)}
 				</div>
 			</Layout>
@@ -72,11 +83,7 @@ class Products extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-	products: selectProductsData(state),
-	categories: selectCategoriesData(state),
-	user: selectUserData(state),
 	params: selectURLSearchParams(state, ownProps),
-	filteredProducts: selectFilteredProducts(state, ownProps),
 	visibleProducts: selectSortedProducts(state, ownProps),
 	productsLoading: selectProductsLoading(state),
 	filterOptions: selectFilterOptions(state),
@@ -84,11 +91,11 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-	getAllProducts: () => {
-		dispatch(getAllProducts());
+	getAllProductsIfNecessary: (state) => {
+		dispatch(getAllProductsIfNecessary(state));
 	},
-	getAllCategories: () => {
-		dispatch(getAllCategories());
+	getAllCategoriesIfNecessary: (state) => {
+		dispatch(getAllCategoriesIfNecessary(state));
 	}
 });
 

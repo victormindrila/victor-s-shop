@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import './Product.scss';
 import BackButton from '../../components/BackButton/BackButton';
-import WithSpinner from '../../components/WithSpinner/WithSpinner';
+import WithSpinner from '../../components/HOCs/WithSpinner';
 
 import { addToCart } from '../../store/actions/cart';
 import { getUserData } from '../../store/actions/user';

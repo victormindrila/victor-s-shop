@@ -3,6 +3,7 @@ const config = require('../util/config');
 
 exports.addNewOrder = async (request, response) => {
 	const newOrder = {
+		token: request.body.token,
 		uid: request.body.uid,
 		email: request.body.email,
 		products: request.body.products,

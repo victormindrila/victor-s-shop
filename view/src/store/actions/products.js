@@ -1,5 +1,6 @@
 import { fetchProducts } from '../../apis/endpoints';
 import ProductsActionTypes from '../types/products';
+import { isEmptyArray } from '../../utils/misc';
 
 export function startLoadingProducts() {
 	return {
@@ -30,6 +31,23 @@ export function getAllProducts() {
 			dispatch(updateProductsData(payload));
 		} catch (error) {
 			dispatch(updateErrorProducts(error.response.data));
+		}
+	};
+}
+
+const shouldGetProducts = (state) => {
+	const products = state.products.data;
+	if (isEmptyArray(products)) {
+		return true;
+	} else {
+		return false;
+	}
+};
+
+export function getAllProductsIfNecessary() {
+	return (dispatch, getState) => {
+		if (shouldGetProducts(getState())) {
+			return dispatch(getAllProducts());
 		}
 	};
 }

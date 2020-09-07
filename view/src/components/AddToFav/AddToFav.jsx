@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { getUserData } from '../../store/actions/user';
 import { useHistory } from 'react-router-dom';
 import { selectUserEmail, selectUserData, selectIsFavorite } from '../../store/selectors/user';
-import withSpinner from '../WithSpinner/WithSpinner';
+import withSpinner from '../HOCs/WithSpinner';
 
 import { addToFavorites, deleteFromFavorites } from '../../apis/endpoints';
 

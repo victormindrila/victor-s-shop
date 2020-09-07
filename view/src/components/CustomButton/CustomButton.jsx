@@ -1,6 +1,6 @@
 import React from 'react';
 
-import withSpinner from '../WithSpinner/WithSpinner';
+import withSpinner from '../HOCs/WithSpinner';
 
 function CustomButton({ children, ...otherProps }) {
 	return <button {...otherProps}>{children}</button>;
