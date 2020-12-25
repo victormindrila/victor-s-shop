@@ -46,17 +46,19 @@ const ProductsListWithSpinner = WithSpinner(({ history, params, categoryName, fi
 	</React.Fragment>
 ));
 
-const EmptyList = () => (
-	<div className='w-100 vh-100 d-flex align-items-center justify-content-center flex-direction-column'>
-		<CartIsEmpty />
-	</div>
-);
-
 class Products extends React.Component {
 	componentDidMount() {
 		window.scrollTo(0, 0);
 		this.props.getAllProductsIfNecessary();
 		this.props.getAllCategoriesIfNecessary();
+	}
+
+	renderEmptyList() {
+		return (
+			<div className='w-100 vh-100 d-flex align-items-center justify-content-center flex-direction-column'>
+				<CartIsEmpty />
+			</div>
+		);
 	}
 
 	render() {
@@ -65,7 +67,7 @@ class Products extends React.Component {
 			<Layout title='Products'>
 				<div className='container-fluid container-min-max-width'>
 					{isEmptyArray(visibleProducts) && !productsLoading ? (
-						<EmptyList />
+						this.renderEmptyList()
 					) : (
 						<ProductsListWithSpinner
 							isLoading={productsLoading}
