@@ -3,6 +3,9 @@ header {
 		width: auto;
 		height: 60px;
 	}
+	& .search-wrapper {
+		max-width: 450px !important;
+	}
 	& a {
 		margin-right: 20px;
 		color: grey;
@@ -26,14 +29,18 @@ header {
 	}
 	.logo-link {
 		order: 1 !important;
+		margin: 0 auto;
 	}
 
 	.icons-wrapper {
 		order: 2 !important;
+		margin: 0 auto;
+		margin-bottom: 10px;
 	}
 
 	.search-wrapper {
 		order: 3 !important;
+		margin-top: 10px;
 		margin-bottom: 10px;
 		margin-right: 0px !important;
 	}

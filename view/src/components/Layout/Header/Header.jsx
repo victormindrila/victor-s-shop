@@ -11,7 +11,7 @@ import { selectNumberOfFavoritesProducts } from '../../../store/selectors/user';
 import './Header.scss';
 
 // assets
-import logo from '../../../assets/images/logo/logo.png';
+import logo from '../../../assets/images/logo/victor-s-shop.png';
 import { ReactComponent as ShoppingCart } from '../../../assets/icons/shopping-cart.svg';
 
 import { ReactComponent as Favorite } from '../../../assets/icons/favorite.svg';

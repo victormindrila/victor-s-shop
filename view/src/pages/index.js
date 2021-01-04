@@ -1,0 +1,10 @@
+export { default as About } from './About/About';
+export { default as Cart } from './Cart/Cart';
+export { default as Checkout } from './Checkout/Checkout';
+export { default as Home } from './Home/Home';
+export { default as Login } from './Login/Login';
+export { default as Page404 } from './Page404/Page404';
+export { default as Product } from './Product/Product';
+export { default as Products } from './Products/Products';
+export { default as Signup } from './SignUp/SignUp';
+export { default as TermsAndConditions } from './TermsAndConditions/TermsAndConditions';
